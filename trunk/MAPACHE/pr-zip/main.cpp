@@ -63,6 +63,8 @@ int main(int argc, char** argv) {
 
 				precompilarArchivo(parser.getNombreArchivoPpal().c_str());
 				
+        chdir("/");
+        chdir(argv[1]);
 				if (remove(parser.getNombreArchivoComprimido().c_str()) == -1) {
 					cerr << "Error borrando archivo zip: " << parser.getNombreArchivoComprimido() << endl;
 					cerr << "errno: " << errno << endl;
