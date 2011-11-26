@@ -1,0 +1,2 @@
+ADD_LIBRARY(exceptions AcceptException BindException ConnectException InitException ListenException SocketException)
+SET_TARGET_PROPERTIES(exceptions PROPERTIES LINKER_LANGUAGE CXX)

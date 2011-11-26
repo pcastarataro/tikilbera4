@@ -1,0 +1,4 @@
+ADD_SUBDIRECTORY(threads)
+ADD_SUBDIRECTORY(sockets)
+ADD_SUBDIRECTORY(protocoloControl)
+ADD_SUBDIRECTORY(configuraciones)
