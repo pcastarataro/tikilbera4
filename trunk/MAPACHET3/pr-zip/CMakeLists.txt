@@ -1,5 +1,0 @@
-PROJECT(prZIP)
-INCLUDE_DIRECTORIES(${DIR_RAIZ}/precompilador)
-SET(EXECUTABLE_OUTPUT_PATH ${DIR_RAIZ}/cgi-bin)
-ADD_EXECUTABLE(pr-zip.cgi main.cpp ParserEntradaEstandar)
-TARGET_LINK_LIBRARIES(pr-zip.cgi ProcesadorTP1)

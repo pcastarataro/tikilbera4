@@ -1,2 +1,0 @@
-INCLUDE_DIRECTORIES(/usr/lib)
-ADD_LIBRARY(configuraciones Configuracion ConfiguracionBasica ConfiguracionLogs Tipo TipoDinamico TipoError TipoEstatico Usuario)
