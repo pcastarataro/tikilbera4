@@ -13,7 +13,7 @@
 //#include "GrillaDinamicos.h"
 //#include "GrillaErrores.h"
 
-#define PATH_SERVIDOR "./Servidor"
+#define PATH_SERVIDOR "./ServidorMapache"
 #define PATH_INTERFACE "./Interfaz/gui.glade"
 #define TEMP_PATH_XML "./config_temp.xml"
 

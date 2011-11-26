@@ -30,7 +30,6 @@ TCPSocket::TCPSocket() {
 	if (descriptor == -1) {
 		throw InitException();
 	}
-	std::cout << "NUEVO SOCK: " << this->descriptor << std::endl; // FIXME: SACAR
 }
 
 TCPSocket::~TCPSocket() {
@@ -79,7 +78,6 @@ void TCPSocket::apagar() {
 	if(!apagado) {
 		shutdown(this->descriptor , 2);
 		apagado = true;
-		std::cout << "APAGADO SOCK: " << this->descriptor << std::endl; // fixme:sacar
 	}
 }
 
@@ -87,7 +85,6 @@ void TCPSocket::cerrar() {
 	if(!cerrado) {
 		close(this->descriptor);
 		cerrado = true;
-		std::cout << "CERRADO SOCK: " << this->descriptor << std::endl; // fixme:sacar
 	}
 }
 
