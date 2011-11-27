@@ -9,7 +9,8 @@ using std::endl;
 void Procesador::procesarIfdefOIfndef(char* linea, int codInstr) {
 	char* ptrAParametro = NULL;
 
-	/* 01234567
+	/**
+	 *  01234567
 	 * #ifdef PARAMETRO
 	 * 012345678
 	 * #ifndef PARAMETRO
@@ -17,13 +18,14 @@ void Procesador::procesarIfdefOIfndef(char* linea, int codInstr) {
 	 * Cuando se trata de ifdef, para llegar al parametro,
 	 * tengo que avanzar 7 posiciones dentro de la cadena "linea".
 	 * Cuando se trata de ifndef, avanzo 8 posiciones.
-	 * */
+	 */
 	if (codInstr == COD_INSTR_IFDEF)
 		ptrAParametro = linea + 7;
 	else
 		ptrAParametro = linea + 8;
 
-	/*  cuidar que el tamanio de vectorDeTopes sea igual
+	/**
+	 *  cuidar que el tamanio de vectorDeTopes sea igual
 	 *  al ultimo parametro de getLargoCadena
 	 */
 	char vectorDeTopes[3] = { BLANCO, BARRA_N, BARRA_R };
@@ -38,13 +40,17 @@ void Procesador::procesarIfdefOIfndef(char* linea, int codInstr) {
 
 		if (defineEncontrado) {
 			if (codInstr == COD_INSTR_IFDEF) {
-				comp = COMPILAR; //  esta definido y es ifdef
+				//  esta definido y es ifdef
+				comp = COMPILAR;
 			} else
-				comp = NO_COMPILAR; // esta definido y es ifndef
+				// esta definido y es ifndef
+				comp = NO_COMPILAR;
 		} else if (codInstr == COD_INSTR_IFDEF) {
-			comp = NO_COMPILAR; //  no esta definido y es ifdef
+			//  no esta definido y es ifdef
+			comp = NO_COMPILAR;
 		} else
-			comp = COMPILAR; //  no esta definido y es ifndef
+			//  no esta definido y es ifndef
+			comp = COMPILAR;
 
 		ifDefAnidados.anidar(comp, flags);
 	}
@@ -67,12 +73,13 @@ void Procesador::procesarDefine(char* linea) {
 	lista.incrementarIndex();
 	int indiceActual = lista.getIndexActual();
 
-	/* 012345678
+	/**
+	 * 012345678
 	 * #define PARAMETRO1 PARAMETRO2
 	 *
 	 * Tengo que avanzar 8 posiciones dentro de la cadena "linea"
 	 * para poder apuntar al 1er parametro.
-	 * */
+	 */
 
 	if (!util.esNumero(ptrA1erParametro)) {
 		char vectorDeTopes[3] = { BLANCO, BARRA_N, BARRA_R };
@@ -100,7 +107,7 @@ void Procesador::procesarDefine(char* linea) {
 			ptrA2doParametro = nulo;
 			largoValorDefine = strlen(nulo);
 			//  seteo el segundo parametro a un valor nulo
-		} else { //  hay 2 parametros
+		} else {  //  hay 2 parametros
 			ptrA2doParametro = (char*) (separador + 1);
 			char vectorDeTopes2[1] = { BARRA_N };
 			largoValorDefine = util.getLargoCadena(ptrA2doParametro,
@@ -165,7 +172,8 @@ bool Procesador::esSeparadorValidoParaLaInstruccion(char* instr, char sep) {
  * que sea menos costosa que realizar nuevamente una comparacion entre cadenas
  * (ver procesarInstruccion(.....))
  */
-bool Procesador::parseInstruccion(char* linea, char* posibleInst, int codInstr) {
+bool Procesador::parseInstruccion(char* linea, char* posibleInst,
+		int codInstr) {
 	char* instruccion = linea + 1;
 	int largoPosibleInstr = strlen(posibleInst);
 	char* sep = (char*) (instruccion + largoPosibleInstr);
@@ -243,7 +251,7 @@ char* Procesador::procesarDirectivaCompilador(char* linea) {
 				vecCod[contador]);
 		contador++;
 	}
-	linea[0] = (int) NULL; // para que no imprima nada al final del ciclo
+	linea[0] = (int) NULL;  // para que no imprima nada al final del ciclo
 	return linea;
 }
 
