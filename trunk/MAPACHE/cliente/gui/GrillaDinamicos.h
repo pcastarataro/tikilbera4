@@ -11,8 +11,7 @@
 #include "BarraDeEstado.h"
 #include <gtkmm-2.4/gtkmm.h>
 
-class GrillaDinamicos : public Gtk::Table {
-
+class GrillaDinamicos: public Gtk::Table {
 private:
 	Glib::RefPtr<Gtk::Builder> builder;
 	ControladorGrilla* controlador;
@@ -22,10 +21,8 @@ public:
 	GrillaDinamicos(BaseObjectType* cobject,
 			const Glib::RefPtr<Gtk::Builder>& refGlade);
 	virtual ~GrillaDinamicos();
-
 	void agregarAGrilla(const std::string &cadena, const std::string &valor);
 	void limpiarGrilla();
-
 };
 
 #endif /* GRILLADINAMICOS_H_ */

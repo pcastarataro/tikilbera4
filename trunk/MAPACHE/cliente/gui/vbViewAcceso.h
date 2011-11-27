@@ -55,7 +55,6 @@ public:
 	 * Se mueve hasta el final del texto que esta en el Gtk::TextView
 	 */
 	void irAlfinal();
-
 };
 
 #endif

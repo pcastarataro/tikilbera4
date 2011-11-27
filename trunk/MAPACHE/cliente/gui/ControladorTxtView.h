@@ -29,7 +29,6 @@ private:
 	Gtk::TextView* txtTextoReporte;
 	Gtk::Entry* txtPathLog;
 	Gtk::Table* barraBusqueda;
-	//Gtk::Statusbar *barraEstado;
 	BarraDeEstado *barraDeEstado;
 
 	/* eventos */

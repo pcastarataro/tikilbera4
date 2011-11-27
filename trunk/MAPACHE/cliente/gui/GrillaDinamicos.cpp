@@ -50,6 +50,6 @@ void GrillaDinamicos::agregarAGrilla(const std::string &cadena,
 	controlador->agregarAGrilla(cadena, valor);
 }
 
-void GrillaDinamicos::limpiarGrilla(){
+void GrillaDinamicos::limpiarGrilla() {
 	controlador->limpiarGrilla();
 }

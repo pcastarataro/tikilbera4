@@ -49,6 +49,6 @@ void GrillaErrores::agregarAGrilla(const std::string &cadena,
 	controlador->agregarAGrilla(cadena, valor);
 }
 
-void GrillaErrores::limpiarGrilla(){
+void GrillaErrores::limpiarGrilla() {
 	controlador->limpiarGrilla();
 }

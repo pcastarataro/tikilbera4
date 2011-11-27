@@ -17,9 +17,7 @@ private:
 	Gtk::Entry* txtValor;
 	Gtk::Dialog* dialog;
 	BarraDeEstado* barraDeEstado;
-
 	Glib::RefPtr<Gtk::ListStore> lista;
-
 	void on_click_agregar();
 	void on_click_modificar();
 	void on_click_eliminar();
@@ -36,7 +34,6 @@ public:
 	void limpiarGrilla();
 
 	void agregarAGrilla(const std::string &cadena, const std::string &valor);
-
 };
 
 #endif /* CONTROLADORGRILLA_H_ */

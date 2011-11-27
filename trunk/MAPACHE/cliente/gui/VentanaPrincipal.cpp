@@ -70,24 +70,24 @@ void VentanaPrincipal::on_click_GuardarConfiguracion() {
 
 	dialog.set_transient_for(*ventanaPpal);
 
-	//Agrego los botones para la respuesta:
+	//  Agrego los botones para la respuesta:
 	dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
 	dialog.add_button(Gtk::Stock::SAVE, Gtk::RESPONSE_OK);
 	dialog.set_current_name("Configuracion.xml");
 	dialog.set_do_overwrite_confirmation(true);
 
-	//Muestro el dialogo y espero hasta que elija una opcion.
+	//  Muestro el dialogo y espero hasta que elija una opcion.
 	int result = dialog.run();
 
-	//Reviso el resultado.
+	//  Reviso el resultado.
 	switch (result) {
-	case (Gtk::RESPONSE_OK): {
+	case(Gtk::RESPONSE_OK): {
 		std::string filename = dialog.get_filename();
 		guardarConfiguracion(filename);
 		barraDeEstado->mensajeOk("Se guardo la configuracion correctamente");
 		break;
 	}
-	case (Gtk::RESPONSE_CANCEL): {
+	case(Gtk::RESPONSE_CANCEL): {
 		barraDeEstado->mensajeInfo("Guardar configuracion cancelada");
 		break;
 	}
@@ -161,7 +161,7 @@ void VentanaPrincipal::on_click_IniciarServidor() {
 	FILE* fpipe;
 	char line[TAM_LINEA];
 	char* linea = line;
-	//Creo un xml temporal para iniciar el servidor.
+	//  Creo un xml temporal para iniciar el servidor.
 	guardarConfiguracion(TEMP_PATH_XML);
 
 	if (!existeArchivo(PATH_SERVIDOR))
@@ -173,14 +173,14 @@ void VentanaPrincipal::on_click_IniciarServidor() {
 		comando.append(" ");
 		comando.append("N");
 		comando.append("&");
-		if (!(fpipe = (FILE*) popen(comando.c_str(), "r"))) { // If fpipe is NULL
+		if (!(fpipe = (FILE*) popen(comando.c_str(), "r"))) {
 			barraDeEstado->mensajeError("No se pudo iniciar el servidor");
 		} else {
 			size_t tamanioLinea = TAM_LINEA;
 			size_t size = getline(&linea, &tamanioLinea, fpipe);
 			linea[size - 1] = '\0';
 			barraDeEstado->mensajeInfo(linea);
-			//FIXME: ver salida.
+			//  FIXME: ver salida.
 		}
 	}
 }
@@ -191,7 +191,7 @@ void VentanaPrincipal::on_click_ReiniciarServidor() {
 	FILE* fpipe;
 	char line[TAM_LINEA];
 	char* linea = line;
-	//Creo un xml temporal para iniciar el servidor.
+	//  Creo un xml temporal para iniciar el servidor.
 	guardarConfiguracion(TEMP_PATH_XML);
 
 	if (!existeArchivo(PATH_SERVIDOR))
@@ -203,14 +203,14 @@ void VentanaPrincipal::on_click_ReiniciarServidor() {
 		comando.append(" ");
 		comando.append("R");
 		comando.append("&");
-		if (!(fpipe = (FILE*) popen(comando.c_str(), "r"))) { // If fpipe is NULL
+		if (!(fpipe = (FILE*) popen(comando.c_str(), "r"))) {
 			barraDeEstado->mensajeError("No se pudo iniciar el servidor");
 		} else {
 			size_t tamanioLinea = TAM_LINEA;
 			size_t size = getline(&linea, &tamanioLinea, fpipe);
 			linea[size - 1] = '\0';
 			barraDeEstado->mensajeInfo(linea);
-			//FIXME: ver salida.
+			//  FIXME: ver salida.
 		}
 	}
 }
@@ -240,7 +240,6 @@ void VentanaPrincipal::cargarBarraDeMenu() {
 	menuReportes = Gtk::ActionGroup::create();
 	menuAyuda = Gtk::ActionGroup::create();
 
-	//FIXME: CAMBIAR LOS ICONOS DEL MENU!
 	/* Menu -Archivo- */
 	menuArchivo->add(Gtk::Action::create("ArchivoMenu", "Archivo"));
 
@@ -354,7 +353,6 @@ void VentanaPrincipal::cargarBarraDeMenu() {
 
 	ventanaPpal->add_accel_group(menu_UIManager->get_accel_group());
 
-	//layout
 	Glib::ustring ui_info = "<ui>"
 		"  <menubar name='MenuBar'>"
 		"    <menu action='ArchivoMenu'>"
@@ -391,12 +389,10 @@ void VentanaPrincipal::cargarBarraDeMenu() {
 		"</ui>";
 
 #ifdef GLIBMM_EXCEPTIONS_ENABLED
-	try
-	{
+	try {
 		menu_UIManager->add_ui_from_string(ui_info);
 	}
-	catch(const Glib::Error& ex)
-	{
+	catch(const Glib::Error& ex) {
 		std::cerr << "building menus failed: " << ex.what();
 	}
 
@@ -406,7 +402,7 @@ void VentanaPrincipal::cargarBarraDeMenu() {
 	if (ex.get()) {
 		std::cerr << "building menus failed: " << ex->what();
 	}
-#endif //GLIBMM_EXCEPTIONS_ENABLED
+#endif  // GLIBMM_EXCEPTIONS_ENABLED
 	menu = menu_UIManager->get_widget("/MenuBar");
 
 	builder->get_widget("vboxMenuBar", vboxMenuBar);
@@ -442,13 +438,6 @@ void VentanaPrincipal::cargarBarraDeHerramientas() {
 
 	toolbtReiniciarServidor->signal_clicked().connect(
 			sigc::mem_fun(*this, &VentanaPrincipal::on_click_ReiniciarServidor));
-
-}
-
-void VentanaPrincipal::cargarWidget() {
-	//builder->get_widget("barraEstado", barraEstado);
-	//builder->get_widget("imagenEstado", imagenEstado);
-
 }
 
 void VentanaPrincipal::init(int argc, char *argv[]) {
@@ -460,13 +449,12 @@ void VentanaPrincipal::init(int argc, char *argv[]) {
 	builder->get_widget("ventanaConfiguracion", ventanaPpal);
 	conectarEventos();
 	cargarBarraDeMenu();
-	cargarWidget();
 	cargarBarraDeHerramientas();
 	builder->get_widget_derived("barraEstado", barraDeEstado);
 	builder->get_widget_derived("ntbOpciones", menuSolapas);
 	menuSolapas->setVentanaPpal(ventanaPpal);
 
-	if(cargarConfiguracion(TEMP_PATH_CONFIG))
+	if (cargarConfiguracion(TEMP_PATH_CONFIG))
 		barraDeEstado->mensajeInfo("Se cargo la configuracion por defecto");
 
 	kit.run(*ventanaPpal);

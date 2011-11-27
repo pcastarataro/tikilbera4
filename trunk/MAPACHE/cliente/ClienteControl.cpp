@@ -10,7 +10,8 @@ ClienteControl::ClienteControl() {
 ClienteControl::~ClienteControl() {
 }
 
-bool ClienteControl::detenerServidor(const std::string& ip, unsigned int puerto) {//IP, Puerto, Configuracion?
+bool ClienteControl::detenerServidor(const std::string& ip,
+		unsigned int puerto) {
 	bool detenidoConExito = false;
 	TCPSocket sockControl;
 	try {
@@ -19,12 +20,8 @@ bool ClienteControl::detenerServidor(const std::string& ip, unsigned int puerto)
 		try {
 			protocolo.enviarOperacionDetenerServidor();
 			detenidoConExito = protocolo.recibirRespuestaDetenido();
-		} catch(const SocketException&) {
-
-		}
-	}catch(const SocketException&) {
-		// sin conectar
-	}
+		} catch(const SocketException&) { }
+	}catch(const SocketException&) { }
 	sockControl.apagar();
 	sockControl.cerrar();
 	return detenidoConExito;
