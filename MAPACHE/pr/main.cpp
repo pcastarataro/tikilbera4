@@ -8,7 +8,7 @@
 #include "FlagsDePrograma.h"
 #include "ParserEntradaEstandar.h"
 #include <errno.h>
-#define TAM_MAX_POST 100000 // 100 kb
+#define TAM_MAX_POST 100000  //  100 kb
 using std::cerr;
 
 #include <iostream>
@@ -42,37 +42,34 @@ void printFooter() {
 	 * 2- uri (no usada por este cgi)*/
 	
 int main(int argc, char** argv) {
-	//chdir(argv[1]);
-	//precompilarArchivo("main.cpp");
-	
-	//freopen("post.tmp", "r", stdin);
-    	//precompilarArchivo("arch.cpp");
 	printHeader();
 
 	if (argc != 3) 
 		cout << "error al ejecutar CGI: cant de parametros erronea: " << argc << ". Deberian ser 3." << endl;
 	else {
 		int content_length = atoi(getenv("CONTENT_LENGTH"));
-		
+
 		if (content_length <= TAM_MAX_POST) {
 			chdir("/");
 			chdir(argv[1]);
-			ParserEntradaEstandar parser(content_length, argv[1]);		
+			ParserEntradaEstandar parser(content_length, argv[1]);
 			int cantArchivos = parser.crearArchivosAPartirDeEntradaEstandar();
-		
+
 			if (cantArchivos > 0) {
 				precompilarArchivo(parser.getNombreArchivoPpal().c_str());
-			}
-			else if (cantArchivos == 0)
+			} else if (cantArchivos == 0)
 				cout << "No se recibieron archivos para precompilar...";
 			else {
-				cout << "Se leyo una cantidad de bytes superior a la esperada. " << endl;
-				cout << "Cant. esperada (content_length): " << parser.getContent_length() << endl;
+				cout
+						<< "Se leyo una cantidad de bytes superior a la esperada. "
+						<< endl;
+				cout << "Cant. esperada (content_length): "
+						<< parser.getContent_length() << endl;
 				cout << "Cant. leida: " << parser.getCantBytesLeidos() << endl;
 			}
-		
+
 			parser.setIterador();
-	
+
 			for (int a = 0; a < cantArchivos; a++) {
 				string nombreArch = parser.getSiguienteNombreArch();
 				string rutaArch(argv[1]);
@@ -80,17 +77,19 @@ int main(int argc, char** argv) {
 				if (remove(nombreArch.c_str()) == -1) {
 					cerr << "Error deleting file: " << rutaArch << endl;
 					cerr << "errno: " << errno << endl;
-					cerr << "strerror(errno)):  " << strerror(errno)<<endl;
+					cerr << "strerror(errno)):  " << strerror(errno) << endl;
 				}
 			}
-			
-		} else { 
-			cout << "El tamaño de los archivos supera el maximo permitido por la aplicacion." << endl;
+
+		} else {
+			cout
+					<< "El tamaño de los archivos supera el maximo permitido por la aplicacion."
+					<< endl;
 			cout << "Tamaño max: " << TAM_MAX_POST << endl;
-			cout << "Tamaño de los archivos: " << content_length;			
+			cout << "Tamaño de los archivos: " << content_length;
 		}
 	}
 	printFooter();
-	
+
 	return 1;
 }
