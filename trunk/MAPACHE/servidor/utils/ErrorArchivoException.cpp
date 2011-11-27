@@ -8,7 +8,5 @@
 #include "ErrorArchivoException.h"
 
 ErrorArchivoException::ErrorArchivoException() {
-	// TODO Auto-generated constructor stub
-
 }
 

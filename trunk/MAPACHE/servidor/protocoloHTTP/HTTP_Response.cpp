@@ -13,8 +13,7 @@ HTTP_Response::HTTP_Response() {
 	this->setCodigoRetorno(200);
 	this->setContenido("");
 	exigeAutentificacion = false;
-	this->setProtocolo(1,0);
-
+	this->setProtocolo(1, 0);
 }
 
 HTTP_Response::~HTTP_Response() {
@@ -55,7 +54,7 @@ std::string HTTP_Response::getCadena() const {
 	resultado.append(t.getFechaHora());
 	resultado.append(CRLF);
 
-	if(exigeAutentificacion) {
+	if (exigeAutentificacion) {
 		resultado.append("WWW-Authenticate: Basic realm=\"Secure Area\"\n");
 		resultado.append(CRLF);
 	}

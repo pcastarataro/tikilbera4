@@ -9,13 +9,11 @@
 #include "ProtocoloHTTP.h"
 #include "IProcesador.h"
 #include "Configuracion.h"
-
 #include <list>
 #include <iterator>
 #include <string>
 #include <iostream>
 #include <stdlib.h>
-
 using std::cout;
 using std::endl;
 using std::iterator;
@@ -42,7 +40,7 @@ private:
 	 * @param directorioCGI Ruta del directorio en donde el CGI almaceno sus archivos.
 	 * @return void
 	 */
-	void removerArchivosYDirectoriosTemporales(const string rutaArchEntrada, 
+	void removerArchivosYDirectoriosTemporales(const string rutaArchEntrada,
 			const string rutaArchSalida, const string directorioCGI);
 	/**
 	 * Crea el archivo que el CGI tomara como entrada y lo carga con la cadena contenidoDeRequest.
@@ -50,7 +48,9 @@ private:
 	 * @param contenidoDeRequest Basicamente es el POST del request.
 	 * @return void
 	 */
-	void crearArchivoTemporalParaSTDIN(const string& rutaCompletaArchEntradaTemp, const string& contenidoDeRequest);
+	void crearArchivoTemporalParaSTDIN(
+			const string& rutaCompletaArchEntradaTemp,
+			const string& contenidoDeRequest);
 	/**
 	 * Genera el comando para terminal que se ejecutara para el CGI, segun los parametros pasados.
 	 * @param rutaCGI Ruta relativa (del cgi) a la carpeta cgi-bin.
@@ -60,9 +60,9 @@ private:
 	 * @param dirArchivosGeneradosPorCGI Ruta del directorio en donde el CGI almaceno sus archivos.
 	 * @return void
 	 */
-	void prepararComandoDeTerminal(const string rutaCGI, const string& uri, 
-			string& comando, const string& nombreEntradaTemp, 
-			const string& nombreSalidaTemp, 
+	void prepararComandoDeTerminal(const string rutaCGI, const string& uri,
+			string& comando, const string& nombreEntradaTemp,
+			const string& nombreSalidaTemp,
 			const string& dirArchivosGeneradosPorCGI);
 	/**
 	 * Setea el valor de la variable de entorno content_length.
@@ -74,7 +74,8 @@ public:
 	/**
 	 * Constructor
 	 */
-	ProcesadorCGI(const Configuracion& config, const std::string& ruta , const std::string& rutaCgi);
+	ProcesadorCGI(const Configuracion& config, const std::string& ruta,
+			const std::string& rutaCgi);
 	/**
 	 * Destructor
 	 */
@@ -90,7 +91,7 @@ public:
 	 * @return HTTP_Response* Una nueva instancia de HTTP_Response, 
 	 * seteada con la salida generada por el CGI.
 	 *  */
-	HTTP_Response* procesarCGI(HTTP_Request* request, string rutaCGI, 
+	HTTP_Response* procesarCGI(HTTP_Request* request, string rutaCGI,
 			const string& pathAbsolutoDelRecurso, string dirArchivosDeSalida);
 	/**
 	 * Metodo que implementa de IProcesador.

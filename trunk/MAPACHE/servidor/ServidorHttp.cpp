@@ -16,10 +16,11 @@
 #define MAX_ESPERA 200
 #define TIEMPO_REFREZCO 5
 
-ServidorHttp::ServidorHttp(const Configuracion& c , bool reiniciando): config(c) {
+ServidorHttp::ServidorHttp(const Configuracion& c, bool reiniciando) :
+	config(c) {
 	administradorClientes = new AdministradorClientes(config);
 	this->reiniciando = reiniciando;
-	if(reiniciando)
+	if (reiniciando)
 		socketHTTP.setearComoReusable();
 }
 
@@ -30,24 +31,26 @@ ServidorHttp::~ServidorHttp() {
 }
 
 void ServidorHttp::run() {
-	VerificadorTimeOut verificador(TIEMPO_REFREZCO , config.getConfiguracionBasica().getTimeOut() ,administradorClientes);
+	VerificadorTimeOut
+			verificador(TIEMPO_REFREZCO,
+					config.getConfiguracionBasica().getTimeOut(),
+					administradorClientes);
 	verificador.start();
 	try {
 		socketHTTP.bindear(config.getConfiguracionBasica().getPuerto());
 		socketHTTP.escuchar(MAX_ESPERA);
-		while(this->vivo()) {
+		while (this->vivo()) {
 			administradorClientes->limpiarFinalizados();
 			TCPSocket* sockCliente = socketHTTP.aceptar();
-			ManejadorClienteHTTP *manejador = new ManejadorClienteHTTP(sockCliente , this->config);
+			ManejadorClienteHTTP *manejador = new ManejadorClienteHTTP(
+					sockCliente, this->config);
 			administradorClientes->agregarCliente(manejador);
 		}
-	} catch (const BindException&) {
+	} catch(const BindException&) {
 		std::cout << "NO SE PUDO INICIAR EL SERVIDOR HTTP" << std::endl;
-	} catch (const ListenException&) {
+	} catch(const ListenException&) {
 		std::cout << "NO SE PUDO INICIAR EL SERVIDOR HTTP" << std::endl;
-	} catch (const AcceptException&) {
-
-	}
+	} catch(const AcceptException&) {}
 	catch(const SocketException&) {
 		std::cout << "SE DESCONECTO" << std::endl;
 	}

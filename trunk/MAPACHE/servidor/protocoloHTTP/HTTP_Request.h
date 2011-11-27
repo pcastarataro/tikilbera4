@@ -7,7 +7,6 @@
 
 #ifndef HTTP_REQUEST_H_
 #define HTTP_REQUEST_H_
-
 #include <string>
 #include <map>
 #include "HTTP_Message.h"
@@ -32,7 +31,7 @@ public:
 	 * Constructor
 	 * @param cadena es la cadena que recibe el socket indicando el pedido.
 	 */
-	HTTP_Request(const std::string& entrada);
+	explicit HTTP_Request(const std::string& entrada);
 
 	/**
 	 * Destructor

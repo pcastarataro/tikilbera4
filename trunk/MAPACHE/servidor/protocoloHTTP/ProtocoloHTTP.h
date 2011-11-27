@@ -23,7 +23,7 @@ public:
 	 * Constructor
 	 * @param socket que utilizará el protocolo http. Este debe estar conectado.
 	 */
-	ProtocoloHTTP(TCPSocket* s);
+	explicit ProtocoloHTTP(TCPSocket* s);
 
 	/**
 	 * Destructor

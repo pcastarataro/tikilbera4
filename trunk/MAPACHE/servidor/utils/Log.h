@@ -21,7 +21,7 @@ public:
 	 * Constructor
 	 * @param pathLogFile es la ruta del log a utilizar.
 	 */
-	Log(const std::string& pathLogFile);
+	explicit Log(const std::string& pathLogFile);
 
 	/**
 	 * Contructor

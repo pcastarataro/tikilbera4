@@ -22,7 +22,7 @@ public:
 	 * Constructor
 	 * @param c es la configuracion del servidor.
 	 */
-	ProcesadorTipoEstatico(const Configuracion& c);
+	explicit ProcesadorTipoEstatico(const Configuracion& c);
 
 	/**
 	 * Destructor

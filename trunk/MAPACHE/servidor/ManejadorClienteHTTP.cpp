@@ -10,8 +10,9 @@
 #include "ProcesadorRequest.h"
 #include "SocketException.h"
 
-ManejadorClienteHTTP::ManejadorClienteHTTP(TCPSocket* sock ,
-		const Configuracion& c): sockCliente(sock), config(c) {
+ManejadorClienteHTTP::ManejadorClienteHTTP(TCPSocket* sock,
+		const Configuracion& c) :
+	sockCliente(sock), config(c) {
 }
 
 ManejadorClienteHTTP::~ManejadorClienteHTTP() {
@@ -23,8 +24,7 @@ void ManejadorClienteHTTP::enviarMsg(HTTP_Response* respuesta) {
 	try {
 		ProtocoloHTTP http(this->sockCliente);
 		http.enviarRespuesta(respuesta);
-	}catch (const SocketException& e) {
-	}
+	} catch(const SocketException& e) {	}
 }
 
 std::string ManejadorClienteHTTP::getIpCliente() const {
@@ -38,8 +38,10 @@ int ManejadorClienteHTTP::getOffsetSegundos() const {
 void ManejadorClienteHTTP::run() {
 	time_t t;
 	time(&t);
-	struct tm* petm = localtime(&t);
-	this->offsetInicioSegundos = petm->tm_hour*3600 + petm->tm_min * 60 + petm->tm_sec; // offset Segundos
+	struct tm* petm;
+	localtime_r(&t, petm);
+	this->offsetInicioSegundos = petm->tm_hour * 3600 + petm->tm_min * 60
+			+ petm->tm_sec;  // offset Segundos
 	ProtocoloHTTP http(this->sockCliente);
 	ProcesadorRequest procesador(this->config);
 	try {
@@ -49,9 +51,7 @@ void ManejadorClienteHTTP::run() {
 		delete operacionRecibida;
 		http.enviarRespuesta(respuesta);
 		delete respuesta;
-	} catch (const SocketException& e) {
-		// FIXME LOG?
-	}
+	} catch(const SocketException& e) { }
 	this->apagar();
 	this->morir();
 }

@@ -42,17 +42,18 @@ bool ProcesadorRequest::autentificar(HTTP_Request * pedido) {
 		if (posSeparador != std::string::npos) {
 			std::string nombreUsuario = cadenaDecodificada.substr(0,
 					posSeparador);
-			cadenaDecodificada.erase(0, posSeparador + 1); // se corta la cadena quedando solo el pass
+			//  Se corta la cadena quedando solo el pass
+			cadenaDecodificada.erase(0, posSeparador + 1);
 			std::string passUsuario = config.getPassUsuario(nombreUsuario);
 			if ((cadenaDecodificada == passUsuario) && (passUsuario != "")) {
 				autentificadoConExito = true;
-				ManejadorLogs::getInstance(config.getConfiguracionLogs())-> getLogAcceso()->logInfo(
-						"Autentificado con exito el usuario: " + nombreUsuario);
+				ManejadorLogs::getInstance(config.getConfiguracionLogs())
+				-> getLogAcceso()->logInfo("Autentificado con exito el usuario: "
+						+ nombreUsuario);
 			}
-
 		}
 	} else {
-		// no hacia falta autentificacion. No estaba protegido.
+		// No hace falta autentificacion. No esta protegido.
 		autentificadoConExito = true;
 	}
 	return autentificadoConExito;
@@ -72,9 +73,10 @@ HTTP_Response* ProcesadorRequest::exigirAutentificacion() {
 					nombreArchivo);
 			respuesta->setContenido(cadenaArchivo);
 		}
-	} catch (const ErrorArchivoException& e) {
-		ManejadorLogs::getInstance(config.getConfiguracionLogs())-> getLogError()->logError(
-				"El archivo " + nombreArchivo + " no existe en el servidor");
+	} catch(const ErrorArchivoException& e) {
+		ManejadorLogs::getInstance(config.getConfiguracionLogs())->
+				getLogError()->logError("El archivo "
+						+ nombreArchivo + " no existe en el servidor");
 	}
 	return respuesta;
 }
@@ -119,29 +121,23 @@ HTTP_Response* ProcesadorRequest::procesar(HTTP_Request* pedido) {
 std::string ProcesadorRequest::crearDirectorioTemporalParaElCGI() {
 	std::string strContador;
 	std::stringstream ss;
-	char* dirAct;// = get_current_dir_name();
+	char* dirAct;
 
 	mutex.lock();
 	ss << contador;
 	contador++;
 	mutex.unlock();
-
 	ss >> strContador;
 	strContador.append("/");
 	std::string comandoMkDir("mkdir ");
 	comandoMkDir.append(strContador);
-
 	chdir("./arch-temp-cgi");
-	// TODO: "extraer de archivo de configuracion el path de los arch creados por los cgi"
 	system(comandoMkDir.c_str());
 	dirAct = get_current_dir_name();
 	std::string dirTemporalArchivosCGI(dirAct);
 	free(dirAct);
 	dirTemporalArchivosCGI.append("/");
 	dirTemporalArchivosCGI.append(strContador);
-
 	chdir("../");
-	// TODO: "extraer de archivo de configuracion el path raiz"
-
 	return dirTemporalArchivosCGI;
 }

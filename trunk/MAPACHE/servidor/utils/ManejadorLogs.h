@@ -7,7 +7,6 @@
 
 #ifndef MANEJADORLOGS_H_
 #define MANEJADORLOGS_H_
-
 #include "Log.h"
 #include "ConfiguracionLogs.h"
 #include "Mutex.h"
@@ -27,9 +26,11 @@ private:
 	 */
 	class Ptr {
 	public:
-		Ptr() : m_ptr(0) {}
+		Ptr() :
+			m_ptr(0) {
+		}
 		~Ptr() {
-			if(m_ptr)
+			if (m_ptr)
 				delete m_ptr;
 		}
 
@@ -38,7 +39,7 @@ private:
 		}
 
 		void Set(ManejadorLogs* p) {
-			if(p!= 0) {
+			if (p != 0) {
 				delete m_ptr;
 				m_ptr = p;
 			}
@@ -55,13 +56,13 @@ public:
 	 * Devuelve la instancia del manejador.
 	 */
 	static ManejadorLogs* getInstance(const ConfiguracionLogs& conf) {
-		if(pinstance.Get() == 0) {
+		if (pinstance.Get() == 0) {
 			Lock l(mutex);
-			if(pinstance.Get() == 0)
+			if (pinstance.Get() == 0)
 				pinstance.Set(new ManejadorLogs(conf));
 		}
 		return pinstance.Get();
-	};
+	}
 
 	/**
 	 * Devuelve el log de acceso asociado al manejador
@@ -72,14 +73,14 @@ public:
 	 * Devuelve el log de errores asociado al manejador
 	 */
 	Log* getLogError();
+
 protected:
-	ManejadorLogs(const ConfiguracionLogs& c);
-	ManejadorLogs(const ManejadorLogs & ) ;
-	ManejadorLogs &operator= (const ManejadorLogs & ) ;
+	explicit ManejadorLogs(const ConfiguracionLogs& c);
+	ManejadorLogs(const ManejadorLogs &);
+	ManejadorLogs &operator=(const ManejadorLogs &);
 	~ManejadorLogs();
 private:
 	Log* logError;
 	Log* logAcceso;
 };
-
 #endif /* MANEJADORLOGS_H_ */
