@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Mapache - Ayuda</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/cufon-yui.js"></script>
+<script type="text/javascript" src="js/arial.js"></script>
+<script type="text/javascript" src="js/cuf_run.js"></script>
+</head>
+<body>
+<div class="main">
+  <div class="header">
+    <div class="header_resize">
+      <div class="logo">
+        <h1><a href="index.html">Mapache<small>Servidor Web </small></a></h1>
+      </div>
+      <div class="menu_nav">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li class="active"><a href="ayuda.html" class="active">Ayuda</a></li>
+          <li><a href="acerca.html">Acerca... </a></li>
+        </ul>
+      </div>
+      <div class="clr"></div>
+      <div class="hbg"><img src="images/logo.jpg" width="230" height="206" alt="" class="fl" />
+        <div class="info fl">
+          <h3>MAPACHE <br />
+          </h3>
+        </div>
+        <div class="clr"></div>
+      </div>
+      <div class="clr"></div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="content_resize">
+      <div class="mainbar">
+        <div class="article">
+          <h2>Configurando</h2>
+          <p>Para poder hostear nuestra propia página web se deben realizar una serie de configuraciones.</p>
+          <p>La interfaz gráfica de nuestro software ofrece la posibilidad de realizar estas configuraciones de una forma fácil e intuitiva. </p>
+          <p>Las distintas configuraciones estan separadas en distintas categorias. A continuación se explica cada una de ellas. </p>
+          <p><strong>2.1. Realizando configuraciones básicas</strong></p>
+          <p>- Puerto: este campo sirve para indicar a que puerto responderá nuestro servidor HTTP una vez iniciado.</p>
+          <p>- Puerto Control: este campo es utilizado para indicarle al servidor en que puerto estará escuchando la petición de fin de ejecución.</p>
+          <p>- Máximo conexiones: este campo indica la cantidad máxima de conexiones que podrá manejar nuestro servidor en simultaneo. Se debe tener en cuenta que este número no debe ser demasiado alto ya que no alcanzarían los recursos de la máquina.</p>
+          <p>- Máximo conexiones por cliente: este campo indica la cantidad máxima de conexiones que podrá tener un mismo cliente simultaneamente. No tendría sentido que este número sea mayor que el máximo de conexiones pues nunca se podrían aprovechar.</p>
+          <p>- Raíz: este campo le indica al servidor  donde se encuentra la raíz del sitio. Se recomienda que todos los sitios hosteados en el servidor tengan dentro de la carpeta raiz un archivo llamado &quot;index.html&quot;. Ese será el que el servidor tome por defecto. En caso de no encontralo devuelve error 404.</p>
+          <p>Para seleccionar la raíz del sitio se debe utilizar el buscador de carpetas que se encuentra a la derecha del campo de texto. </p>
+          <p>- Protegido: este campo le indica al servidor si estará protegido por atenticación BASIC o no. Para un servidor autenticado marque la casilla.</p>
+          <p>- Time Out  : este campo le indica al servidor cuanto deberá esperar para determinar que una conexión esta caída. Una vez pasado ese tiempo indicado en segundos, el servidor detendrá esas conexiones e indicará esa acción dentro del LOG de errores del mismo.</p>
+          <p>&nbsp;</p>
+          <p>A continuación se muestra una captura de pantalla con una configuración básica:  </p>
+          <p><img src="images/capturas/captuta_basica.png" alt="basic" width="650" height="350" longdesc="Captura configuración básica" /></p>
+          <p><strong>2.2. Configurando los tipos de datos estáticos</strong></p>
+          <p>Una vez finalizada la configuración básica y que sabemos que sitio es el que tenemos que hostear , estamos en condiciones de determinar que tipos de datos estáticos tenemos que manejar.</p>
+          <p>Para realizarlo, primero debemos movernos a la vista de tipos estáticos. Existen dos maneras diferentes de ir hacia esta ventana. La primera es utilizando el menú, seleccionando Tipos Estáticos dentro de la solapa Configuración. La segunda es utilizando la barra de tareas que se encuentra a la izquierda de la pantalla( por defecto esta barra se encuentra desactivada. Para activarla basta con hacer click en el botón ubicado en la esquina inferior izquierda) . </p>
+          <p><img src="images/capturas/captura_estaticos.png" alt="estaticos" width="650" height="350" longdesc="Captura de tipos estáticos" /></p>
+          <p>Una vez que llegamos a la vista de tipos estáticos debemos utilizar los botones Agregar, Modificar o Eliminar para poder seleccionar todos los tipos estáticos que utilicemos en el sitio. </p>
+          <p><strong>2.3. Configurando los tipos de datos dinámicos</strong></p>
+          <p>Es posible que nuestro sitio también necesite generar contenido dinamicamente. Para ello, tenemos la sección de tipos dinámicos. Al igual que con los tipos estáticos, es posible acceder por el menú o la barra lateral y posee los botones Agregar, Modificar y Eliminar en la parte inferior de la pantalla. </p>
+          <p>Según el sitio es posible que no se necesite ninguno o que se necesiten varios. </p>
+          <p>Es condición <strong>necesaria</strong> y muy <strong>importante</strong> que todos los programas que se creen para ejecutar peticiones dinamicamente se encuentren dentro de la carpeta <strong>cgi-bin</strong> que se encuentra en la misma carpeta que el ejecutable del configurador. </p>
+          <p><img src="images/capturas/captura_dinamicos.png" alt="dinamicos" width="650" height="350" longdesc="Captura tipos dinámicos" /></p>
+          <p><strong>2.4. Configurando las páginas de error</strong></p>
+          <p>Para que los usuarios de nuestro sitio se enteren si ocurrió algún problema es necesaria la creación de páginas de errores. Para configuralas se utiliza la vista de Errores que posee las opciones necesarias para modificar, agregar o remover. </p>
+          <p><img src="images/capturas/captura_errores.png" alt="errores" width="650" height="350" longdesc="Captura páginas de error" /></p>
+          <p><strong>2.5. Configurando los usuarios permitidos</strong></p>
+          <p>Si nuestro servidor está protegido y queremos que sea navegable, entonces debemos agregar usuarios que tendrán permitido la navegación por el mismo. No tendría sentido tener un servidor protegido sin usuarios ya que nadie lo podría visitar.</p>
+          <p>Al igual que con las configuraciones anteriores, es posible acceder desde la barra lateral o el menú y tiene las funciones necesarias para agregar, remover o modificar los datos de los usuarios. </p>
+          <p><img src="images/capturas/captura_usuarios.png" alt="usuarios" width="650" height="350" longdesc="Captura usuarios" /></p>
+          <p><strong>2.6. Configurando  los archivos de LOG. </strong></p>
+          <p>Los LOGs son utilizados por el administrador para saber como fue la actividad dentro del mismo. Es necesario su configuración. Es posible acceder a la ventana de configuración de logs desde el menú en la solapa de Reportes o desde la barra lateral.</p>
+          <p>Tener en cuenta que si el archivo elegido ya existía entonces seguirá logueando en el mismo. </p>
+          <p><img src="images/capturas/captura_conf_log.png" alt="logs" width="650" height="350" longdesc="Captura configuración de LOGS" /></p>
+          <p>Una vez que finalizamos la configuración del servidor entonces ya estamos en condiciones de iniciarlo por primera vez. </p>
+          <p align="right"><a href="control.html">Siguiente</a></p>
+        </div>
+        <div class="article"></div>
+      </div>
+      <div class="sidebar">
+        <div class="gadget">
+          <h2 class="star">Menú</h2>
+          <ul class="sb_menu">
+            <li class="active"><a href="index.html" class="sb_menu">Inicio</a></li>
+            <li><a href="ayuda.html" class="active">Ayuda</a></li>
+            <li class="sb_menu"><span class="active"><a href="acerca.html">Acerca</a></span>...</li>
+          </ul>
+        </div>
+        <div class="gadget"><div class="testi"></div>
+        </div>
+      </div>
+      <div class="clr"></div>
+    </div>
+  </div>
+  <div class="fbg">
+    <div class="fbg_resize">
+      <div class="clr"></div>
+    </div>
+  </div>
+  <div class="footer"></div>
+</div>
+</body>
+</html>
