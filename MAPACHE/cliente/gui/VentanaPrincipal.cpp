@@ -17,6 +17,15 @@ void VentanaPrincipal::conectarEventos() {
 					&VentanaPrincipal::on_click_CambiarVistaSolapas));
 }
 
+bool existeArchivo(const std::string& nombreArchivo) {
+	bool existe;
+	std::ifstream archivo(nombreArchivo.c_str());
+	existe = archivo.good();
+	if (existe)
+		archivo.close();
+	return existe;
+}
+
 bool VentanaPrincipal::cargarConfiguracion(const std::string &path) {
 	Configuracion configuracion;
 	bool cargoOk = configuracion.cargarDesde(path);
@@ -81,13 +90,13 @@ void VentanaPrincipal::on_click_GuardarConfiguracion() {
 
 	//  Reviso el resultado.
 	switch (result) {
-	case (Gtk::RESPONSE_OK): {
+	case(Gtk::RESPONSE_OK): {
 		std::string filename = dialog.get_filename();
 		guardarConfiguracion(filename);
 		barraDeEstado->mensajeOk("Se guardo la configuracion correctamente");
 		break;
 	}
-	case (Gtk::RESPONSE_CANCEL): {
+	case(Gtk::RESPONSE_CANCEL): {
 		barraDeEstado->mensajeInfo("Guardar configuracion cancelada");
 		break;
 	}
@@ -134,38 +143,46 @@ void VentanaPrincipal::on_click_VerReportesAccesos() {
 	menuSolapas->set_current_page(SOLAPA_REPORTE_ACCESO);
 }
 
-void VentanaPrincipal::abrirEnNuevaInstancia(const std::string& ruta) {
-	std::string comando = CMD_APP_POR_DEFECTO;
-	comando.append(" ");
-	comando.append(ruta.c_str());
-	comando.append("&");
-	system(comando.c_str());
+void VentanaPrincipal::abrirDocumentacion(const std::string& ruta) {
+	bool existe = existeArchivo(ruta);
+	if (existe) {
+		std::string comando = CMD_APP_POR_DEFECTO;
+		comando.append(" ");
+		comando.append(ruta.c_str());
+		comando.append("&");
+		system(comando.c_str());
+		barraDeEstado->mensajeOk("Mostrando documentacion tecnica");
+	} else
+		barraDeEstado->mensajeError("no se encuetra la documentacion tecnica");
 }
 
 void VentanaPrincipal::on_click_VerDocTecnicaConfigurador() {
-	abrirEnNuevaInstancia(PATH_DOC_TECNICA_CONFIGURADOR);
+	abrirDocumentacion(PATH_DOC_TECNICA_CONFIGURADOR);
 }
 
 void VentanaPrincipal::on_click_VerAyuda() {
-	abrirEnNuevaInstancia(PATH_DOC_USUARIO);
+	abrirDocumentacion(PATH_DOC_USUARIO);
 }
 
-void VentanaPrincipal::on_click_VerDocPrecompilador(){
-	abrirEnNuevaInstancia(PATH_DOC_TECNICA_PRECOM);
+void VentanaPrincipal::on_click_VerDocPrecompilador() {
+	abrirDocumentacion(PATH_DOC_TECNICA_PRECOM);
 }
 
-void VentanaPrincipal::on_click_VerDocParserPhp(){
-	abrirEnNuevaInstancia(PATH_DOC_TECNICA_PARSER_PHP);
+void VentanaPrincipal::on_click_VerDocParserPhp() {
+	abrirDocumentacion(PATH_DOC_TECNICA_PARSER_PHP);
 }
 
-void VentanaPrincipal::on_click_VerDocPrecompiladorZip(){
-	abrirEnNuevaInstancia(PATH_DOC_TECNICA_PRECOM_ZIP);
+void VentanaPrincipal::on_click_VerDocPrecompiladorZip() {
+	abrirDocumentacion(PATH_DOC_TECNICA_PRECOM_ZIP);
 }
 
-void VentanaPrincipal::on_click_VerDocServidor(){
-	abrirEnNuevaInstancia(PATH_DOC_TECNICA_SERVIDOR);
+void VentanaPrincipal::on_click_VerDocPrecompiladorCgi() {
+	abrirDocumentacion(PATH_DOC_TECNICA_PRECOM_CGI);
 }
 
+void VentanaPrincipal::on_click_VerDocServidor() {
+	abrirDocumentacion(PATH_DOC_TECNICA_SERVIDOR);
+}
 
 void VentanaPrincipal::on_click_VerAcercaDe() {
 	Gtk::AboutDialog* about;
@@ -174,15 +191,6 @@ void VentanaPrincipal::on_click_VerAcercaDe() {
 		about->run();
 		about->hide();
 	}
-}
-
-bool existeArchivo(const std::string& nombreArchivo) {
-	bool existe;
-	std::ifstream archivo(nombreArchivo.c_str());
-	existe = archivo.good();
-	if (existe)
-		archivo.close();
-	return existe;
 }
 
 void VentanaPrincipal::iniciarServidor(bool forzarSocket) {
@@ -353,27 +361,33 @@ void VentanaPrincipal::cargarBarraDeMenu() {
 			sigc::mem_fun(*this, &VentanaPrincipal::on_click_VerAyuda));
 
 	menuAyuda->add(
-			Gtk::Action::create("ManualConfigurador", Gtk::Stock::HELP,
-					"Manual tecnico Configurador Mapache",
-					"ManualConfigurador"),
+			Gtk::Action::create("ManualConfigurador", Gtk::Stock::INFO,
+					"Manual tecnico Configurador Mapache", "ManualConfigurador"),
 			sigc::mem_fun(*this,
 					&VentanaPrincipal::on_click_VerDocTecnicaConfigurador));
 	menuAyuda->add(
-			Gtk::Action::create("ManualPrecompilador", Gtk::Stock::HELP,
-					"Manual tecnico Precompilador",
-					"ManualPrecompilador"),
-			sigc::mem_fun(*this, &VentanaPrincipal::on_click_VerDocPrecompilador));
+			Gtk::Action::create("ManualPrecompilador", Gtk::Stock::INFO,
+					"Manual tecnico Precompilador", "ManualPrecompilador"),
+			sigc::mem_fun(*this,
+					&VentanaPrincipal::on_click_VerDocPrecompilador));
 	menuAyuda->add(
-			Gtk::Action::create("ManualParserPhp", Gtk::Stock::HELP,
+			Gtk::Action::create("ManualParserPhp", Gtk::Stock::INFO,
 					"Manual tecnico Parser php", "ManualParserPhp"),
 			sigc::mem_fun(*this, &VentanaPrincipal::on_click_VerDocParserPhp));
 	menuAyuda->add(
-			Gtk::Action::create("ManualPrecompiladorZip", Gtk::Stock::HELP,
+			Gtk::Action::create("ManualPrecompiladorZip", Gtk::Stock::INFO,
 					"Manual tecnico Precompilador Zip",
 					"ManualPrecompiladorZip"),
-			sigc::mem_fun(*this, &VentanaPrincipal::on_click_VerDocPrecompiladorZip));
+			sigc::mem_fun(*this,
+					&VentanaPrincipal::on_click_VerDocPrecompiladorZip));
 	menuAyuda->add(
-			Gtk::Action::create("ManualServidor", Gtk::Stock::HELP,
+			Gtk::Action::create("ManualPrecompiladorCgi", Gtk::Stock::INFO,
+					"Manual tecnico Precompilador Cgi",
+					"ManualPrecompiladorCgi"),
+			sigc::mem_fun(*this,
+					&VentanaPrincipal::on_click_VerDocPrecompiladorCgi));
+	menuAyuda->add(
+			Gtk::Action::create("ManualServidor", Gtk::Stock::INFO,
 					"Manual tecnico Servidor Mapache", "ManualServidor"),
 			sigc::mem_fun(*this, &VentanaPrincipal::on_click_VerDocServidor));
 
@@ -423,9 +437,10 @@ void VentanaPrincipal::cargarBarraDeMenu() {
 		"      <menuitem action='ManualUsuario'/>"
 		"          <separator/>"
 		"      <menuitem action='ManualConfigurador'/>"
-		"      <menuitem action='ManualPrecompilador'/>"
 		"      <menuitem action='ManualParserPhp'/>"
+		"      <menuitem action='ManualPrecompilador'/>"
 		"      <menuitem action='ManualPrecompiladorZip'/>"
+		"      <menuitem action='ManualPrecompiladorCgi'/>"
 		"      <menuitem action='ManualServidor'/>"
 		"          <separator/>"
 		"      <menuitem action='HelpAbout'/>"
