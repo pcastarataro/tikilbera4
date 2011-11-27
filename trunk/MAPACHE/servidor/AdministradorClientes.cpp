@@ -29,7 +29,6 @@ AdministradorClientes::~AdministradorClientes() {
 
 void AdministradorClientes::avisarSobrecargaServidor(
 		ManejadorClienteHTTP *manejador) {
-	Lock l(mutex);
 	HTTP_Response *respuesta = new HTTP_Response();
 	respuesta->setCodigoRetorno(CODIGO_SERVICIO_NO_DISPONIBLE);
 	respuesta->setProtocolo(1, 0);
