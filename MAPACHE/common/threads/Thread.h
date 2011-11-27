@@ -33,6 +33,11 @@ public:
 	Thread();
 
 	/**
+	 * Destructor
+	 */
+	virtual ~Thread();
+
+	/**
 	 * Empieza a correr el hilo
 	 */
 	void start();

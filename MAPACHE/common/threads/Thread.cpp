@@ -11,6 +11,8 @@ Thread::Thread() {
 	this->vida = true;
 }
 
+Thread::~Thread() { }
+
 void Thread::start() {
 	pthread_create(&this->h , NULL , init , this);
 }
