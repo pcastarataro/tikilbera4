@@ -12,13 +12,11 @@
 Solapas::Solapas(BaseObjectType* cobject,
 		const Glib::RefPtr<Gtk::Builder>& refGlade) :
 	Gtk::Notebook(cobject), builder(refGlade) {
-
 	solapasVisibles = false;
 	this->set_show_tabs(solapasVisibles);
 	cargarWidgets();
 	conectarEventos();
 	cargarBarraDeHerramientasTexto();
-
 	setModoTexto(false);
 }
 
@@ -64,7 +62,6 @@ void Solapas::conectarEventos() {
 
 	btnExaminarLogErrores->signal_clicked().connect(
 			sigc::mem_fun(*this, &Solapas::on_click_btnExaminarLogErrores));
-
 }
 
 void Solapas::selectorGuardar(Gtk::Entry* txtPath,
@@ -73,23 +70,22 @@ void Solapas::selectorGuardar(Gtk::Entry* txtPath,
 			Gtk::FILE_CHOOSER_ACTION_SAVE);
 	dialog.set_transient_for(*ventanaPpal);
 
-	//Agrego los botones para la respuesta:
+	// Agrego los botones para la respuesta:
 	dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
 	dialog.add_button(Gtk::Stock::SAVE, Gtk::RESPONSE_OK);
 	dialog.set_current_name(nombreArchivo);
 	dialog.set_do_overwrite_confirmation(true);
-
-	//Muestro el dialogo y espero hasta que elija una opcion.
+	// Muestro el dialogo y espero hasta que elija una opcion.
 	int result = dialog.run();
 
-	//Reviso el resultado.
+	// Reviso el resultado.
 	switch (result) {
-	case (Gtk::RESPONSE_OK): {
+	case(Gtk::RESPONSE_OK): {
 		std::string filename = dialog.get_filename();
 		txtPath->set_text(filename);
 		break;
 	}
-	case (Gtk::RESPONSE_CANCEL): {
+	case(Gtk::RESPONSE_CANCEL): {
 		barraDeEstado->mensajeInfo("seleccion de archivo cancelada");
 		break;
 	}
@@ -128,12 +124,12 @@ void Solapas::on_click_btnExaminar() {
 
 	// Reviso el resultado.
 	switch (result) {
-	case (Gtk::RESPONSE_OK): {
+	case(Gtk::RESPONSE_OK): {
 		std::string filename = dialog.get_filename();
 		txtPathError->set_text(filename);
 		break;
 	}
-	case (Gtk::RESPONSE_CANCEL): {
+	case(Gtk::RESPONSE_CANCEL): {
 		barraDeEstado->mensajeInfo("Carga de configuracion cancelada");
 		break;
 	}
@@ -160,12 +156,12 @@ void Solapas::on_click_btnExaminarRaiz() {
 
 	// Reviso el resultado.
 	switch (result) {
-	case (Gtk::RESPONSE_OK): {
+	case(Gtk::RESPONSE_OK): {
 		std::string filename = dialog.get_filename();
 		txtRaiz->set_text(filename);
 		break;
 	}
-	case (Gtk::RESPONSE_CANCEL): {
+	case(Gtk::RESPONSE_CANCEL): {
 		break;
 	}
 	default: {
@@ -209,7 +205,6 @@ void Solapas::setConfiguracionBasica(const ConfiguracionBasica& confBasica) {
 	sbtTimeOut->set_value(confBasica.getTimeOut());
 	txtRaiz->set_text(confBasica.getRaiz());
 	cbtProtegido->set_active(confBasica.getProteccion());
-
 }
 
 void Solapas::setConfiguracionEstatico(std::list<TipoEstatico> configuracion) {
@@ -224,9 +219,7 @@ void Solapas::setConfiguracionEstatico(std::list<TipoEstatico> configuracion) {
 
 void Solapas::setConfiguracionDinamico(std::list<TipoDinamico> configuracion) {
 	std::list<TipoDinamico>::iterator it = configuracion.begin();
-
 	grillaDinamicos->limpiarGrilla();
-
 	while (it != configuracion.end()) {
 		grillaDinamicos->agregarAGrilla(it->getExtension(), it->getComando());
 		it++;
@@ -235,9 +228,7 @@ void Solapas::setConfiguracionDinamico(std::list<TipoDinamico> configuracion) {
 
 void Solapas::setConfiguracionUsuario(std::list<Usuario> configuracion) {
 	std::list<Usuario>::iterator it = configuracion.begin();
-
 	grillaUsuarios->limpiarGrilla();
-
 	while (it != configuracion.end()) {
 		grillaUsuarios->agregarAGrilla(it->getNombre(), it->getClave());
 		it++;
@@ -249,7 +240,6 @@ void Solapas::setConfiguracionReportes(ConfiguracionLogs confLog) {
 
 	builder->get_widget("txtPathLogAccesos", pathReporteAccesos);
 	builder->get_widget("txtPathLogError", pathReporteError);
-
 	pathReporteAccesos->set_text(confLog.getRutaLogAccesos());
 	pathReporteError->set_text(confLog.getRutaLogErrores());
 }
@@ -258,11 +248,9 @@ void Solapas::setConfiguracionErrores(std::list<TipoError> configuracion) {
 	std::list<TipoError>::iterator it = configuracion.begin();
 
 	grillaErrores->limpiarGrilla();
-
 	while (it != configuracion.end()) {
 		std::stringstream nroError;
 		nroError << it->getNroError();
-
 		grillaErrores->agregarAGrilla(nroError.str(), it->getRuta());
 		it++;
 	}
@@ -277,6 +265,7 @@ void Solapas::agregarConfiguracionBasica(Configuracion& configuracion) {
 	Gtk::SpinButton* sbtTimeOut;
 	Gtk::Entry* txtRaiz;
 	Gtk::CheckButton* cbtProtegido;
+	ConfiguracionBasica confBasica;
 
 	builder->get_widget("sbtPuerto", sbtPuerto);
 	builder->get_widget("sbtPuertoContro", sbtPuertoContro);
@@ -285,8 +274,6 @@ void Solapas::agregarConfiguracionBasica(Configuracion& configuracion) {
 	builder->get_widget("sbtMaxConexiones", sbtMaxConexiones);
 	builder->get_widget("sbtMaxConCliente", sbtMaxConCliente);
 	builder->get_widget("sbtTimeOut", sbtTimeOut);
-
-	ConfiguracionBasica confBasica;
 	confBasica.setPuerto(sbtPuerto->get_value());
 	confBasica.setPuertoControl(sbtPuertoContro->get_value());
 	confBasica.setMaximoConexiones(sbtMaxConexiones->get_value());
@@ -304,14 +291,11 @@ void Solapas::agregarConfiguracionEstatico(Configuracion& configuracion) {
 	TipoEstatico* confEstatico;
 	Glib::ustring extension;
 	Glib::ustring contenido;
+	ModelData modelData;
 
 	Glib::RefPtr < Gtk::ListStore > listTipoEstatico = Glib::RefPtr<
 			Gtk::ListStore>::cast_static(builder->get_object("liststore1"));
-
-	typedef Gtk::TreeModel::Children type_children; //minimise code length.
-	//ModelEstatico modelEstatico;
-	ModelData modelData;
-
+	typedef Gtk::TreeModel::Children type_children;
 	type_children children = listTipoEstatico->children();
 	for (type_children::iterator iter = children.begin(); iter
 			!= children.end(); ++iter) {
@@ -329,14 +313,12 @@ void Solapas::agregarConfiguracionDinamico(Configuracion& configuracion) {
 	TipoDinamico* confDinamico;
 	Glib::ustring extension;
 	Glib::ustring comando;
+	ModelData modelData;
 
 	Glib::RefPtr < Gtk::ListStore > listTipoDinamico = Glib::RefPtr<
 			Gtk::ListStore>::cast_static(builder->get_object("liststore2"));
 
-	typedef Gtk::TreeModel::Children type_children; //minimise code length.
-	//ModelDinamico modelDinamico;
-	ModelData modelData;
-
+	typedef Gtk::TreeModel::Children type_children;
 	type_children children = listTipoDinamico->children();
 	for (type_children::iterator iter = children.begin(); iter
 			!= children.end(); ++iter) {
@@ -354,14 +336,13 @@ void Solapas::agregarConfiguracionUsuario(Configuracion& configuracion) {
 	Usuario* confUsuario;
 	Glib::ustring nombre;
 	Glib::ustring clave;
+	ModelData modelData;
 
 	Glib::RefPtr < Gtk::ListStore > listUsuarios
 			= Glib::RefPtr<Gtk::ListStore>::cast_static(
 					builder->get_object("liststore4"));
 
-	typedef Gtk::TreeModel::Children type_children; //minimise code length.
-	//ModelUsuarioClave modelUsuarioClave;
-	ModelData modelData;
+	typedef Gtk::TreeModel::Children type_children;
 
 	type_children children = listUsuarios->children();
 	for (type_children::iterator iter = children.begin(); iter
@@ -380,15 +361,13 @@ void Solapas::agregarConfiguracionErrores(Configuracion& configuracion) {
 	Glib::ustring nroError;
 	Glib::ustring path;
 	int nroErrorEntero;
+	ModelData modelData;
 
 	Glib::RefPtr < Gtk::ListStore > listUsuarios
 			= Glib::RefPtr<Gtk::ListStore>::cast_static(
 					builder->get_object("liststore3"));
 
-	typedef Gtk::TreeModel::Children type_children; //minimise code length.
-	//ModelError modelError;
-	ModelData modelData;
-
+	typedef Gtk::TreeModel::Children type_children;
 	type_children children = listUsuarios->children();
 	for (type_children::iterator iter = children.begin(); iter
 			!= children.end(); ++iter) {
@@ -409,7 +388,6 @@ void Solapas::agregarConfiguracionReportes(Configuracion& configuracion) {
 
 	builder->get_widget("txtPathLogAccesos", pathReporteAccesos);
 	builder->get_widget("txtPathLogError", pathReporteError);
-
 	ConfiguracionLogs confLogs;
 	confLogs.setRutaLogAccesos(pathReporteAccesos->get_text());
 	confLogs.setRutaLogErrores(pathReporteError->get_text());
@@ -417,7 +395,6 @@ void Solapas::agregarConfiguracionReportes(Configuracion& configuracion) {
 }
 
 void Solapas::cargarConfiguracion(Configuracion& config) {
-
 	setConfiguracionBasica(config.getConfiguracionBasica());
 	setConfiguracionEstatico(config.getTiposEstaticos());
 	setConfiguracionDinamico(config.getTiposDinamicos());
@@ -428,7 +405,6 @@ void Solapas::cargarConfiguracion(Configuracion& config) {
 
 void Solapas::guardarConfiguracion(const std::string &rutaArchivo) {
 	Configuracion configuracion;
-
 	agregarConfiguracionBasica(configuracion);
 	agregarConfiguracionEstatico(configuracion);
 	agregarConfiguracionDinamico(configuracion);
@@ -436,7 +412,6 @@ void Solapas::guardarConfiguracion(const std::string &rutaArchivo) {
 	agregarConfiguracionReportes(configuracion);
 	agregarConfiguracionUsuario(configuracion);
 	configuracion.guardarComo(rutaArchivo);
-
 }
 
 void Solapas::setModoTexto(bool estado) {

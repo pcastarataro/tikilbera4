@@ -67,17 +67,13 @@ private:
 	void on_click_CambiarVistaSolapas();
 
 	/* widget barra de estado */
-	//Gtk::Statusbar *barraEstado;
-	//Gtk::Image *imagenEstado;
 	BarraDeEstado* barraDeEstado;
-
 
 	/* Toolbar */
 	Gtk::Toolbar* barraTexto;
 
 	/* Inicializaciones */
 	void cargarBarraDeMenu();
-	void cargarWidget();
 	void cargarBarraDeHerramientas();
 	void conectarEventos();
 	std::string buscarRutaArchivo();

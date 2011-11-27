@@ -14,7 +14,6 @@ ControladorTxtView::ControladorTxtView(Gtk::Table* barraBusqueda,
 		Gtk::CheckButton* chkResaltar, Gtk::Entry *txtTextoABuscar,
 		Gtk::TextView* txtTextoReporte, Gtk::Entry* txtPathLog,
 		BarraDeEstado *barraEstado) {
-
 	this->btnBuscarAnterior = btnBuscarAnterior;
 	this->btnBuscarSiguiente = btnBuscarSiguiente;
 	this->chkResaltar = chkResaltar;
@@ -35,7 +34,6 @@ ControladorTxtView::ControladorTxtView(Gtk::Table* barraBusqueda,
 
 	txtTextoABuscar->signal_key_release_event().connect(
 			sigc::mem_fun(*this, &ControladorTxtView::on_text_key_press_event));
-
 }
 
 ControladorTxtView::~ControladorTxtView() {

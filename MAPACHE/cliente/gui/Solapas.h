@@ -42,44 +42,11 @@ private:
 	GrillaErrores* grillaErrores;
 
 	/* widget barra de estado */
-	//Gtk::Statusbar *barraEstado;
 	BarraDeEstado* barraDeEstado;
 
 	/**/
 	vbViewAcceso *viewTextAcceso;
 	vbViewError *viewTextError;
-
-	/* Dialogos */
-	//	Gtk::Dialog* dialogEstatico;
-	//	Gtk::Dialog* dialogDinamico;
-	//	Gtk::Dialog* dialogUsuario;
-	//	Gtk::Dialog* dialogError;
-	//	void inicializarDialogos();
-
-	/* */
-	//	void agregarTipoEstatico(const std::string &extension,
-	//			const std::string &contenido);
-	//	void agregarTipoDinamico(const std::string &extension,
-	//			const std::string &comando);
-	//	void agregarUsuario(const std::string &nombre, const std::string &clave);
-	//	void agregarError(const std::string &nroError, const std::string &path);
-
-	/**/
-	//	void on_click_btnAgregarUsuario();
-	//	void on_click_btnModifUsuario();
-	//	void on_click_btnEliminarUsuario();
-	//
-	//	void on_click_btnAgregarError();
-	//	void on_click_btnModifError();
-	//	void on_click_btnEliminarError();
-	//
-	//	void on_click_btnAgregarDinamico();
-	//	void on_click_btnModifDinamico();
-	//	void on_click_btnEliminarDinamico();
-	//
-	//	void on_click_btnAgregarEstatico();
-	//	void on_click_btnModifEstatico();
-	//	void on_click_btnEliminarEstatico();
 
 	void on_click_btnExaminar();
 	void on_click_btnExaminarRaiz();
@@ -161,7 +128,6 @@ public:
 	 * @param rutaArchivo la ubicacion donde se quiere guardar la configuracion.
 	 */
 	void guardarConfiguracion(const std::string &rutaArchivo);
-
 };
 
 #endif /* SOLAPAS_H_ */

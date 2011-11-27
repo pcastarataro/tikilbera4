@@ -12,7 +12,6 @@
 #include <gtkmm-2.4/gtkmm.h>
 
 class GrillaErrores : public Gtk::Table {
-
 private:
 	Glib::RefPtr<Gtk::Builder> builder;
 	ControladorGrilla* controlador;
@@ -22,10 +21,8 @@ public:
 	GrillaErrores(BaseObjectType* cobject,
 			const Glib::RefPtr<Gtk::Builder>& refGlade);
 	virtual ~GrillaErrores();
-
 	void agregarAGrilla(const std::string &cadena, const std::string &valor);
 	void limpiarGrilla();
-
 };
 
 #endif /* GRILLAERRORES_H_ */

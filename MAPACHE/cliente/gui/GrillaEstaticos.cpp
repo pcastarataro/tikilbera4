@@ -43,7 +43,6 @@ void GrillaEstaticos::inicializar() {
 	controlador = new ControladorGrilla(btnAgregarEstatico,
 			btnEliminarEstatico, btnModifEstatico, tvEstatico, txtExtension,
 			txtContenido, dialogEstatico, listEstatico, barraDeEstado);
-
 }
 
 void GrillaEstaticos::agregarAGrilla(const std::string &cadena,
@@ -51,7 +50,6 @@ void GrillaEstaticos::agregarAGrilla(const std::string &cadena,
 	controlador->agregarAGrilla(cadena, valor);
 }
 
-void GrillaEstaticos::limpiarGrilla(){
+void GrillaEstaticos::limpiarGrilla() {
 	controlador->limpiarGrilla();
 }
-

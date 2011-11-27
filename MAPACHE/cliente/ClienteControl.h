@@ -9,12 +9,12 @@ class ClienteControl {
 public:
 
 	/**
-	 * Constructor
+	 *  Constructor
 	 */
 	ClienteControl();
 
 	/**
-	 * Destructor
+	 *  Destructor
 	 */
 	virtual ~ClienteControl();
 

@@ -8,10 +8,10 @@ int main(int argc, char **argv) {
 
 	try {
 		ventana.init(argc, argv);
-	} catch (const Glib::FileError& ex) {
+	} catch(const Glib::FileError& ex) {
 		std::cerr << ex.what() << std::endl;
 		return 1;
-	} catch (const Gtk::BuilderError& ex) {
+	} catch(const Gtk::BuilderError& ex) {
 		std::cerr << ex.what() << std::endl;
 		return 1;
 	}

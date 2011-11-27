@@ -13,14 +13,12 @@ ControladorGrilla::ControladorGrilla(Gtk::Button *btnAgregar,
 		Gtk::TreeView* treeview, Gtk::Entry* txtCadena, Gtk::Entry* txtValor,
 		Gtk::Dialog* dialog, Glib::RefPtr<Gtk::ListStore> listUsuario,
 		BarraDeEstado *barraDeEstado) {
-
 	this->txtValor = txtValor;
 	this->txtCadena = txtCadena;
 	this->treeview = treeview;
 	this->dialog = dialog;
 	this->lista = listUsuario;
 	this->barraDeEstado = barraDeEstado;
-
 	this->dialog->add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
 	this->dialog->add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
 
@@ -41,7 +39,7 @@ void ControladorGrilla::agregarAGrilla(const std::string &cadena,
 		const std::string &valor) {
 	ModelData model;
 
-	typedef Gtk::TreeModel::Children type_children; //minimise code length.
+	typedef Gtk::TreeModel::Children type_children;
 	Gtk::TreeModel::Row row = *(lista->append());
 	row[model.Cadena] = cadena;
 	row[model.Valor] = valor;
@@ -59,12 +57,12 @@ bool ControladorGrilla::validarDatos(const std::string &cadena,
 }
 
 void ControladorGrilla::on_click_agregar() {
-	// Muestro el dialogo y espero hasta que elija una opcion.
+	//  Muestro el dialogo y espero hasta que elija una opcion.
 	int result = dialog->run();
 
-	// Reviso el resultado.
+	//  Reviso el resultado.
 	switch (result) {
-	case (Gtk::RESPONSE_OK): {
+	case(Gtk::RESPONSE_OK): {
 		if (validarDatos(txtCadena->get_text(), txtValor->get_text())) {
 			agregarAGrilla(txtCadena->get_text(), txtValor->get_text());
 			barraDeEstado->mensajeOk("Se agregaron los datos");
@@ -73,7 +71,7 @@ void ControladorGrilla::on_click_agregar() {
 		}
 		break;
 	}
-	case (Gtk::RESPONSE_CANCEL): {
+	case(Gtk::RESPONSE_CANCEL): {
 		break;
 	}
 	default: {
@@ -103,12 +101,12 @@ void ControladorGrilla::on_click_modificar() {
 			txtCadena->set_text(nombre);
 			txtValor->set_text(clave);
 
-			// Muestro el dialogo y espero hasta que elija una opcion.
+			//  Muestro el dialogo y espero hasta que elija una opcion.
 			int result = dialog->run();
 
-			// Reviso el resultado.
+			//  Reviso el resultado.
 			switch (result) {
-			case (Gtk::RESPONSE_OK): {
+			case(Gtk::RESPONSE_OK): {
 				if (validarDatos(txtCadena->get_text(), txtValor->get_text())) {
 					((*iter)[model.Cadena]) = txtCadena->get_text();
 					((*iter)[model.Valor]) = txtValor->get_text();
@@ -119,7 +117,7 @@ void ControladorGrilla::on_click_modificar() {
 				}
 				break;
 			}
-			case (Gtk::RESPONSE_CANCEL): {
+			case(Gtk::RESPONSE_CANCEL): {
 				break;
 			}
 			default: {
@@ -132,7 +130,6 @@ void ControladorGrilla::on_click_modificar() {
 		} else {
 			barraDeEstado->mensajeInfo("Seleccionar una fila para eliminar");
 		}
-
 	}
 }
 

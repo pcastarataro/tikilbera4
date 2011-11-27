@@ -11,12 +11,10 @@
 #include "BarraDeEstado.h"
 #include <gtkmm-2.4/gtkmm.h>
 
-class GrillaEstaticos : public Gtk::Table {
-
+class GrillaEstaticos: public Gtk::Table {
 private:
 	Glib::RefPtr<Gtk::Builder> builder;
 	ControladorGrilla* controlador;
-
 	void inicializar();
 
 public:
@@ -26,7 +24,6 @@ public:
 
 	void agregarAGrilla(const std::string &cadena, const std::string &valor);
 	void limpiarGrilla();
-
 };
 
 #endif /* GRILLAESTATICOS_H_ */
