@@ -9,6 +9,15 @@
 #include "vbViewError.h"
 #include "Solapas.h"
 #include "BarraDeEstado.h"
+
+//#define CMD_APP_POR_DEFECTO "xdg-open "
+#define CMD_APP_POR_DEFECTO "firefox "
+#define PATH_DOC_TECNICA_CONFIGURADOR "Documentacion/Doxy/DoxyConfiguradorCliente/html/index.html"
+#define PATH_DOC_TECNICA_PRECOM "Documentacion/Doxy/DoxyCGI_Precompilador/html/index.html"
+#define	PATH_DOC_TECNICA_PARSER_PHP "Documentacion/Doxy/DoxyParserPHP/html/index.html"
+#define PATH_DOC_TECNICA_PRECOM_ZIP "Documentacion/Doxy/DoxyPr-Zip/html/index.html"
+#define PATH_DOC_TECNICA_SERVIDOR "Documentacion/Doxy/DoxyServidorMapache/html/index.html"
+#define PATH_DOC_USUARIO "Ayuda/index.html"
 #define PATH_SERVIDOR "./ServidorMapache"
 #define PATH_INTERFACE "./Interfaz/gui.glade"
 #define TEMP_PATH_XML "./config_temp.xml"
@@ -57,8 +66,15 @@ private:
 	void on_click_ConfiguracionReportes();
 	void on_click_VerAcercaDe();
 	void on_click_VerAyuda();
+	void on_click_VerDocTecnicaConfigurador();
+	void on_click_VerDocPrecompilador();
+	void on_click_VerDocParserPhp();
+	void on_click_VerDocPrecompiladorZip();
+	void on_click_VerDocServidor();
 
-	/* Eventos de la barra de herramientas */
+	void abrirEnNuevaInstancia(const std::string& ruta);
+
+		/* Eventos de la barra de herramientas */
 	void iniciarServidor(bool forzarSocket);
 	void on_click_IniciarServidor();
 	void on_click_ReiniciarServidor();
