@@ -21,7 +21,7 @@ public:
 	 * Constructor: comienza el bloqueo en el mutex asociado
 	 * @param m es un mutex
 	 */
-	Lock(Mutex& m);
+	explicit Lock(Mutex& m);
 
 	/*
 	 * Destructor: libera el bloqueo del mutex asociado

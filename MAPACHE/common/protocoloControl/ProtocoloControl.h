@@ -32,7 +32,7 @@ public:
      * Constructor
      * @param sock es un socket que ya esta conectado.
      */
-	ProtocoloControl(TCPSocket& sock);
+	explicit ProtocoloControl(TCPSocket& sock);
 
 	/**
 	 * Destructor

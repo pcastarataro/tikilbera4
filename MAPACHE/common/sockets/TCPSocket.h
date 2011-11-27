@@ -18,7 +18,6 @@ private:
 	std::string ip;
 protected:
 	int descriptor;
-	//bool creado;
 	bool apagado;
 	bool cerrado;
 public:

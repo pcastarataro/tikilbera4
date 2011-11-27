@@ -7,12 +7,10 @@
 
 #include "Lock.h"
 
-Lock::Lock(Mutex& mutex): m(mutex)
-{
+Lock::Lock(Mutex& mutex): m(mutex) {
 	m.lock();
 }
 
-Lock::~Lock()
-{
+Lock::~Lock() {
 	m.unlock();
 }

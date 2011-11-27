@@ -21,7 +21,7 @@ void ProtocoloControl::enviarOperacionDetenerServidor() {
 
 bool ProtocoloControl::recibirRespuestaDetenido() {
 	char codigoRecibido = recibirCaracter();
-    if(codigoRecibido == CODIGO_DETENIDO_OK)
+    if (codigoRecibido == CODIGO_DETENIDO_OK)
 		return true;
 	else
 		return false;
