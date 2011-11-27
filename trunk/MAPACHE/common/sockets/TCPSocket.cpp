@@ -40,8 +40,8 @@ TCPSocket::~TCPSocket() {
 void TCPSocket::setearComoReusable() {
 	const int optVal = 1;
 	const socklen_t optLen = sizeof(optVal);
-	setsockopt(descriptor, SOL_SOCKET, SO_REUSEADDR, (void*) &optVal, optLen);
-
+	setsockopt(descriptor, SOL_SOCKET, SO_REUSEADDR, 
+			(void*) &optVal, optLen);
 }
 
 void TCPSocket::bindear(int puerto) {
@@ -69,7 +69,7 @@ void TCPSocket::conectar(const std::string& ip , int puerto) {
 	direccion_server.sin_port = htons(puerto);
 	direccion_server.sin_addr.s_addr = inet_addr(ip.c_str());
 	if (connect (this->descriptor, (struct sockaddr *)& direccion_server ,
-			sizeof (direccion_server)) == -1) {
+			sizeof(direccion_server)) == -1) {
 		throw ConnectException();
 	}
 }
@@ -116,7 +116,8 @@ void TCPSocket::recibir(char* data , int longitud) {
 void TCPSocket::enviar(char* data , int longitud) {
 	int total_enviado = 0;
 	while (total_enviado < longitud) {
-		int cantidad = send(this->descriptor , data + total_enviado , longitud - total_enviado , 0);
+		int cantidad = send(this->descriptor , data + total_enviado , 
+				longitud - total_enviado , 0);
 		if (cantidad <= 0)
 			throw SocketException();
 		total_enviado += cantidad;

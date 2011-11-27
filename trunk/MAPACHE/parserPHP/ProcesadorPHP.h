@@ -22,7 +22,7 @@ public:
 	 * @param listaParams Lista de strings. Cada string es un parametro.
 	 * return string Comando generado.
 	 */
-	string armarComandoPHP(const string rutaPHP, std::list<string> listaParams);
+	string armarComandoPHP(const string rutaPHP , std::list<string> listaParams);
 	/**
 	 * Parsea la cadena parametros y agrega cada ocurrencia a listaParams.
 	 * Tambien parsea la ruta del PHP.
@@ -31,7 +31,8 @@ public:
 	 * @param listaParams
 	 * return false Si el parseo determina que no se trataba de un archivo .php. 
 	 */
-	bool extraerParametrosParaElPHP(string& rutaPHP, const string parametros, list<string>& listaParams);
+	bool extraerParametrosParaElPHP(string& rutaPHP , 
+			const string parametros , list<string>& listaParams);
 	/**
 	 * Destructor
 	 */

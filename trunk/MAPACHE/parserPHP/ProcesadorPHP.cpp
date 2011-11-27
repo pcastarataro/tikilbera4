@@ -7,7 +7,8 @@ string ProcesadorPHP::armarComandoPHP(const string rutaPHP,
 
 	comando.append(rutaPHP);
 
-	for (list<string>::iterator it = listaParams.begin(); it != listaParams.end(); it++) {
+	for (list<string>::iterator it = listaParams.begin() ; 
+			it != listaParams.end() ; it++) {
 		comando.append(" --");
 		comando.append(*it);
 	}
@@ -16,11 +17,13 @@ string ProcesadorPHP::armarComandoPHP(const string rutaPHP,
 }
 
 //	formulario.php?cantArch=3&tipo=8&elemento=11
-bool ProcesadorPHP::extraerParametrosParaElPHP(string& rutaDelPHP, const string uri, list<string>& listaParams) {
+bool ProcesadorPHP::extraerParametrosParaElPHP(string& rutaDelPHP , 
+		const string uri , list<string>& listaParams) {
 	size_t pos = uri.find(".php");
 	bool retorno = true;
 	
-	if (pos == uri.npos) retorno = false;
+	if (pos == uri.npos) 
+		retorno = false;
 	else {
 		retorno = true;
 		rutaDelPHP = uri.substr(0, pos + 4);

@@ -3,7 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-ParserEntradaEstandar::ParserEntradaEstandar(int newContent_length, char* ruta) {
+ParserEntradaEstandar::ParserEntradaEstandar(int newContent_length , 
+char* ruta) {
 	finDePost = false;
 	esFinDeUnoDeLosArchivos = false;
 	archivoActualValido = false;
@@ -18,20 +19,17 @@ string ParserEntradaEstandar::buscarCadena(char* cadena, char* cadenaAHallar) {
 	string cadenaBuscada(cadenaAHallar);
 	string lineaStr(cadena);
 	size_t pos = lineaStr.find(cadenaBuscada, 0) + cadenaBuscada.length();
-
 	return lineaStr.substr(pos, lineaStr.length());
 }
 
 void ParserEntradaEstandar::leerYEscribirLinea(char* entrada) {
-	
 	if (leerBinario) {
 		int cantBytesRestantes = content_length - cantBytesLeidos;
 		int cantBytesALeer = 0;
-		
 		if (cantBytesRestantes > LONG_ENTRADA_ESTANDAR)
 			cantBytesALeer = LONG_ENTRADA_ESTANDAR;
-		else cantBytesALeer = cantBytesRestantes;
-		
+		else 
+			cantBytesALeer = cantBytesRestantes;
 		archivoSTDIN->read(entrada, cantBytesALeer);
 		cantBytesLeidos += archivoSTDIN->gcount();
 		archSalida.write(entrada, archivoSTDIN->gcount());
@@ -43,7 +41,6 @@ void ParserEntradaEstandar::leerYEscribirLinea(char* entrada) {
 
 void ParserEntradaEstandar::levantarDatosDeCabecera() {
 	char entrada[LONG_ENTRADA_ESTANDAR];
-
 	leerYEscribirLinea(entrada);
 	string aux(entrada);
 	string boundary = aux.substr(0, aux.length());
@@ -59,7 +56,7 @@ void ParserEntradaEstandar::levantarDatosDeCabecera() {
 	leerBinario = true;
 }
 
-	/*	si nombreArchivoSalida.length() == 0, se trata de un archivo invalido,
+	/*  si nombreArchivoSalida.length() == 0, se trata de un archivo invalido,
 	 *  sin nombre y sin contenido.
 	 *  Ejemplo:
 	 * -----------------------------161598199615330536461421384039
@@ -70,18 +67,17 @@ void ParserEntradaEstandar::levantarDatosDeCabecera() {
 	 * -----------------------------161598199615330536461421384039*/
 void ParserEntradaEstandar::eliminarComillasYSaltoDeLinea() {
 	string comillaFinal("\"");
-	int pos = nombreArchivoComprimido.find(comillaFinal, 1);
-
-	nombreArchivoComprimido = nombreArchivoComprimido.substr(1, pos - 1);
+	int pos = nombreArchivoComprimido.find(comillaFinal , 1);
+	nombreArchivoComprimido = nombreArchivoComprimido.substr(1 , pos - 1);
 	if (nombreArchivoComprimido.length() != 0) {
 		archivoActualValido = true;
-		nombreCarpetaDescomprimida = nombreArchivoComprimido.substr(0, nombreArchivoComprimido.length() - 4);
-	}
-	else archivoActualValido = false;
+		nombreCarpetaDescomprimida = nombreArchivoComprimido.substr(0 , 
+				nombreArchivoComprimido.length() - 4);
+	} else 
+archivoActualValido = false;
 }
 
 void ParserEntradaEstandar::crearNuevoArchivoComprimido() {
-	
 	if (archivoActualValido) {
 		string rutaCompletaArchivo(rutaDirectorioArchTemporales);
 		rutaCompletaArchivo.append(nombreArchivoComprimido);
@@ -93,18 +89,15 @@ void ParserEntradaEstandar::crearNuevoArchivoComprimido() {
 	 *  el metodo retorna una cantidad de archivos invalida.*/
 int ParserEntradaEstandar::descomprimir() {
 	int retorno = 0;
-
 	levantarDatosDeCabecera();
 	archivoSTDIN = &cin;
 	content_length -= longMarcaDeFinDePost;
-	
 	if (archivoActualValido) {
 		while(quedanBytesPorLeer()) {
 			char entrada[LONG_ENTRADA_ESTANDAR];
 			leerYEscribirLinea(entrada);
 		}
 		archSalida.close();
-		
 		if (cantBytesLeidos == content_length) {
 			setArchivoPrincipal();
 			string comando("unzip -d ");
@@ -113,11 +106,10 @@ int ParserEntradaEstandar::descomprimir() {
 			comando.append(nombreArchivoComprimido);
 			system(comando.c_str());
 			retorno = OK;
-		}
-		else retorno = CONTENT_LENGTH_EXCEDIDO;
-	}
-	else retorno = NOMBRE_ARCHIVO_INVALIDO;
-
+		} else 
+			retorno = CONTENT_LENGTH_EXCEDIDO;
+	} else 
+		retorno = NOMBRE_ARCHIVO_INVALIDO;
 	return retorno;
 }
 
@@ -128,9 +120,9 @@ int ParserEntradaEstandar::descomprimir() {
 bool ParserEntradaEstandar::setArchivoPrincipal() {
 	bool mainHallado = true;
 	nombreArchivoPrincipal = "main.cpp";
-
 	return mainHallado;
 }
 bool ParserEntradaEstandar::quedanBytesPorLeer() {
 	return cantBytesLeidos < content_length;
 }
+

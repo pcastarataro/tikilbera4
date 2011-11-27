@@ -4,7 +4,6 @@
 #define CANT_MAX_DEFINES 50
 #define LONGITUD_VALOR_DEFINE 100
 #define ANIDAMIENTO_MAX 16
-	//  anidamiento max es 15, el restante es por condicion de corte
 #define NUMERAL '#'
 #define BARRASDOBLES "//"
 #define APERTURA_COMENTARIO "/*"
@@ -28,7 +27,6 @@
 #define CANT_DE_INTR_DE_COMPILADOR 6
 #define LONGITUD_LINEA_LEIDA 300
 #define LONG_MAX_NOMBRE_DE_ARCHIVO 50
-	//  supongo una linea relativamente larga para no quedarme corto
 #define COMPILAR 'c'
 #define NO_COMPILAR 'n'
 #define COD_INSTR_DEFINE 150
