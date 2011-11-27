@@ -37,7 +37,7 @@ private:
 	Glib::RefPtr<Gtk::ActionGroup> menuAyuda;
 
 	/* Abrir configuracion */
-	void cargarConfiguracion(const std::string &path);
+	bool cargarConfiguracion(const std::string &path);
 
 	/* Guardar configuracion */
 	void guardarConfiguracion(const std::string &filename);

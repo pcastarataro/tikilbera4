@@ -17,28 +17,21 @@ void VentanaPrincipal::conectarEventos() {
 					&VentanaPrincipal::on_click_CambiarVistaSolapas));
 }
 
-void VentanaPrincipal::cargarConfiguracion(const std::string &path) {
+bool VentanaPrincipal::cargarConfiguracion(const std::string &path) {
 	Configuracion configuracion;
 	bool cargoOk = configuracion.cargarDesde(path);
-	if (cargoOk) {
+	if (cargoOk)
 		menuSolapas->cargarConfiguracion(configuracion);
-		barraDeEstado->mensajeOk("Se Cargo el archivo de configuracion");
-	} else {
-		barraDeEstado->mensajeError("Archivo de configuracion invalido");
-	}
+	return cargoOk;
 }
 
 void VentanaPrincipal::on_click_CargarConfiguracion() {
 	std::string filename = buscarRutaArchivo();
-	std::string cadena;
-
-	if (filename != "") {
-		cargarConfiguracion(filename);
-		cadena.append("Se cargo la configuracion ");
-		cadena.append(filename);
-		barraDeEstado->mensajeOk("Se cargo: " + filename);
+	bool cargoOk = cargarConfiguracion(filename);
+	if (cargoOk) {
+		barraDeEstado->mensajeOk("Se cargo la configuracion " + filename);
 	} else {
-		barraDeEstado->mensajeError("Abrir configuracion cancelada");
+		barraDeEstado->mensajeError("No se pudo cargar la configuracion");
 	}
 }
 
@@ -472,7 +465,10 @@ void VentanaPrincipal::init(int argc, char *argv[]) {
 	builder->get_widget_derived("barraEstado", barraDeEstado);
 	builder->get_widget_derived("ntbOpciones", menuSolapas);
 	menuSolapas->setVentanaPpal(ventanaPpal);
-	cargarConfiguracion(TEMP_PATH_CONFIG);
+
+	if(cargarConfiguracion(TEMP_PATH_CONFIG))
+		barraDeEstado->mensajeInfo("Se cargo la configuracion por defecto");
+
 	kit.run(*ventanaPpal);
 }
 
