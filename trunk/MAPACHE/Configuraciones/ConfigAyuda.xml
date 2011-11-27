@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<configuracion>
+    <configuracionBasica puerto="2025" puertoControl="2021" maximoConexiones="200" maximoConexionesCliente="100" raiz="./Ayuda" protegido="no" timeOut="10" />
+    <tiposEstaticos>
+        <tipoEstatico extension="css" contenido="text/css" />
+        <tipoEstatico extension="html" contenido="text/html" />
+        <tipoEstatico extension="ico" contenido="image/x-icon" />
+        <tipoEstatico extension="jpg" contenido="image/jpg" />
+        <tipoEstatico extension="js" contenido="text/javascript"/>
+        <tipoEstatico extension="png" contenido="image/png"/>
+        <tipoEstatico extension="gif" contenido="image/gif"/>
+    </tiposEstaticos>
+    <tiposDinamicos>
+        <tipoDinamico extension="php" comando="parserPHP.cgi" />
+    </tiposDinamicos>
+    <errores>
+        <error codigo="404" path="./ayuda/errores/error404.html" />
+        <error codigo="501" path="./ayuda/errores/error501.html" />
+    </errores>
+    <usuarios>
+        <usuario nombre="admin" pass="admin" />
+    </usuarios>
+    <configuracionLogs logAccesos="accesos.log" logErrores="errores.log" />
+</configuracion>
