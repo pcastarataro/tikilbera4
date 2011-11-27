@@ -32,7 +32,7 @@ private:
 	string nombreArchivoComprimido, nombreCarpetaDescomprimida;
 	string nombreArchivoPrincipal;
 	char* rutaDirectorioArchTemporales;
-	
+
 	/**
 	 * Lee una cantidad de bytes determinado por LONG_ENTRADA_ESTANDAR.
 	 * Y si ya se parseo la cabecera, lo escribe en el archivo zip.
@@ -41,10 +41,10 @@ private:
 	 */
 	void leerYEscribirLinea(char* linea);
 	/**
-	 * Se parsea la longitud de la marca de fin de POST, 
+	 * Se parsea la longitud de la marca de fin de POST,
 	 * asi como el nombre del archivo zip, y crea un archivo con ese nombre.
 	 * @return void
-	 */	
+	 */
 	void levantarDatosDeCabecera();
 	/**
 	 * Verifica que no se haya superado la cant. maxima de bytes leidos,
@@ -73,7 +73,7 @@ private:
 	/**
 	 * Establece el archivo principal de la precompilacion.
 	 * @return bool
-	 */	
+	 */
 	bool setArchivoPrincipal();
 public:
 	/**
@@ -100,17 +100,17 @@ public:
 	/**
 	 * Retorna el nombre del archivo principal.
 	 * @return string
-	 */	
+	 */
 	string getNombreArchivoPpal() {return nombreArchivoPrincipal;}
 	/**
 	 * Retorna el nombre del archivo comprimido.
 	 * @return string
-	 */	
+	 */
 	string getNombreArchivoComprimido() {return nombreArchivoComprimido;}
 	/**
 	 * Retorna el nombre de la carpeta con los archivos descomprimidos.
 	 * @return string
-	 */	
+	 */
 	string getNombreCarpetaDescomprimida() {return nombreCarpetaDescomprimida;}
 	/**
 	 * Destructor

@@ -8,7 +8,7 @@
 /*  La estructura se cargara con 2 chars simbolicos: COMPILAR y NO_COMPILAR.
  *  Cada vez que se procese un ifdef o ifndef,indiceIfdefActual aumentara en 1.
  *  Cada vez que se procese un endif, indiceIfdefActual disminuira en 1.
- *  Hay un limite para la cantidad de ifdef/ifndef que se pueden almacenar.
+ *  Hay un limite para la cantidad de ifdef/ifndef que se pueden almacenar
  */
 class IfDefAnidados {
 private:
@@ -52,7 +52,9 @@ public:
 	 * Ignora el valor de la ultima anidacion y disminuye en uno el valor de indiceIfdefActual.
 	 * @return void
 	 */
-	void desanidar() {indiceIfdefActual--;}
+	void desanidar() {
+		indiceIfdefActual--;
+	}
 	/**
 	 * Invierte el valor de la ultima anidacion.
 	 * @return void
@@ -79,10 +81,11 @@ public:
 	void setValorAnidado(int pos, char c) {
 		tablaIfdef[pos] = c;
 	}
-	
+
 	/**
 	 * Destructor
 	 */
-	~IfDefAnidados() {}
+	~IfDefAnidados() {
+	}
 };
 #endif /* IFDEFANIDADOS_H_ */

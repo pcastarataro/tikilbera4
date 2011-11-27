@@ -38,13 +38,13 @@ void Procesador::procesarIfdefOIfndef(char* linea, int codInstr) {
 
 		if (defineEncontrado) {
 			if (codInstr == COD_INSTR_IFDEF) {
-				comp = COMPILAR;  //  esta definido y es ifdef
+				comp = COMPILAR; //  esta definido y es ifdef
 			} else
-				comp = NO_COMPILAR;  // esta definido y es ifndef
+				comp = NO_COMPILAR; // esta definido y es ifndef
 		} else if (codInstr == COD_INSTR_IFDEF) {
-			comp = NO_COMPILAR;  //  no esta definido y es ifdef
+			comp = NO_COMPILAR; //  no esta definido y es ifdef
 		} else
-			comp = COMPILAR;  //  no esta definido y es ifndef
+			comp = COMPILAR; //  no esta definido y es ifndef
 
 		ifDefAnidados.anidar(comp, flags);
 	}
@@ -100,7 +100,7 @@ void Procesador::procesarDefine(char* linea) {
 			ptrA2doParametro = nulo;
 			largoValorDefine = strlen(nulo);
 			//  seteo el segundo parametro a un valor nulo
-		} else {  //  hay 2 parametros
+		} else { //  hay 2 parametros
 			ptrA2doParametro = (char*) (separador + 1);
 			char vectorDeTopes2[1] = { BARRA_N };
 			largoValorDefine = util.getLargoCadena(ptrA2doParametro,
@@ -165,8 +165,7 @@ bool Procesador::esSeparadorValidoParaLaInstruccion(char* instr, char sep) {
  * que sea menos costosa que realizar nuevamente una comparacion entre cadenas
  * (ver procesarInstruccion(.....))
  */
-bool Procesador::parseInstruccion(char* linea,
-		char* posibleInst, int codInstr) {
+bool Procesador::parseInstruccion(char* linea, char* posibleInst, int codInstr) {
 	char* instruccion = linea + 1;
 	int largoPosibleInstr = strlen(posibleInst);
 	char* sep = (char*) (instruccion + largoPosibleInstr);
@@ -244,7 +243,7 @@ char* Procesador::procesarDirectivaCompilador(char* linea) {
 				vecCod[contador]);
 		contador++;
 	}
-	linea[0] = (int) NULL;  // para que no imprima nada al final del ciclo
+	linea[0] = (int) NULL; // para que no imprima nada al final del ciclo
 	return linea;
 }
 
