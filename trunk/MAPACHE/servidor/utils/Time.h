@@ -28,7 +28,7 @@ public:
 	std::string getHora() {
 	char output[128];
 	tiempo = time(0);
-	localtime_r(&tiempo, tlocal);
+	tlocal = localtime(&tiempo);
 	strftime(output, 128, "%H:%M:%S", tlocal);
 	std::string hora(output);
 	return hora;
@@ -40,7 +40,7 @@ public:
 	std::string getFecha() {
 	char output[128];
 	tiempo = time(0);
-	localtime_r(&tiempo, tlocal);
+	tlocal = localtime(&tiempo);
 	strftime(output, 128, "%d/%m/%y", tlocal);
 	std::string fecha(output);
 	return fecha;
@@ -53,8 +53,8 @@ public:
 	std::string getFechaHora() {
 	char output[128];
 	tiempo = time(0);
-	localtime_r(&tiempo, tlocal);
-	  strftime(output, 128, "%a, %d %b %Y %H:%M:%S %Z", tlocal);
+	tlocal = localtime(&tiempo);
+    strftime(output, 128, "%a, %d %b %Y %H:%M:%S %Z", tlocal);
 	std::string fecha(output);
 	return fecha;
 }
