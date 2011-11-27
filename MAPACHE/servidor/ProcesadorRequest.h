@@ -34,7 +34,7 @@ public:
      * Constructor
      * @param c es la configuracion que esta utilizando el servidor
      */
-	ProcesadorRequest(const Configuracion& c);
+	explicit ProcesadorRequest(const Configuracion& c);
 
 	/**
 	 * Destructor

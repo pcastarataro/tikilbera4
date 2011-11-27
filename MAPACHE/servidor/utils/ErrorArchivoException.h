@@ -7,7 +7,6 @@
 
 #ifndef ERRORARCHIVOEXCEPTION_H_
 #define ERRORARCHIVOEXCEPTION_H_
-
 #include <exception>
 
 /**
@@ -20,5 +19,4 @@ public:
 	 */
 	ErrorArchivoException();
 };
-
 #endif /* ERRORARCHIVOEXCEPTION_H_ */

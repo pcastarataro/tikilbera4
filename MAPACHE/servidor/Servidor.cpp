@@ -14,7 +14,8 @@
 
 #define CANT_MAX_CLI 10
 
-Servidor::Servidor(const Configuracion& c , bool reiniciando): config(c) {
+Servidor::Servidor(const Configuracion& c, bool reiniciando) :
+	config(c) {
 	this->reiniciando = reiniciando;
 }
 
@@ -23,40 +24,40 @@ Servidor::~Servidor() {
 
 int Servidor::start() {
 	TCPSocket sockCrtl;
-	if(reiniciando)
+	if (reiniciando)
 		sockCrtl.setearComoReusable();
 
 	int retorno = 0;
 	try {
 		sockCrtl.bindear(config.getConfiguracionBasica().getPuertoControl());
 		sockCrtl.escuchar(CANT_MAX_CLI);
-		ServidorHttp servidorHTTP(config , reiniciando);
+		ServidorHttp servidorHTTP(config, reiniciando);
 		servidorHTTP.start();
 
-		if(!reiniciando)
-			std::cout << "SERVIDOR HTML ACTIVADO en puerto:  " << config.getConfiguracionBasica().getPuerto() <<std::endl;
+		if (!reiniciando)
+			std::cout << "SERVIDOR HTML ACTIVADO en puerto:  "
+					<< config.getConfiguracionBasica().getPuerto() << std::endl;
 		else
-			std::cout << "SERVIDOR HTML REINICIADO en puerto:  " << config.getConfiguracionBasica().getPuerto() <<std::endl;
+			std::cout << "SERVIDOR HTML REINICIADO en puerto:  "
+					<< config.getConfiguracionBasica().getPuerto() << std::endl;
 
 		bool activo = true;
-		while(activo) {
+		while (activo) {
 			TCPSocket* sockClienteCrtl = sockCrtl.aceptar();
 			ProtocoloControl protocoloCtrl(*sockClienteCrtl);
 			try {
 				activo = protocoloCtrl.recibirOperacionDetener();
-				if(!activo) {
+				if (!activo) {
 					servidorHTTP.morir();
 					servidorHTTP.apagar();
 					servidorHTTP.join();
 					std::cout << "SERVIDOR HTML DESACTIVADO" << std::endl;
 				} else {
-					std::cout << "SE INGRESO UNA OPERACION INVALIDA" << std::endl;
-					// todo: agregar a logs
+					std::cout << "SE INGRESO UNA OPERACION INVALIDA"
+							<< std::endl;
 				}
 				protocoloCtrl.enviarRespuestaDetenido(!activo);
-			} catch(const ProtocoloControlException&) {
-				// ERROR DE CONEXION CON EL CLIENTE log?
-			}
+			} catch(const ProtocoloControlException&) {}
 			sockClienteCrtl->apagar();
 			sockClienteCrtl->cerrar();
 			delete sockClienteCrtl;

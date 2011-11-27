@@ -36,18 +36,19 @@ public:
 	 * @return es la cadena asociada al archivo
 	 */
 	static std::string levantarArchivo(const std::string& archivo) {
-		std::ifstream archivoPedido(archivo.c_str() , std::ios::in | std::ios::binary);
-		if(archivoPedido.fail()) {
+		std::ifstream archivoPedido(archivo.c_str(),
+				std::ios::in | std::ios::binary);
+		if (archivoPedido.fail()) {
 			throw ErrorArchivoException();
 		}
-		archivoPedido.seekg(0,std::ios::end);
+		archivoPedido.seekg(0, std::ios::end);
 		size_t tam = archivoPedido.tellg();
-		archivoPedido.seekg(0,std::ios::beg);
+		archivoPedido.seekg(0, std::ios::beg);
 		char* buffer = new char[tam];
-		archivoPedido.read(buffer , tam);
+		archivoPedido.read(buffer, tam);
 		std::stringstream ssCadena;
-		ssCadena.write(buffer , tam);
-		delete []buffer;
+		ssCadena.write(buffer, tam);
+		delete[] buffer;
 		return ssCadena.str();
 	}
 
@@ -58,13 +59,13 @@ public:
 	 */
 	static std::string levantarArchivoVersionGET(const std::string& archivo) {
 		std::ifstream archivoPedido(archivo.c_str());
-		if(archivoPedido.fail()) {
+		if (archivoPedido.fail()) {
 			throw ErrorArchivoException();
 		}
 		std::string cadena;
-		while(!archivoPedido.eof()) {
+		while (!archivoPedido.eof()) {
 			char buffer[MAX_BUFFER];
-			archivoPedido.read(buffer , MAX_BUFFER);
+			archivoPedido.read(buffer, MAX_BUFFER);
 			if (archivoPedido.gcount() > 0)
 				cadena.append(buffer, archivoPedido.gcount());
 		}

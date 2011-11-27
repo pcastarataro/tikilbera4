@@ -31,13 +31,12 @@ public:
 	 * Una vez que el cliente supera ese limite es dado de baja
 	 * @admin es una referencia al administrador de clientes asociado al servidor.
 	 */
-	VerificadorTimeOut(int timeOutEnSegundos , int timeOutConfig , AdministradorClientes* admin);
+	VerificadorTimeOut(int timeOutEnSegundos, int timeOutConfig,
+			AdministradorClientes* admin);
 
 	/**
 	 * Destructor
 	 */
 	virtual ~VerificadorTimeOut();
-
 };
-
 #endif /* VERIFICADORTIMEOUT_H_ */

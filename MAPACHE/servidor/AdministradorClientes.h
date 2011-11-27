@@ -7,7 +7,6 @@
 
 #ifndef ADMINISTRADORCLIENTES_H_
 #define ADMINISTRADORCLIENTES_H_
-
 #include <map>
 #include <string>
 #include "Configuracion.h"
@@ -23,16 +22,16 @@ class AdministradorClientes {
 private:
 	const Configuracion& config;
 	Mutex mutex;
-	std::map<std::string , std::list<ManejadorClienteHTTP*> > mapaIpConexiones;
+	std::map<std::string, std::list<ManejadorClienteHTTP*> > mapaIpConexiones;
 	int total;
-    void limpiarActivos();
-    void avisarSobrecargaServidor(ManejadorClienteHTTP *manejador);
+	void limpiarActivos();
+	void avisarSobrecargaServidor(ManejadorClienteHTTP *manejador);
 public:
-    /**
-     * Contructor.
-     * @param config es la conficuracion asociada al servidor
-     */
-	AdministradorClientes(const Configuracion& config);
+	/**
+	 * Contructor.
+	 * @param config es la conficuracion asociada al servidor
+	 */
+	explicit AdministradorClientes(const Configuracion& config);
 
 	/**
 	 * Destructor
