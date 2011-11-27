@@ -16,7 +16,6 @@ string ProcesadorPHP::armarComandoPHP(const string rutaPHP,
 	return comando;
 }
 
-//	formulario.php?cantArch=3&tipo=8&elemento=11
 bool ProcesadorPHP::extraerParametrosParaElPHP(string& rutaDelPHP , 
 		const string uri , list<string>& listaParams) {
 	size_t pos = uri.find(".php");
