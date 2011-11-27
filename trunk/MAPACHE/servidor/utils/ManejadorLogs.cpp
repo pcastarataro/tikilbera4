@@ -18,6 +18,7 @@ ManejadorLogs::ManejadorLogs(const ConfiguracionLogs& c) {
 ManejadorLogs::~ManejadorLogs() {
 	delete logError;
 	delete logAcceso;
+	log4cpp::Category::shutdown();
 }
 
 Log* ManejadorLogs::getLogAcceso() {
