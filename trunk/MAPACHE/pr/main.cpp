@@ -24,9 +24,8 @@ void printHeader() {
 	cout << "<script src=\"src/prettify.js\" type=\"text/javascript\"></script>";
 	cout << "    <link href=\"src/prettify.css\" type=\"text/css\" rel=\"stylesheet\" />";
 	cout << "</HEAD>\n";
-
-    cout << "<BODY onload=\"prettyPrint()\" BGCOLOR=\"#AAAFFF\"TEXT=\"#000000\">\n";
-    cout << "<pre class=\"prettyprint\">";
+	cout << "<BODY onload=\"prettyPrint()\" BGCOLOR=\"#AAAFFF\"TEXT=\"#000000\">\n";
+	cout << "<pre class=\"prettyprint\">";
 }
 
 void printFooter() {
@@ -35,17 +34,18 @@ void printFooter() {
 	cout << "</HTML>\n";
 }
 
-	/* se precompila el archivo ppal (y los archivos que incluya) 
-	 * args:
-	 * 0- nombre programa
-	 * 1- path en donde se deben almacenar los archivos creados por el programa
-	 * 2- uri (no usada por este cgi)*/
-	
+/* se precompila el archivo ppal (y los archivos que incluya)
+ * args:
+ * 0- nombre programa
+ * 1- path en donde se deben almacenar los archivos creados por el programa
+ * 2- uri (no usada por este cgi)*/
+
 int main(int argc, char** argv) {
 	printHeader();
 
-	if (argc != 3) 
-		cout << "error al ejecutar CGI: cant de parametros erronea: " << argc << ". Deberian ser 3." << endl;
+	if (argc != 3)
+		cout << "error al ejecutar CGI: cant de parametros erronea: " << argc
+				<< ". Deberian ser 3." << endl;
 	else {
 		int content_length = atoi(getenv("CONTENT_LENGTH"));
 
