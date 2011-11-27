@@ -81,13 +81,13 @@ void VentanaPrincipal::on_click_GuardarConfiguracion() {
 
 	//  Reviso el resultado.
 	switch (result) {
-	case(Gtk::RESPONSE_OK): {
+	case (Gtk::RESPONSE_OK): {
 		std::string filename = dialog.get_filename();
 		guardarConfiguracion(filename);
 		barraDeEstado->mensajeOk("Se guardo la configuracion correctamente");
 		break;
 	}
-	case(Gtk::RESPONSE_CANCEL): {
+	case (Gtk::RESPONSE_CANCEL): {
 		barraDeEstado->mensajeInfo("Guardar configuracion cancelada");
 		break;
 	}
@@ -156,11 +156,16 @@ bool existeArchivo(const std::string& nombreArchivo) {
 	return existe;
 }
 
-void VentanaPrincipal::on_click_IniciarServidor() {
+void VentanaPrincipal::iniciarServidor(bool forzarSocket) {
 	std::string comando = PATH_SERVIDOR;
 	FILE* fpipe;
 	char line[TAM_LINEA];
 	char* linea = line;
+	std::string flagForzarSocket = "N";
+
+	if (forzarSocket)
+		flagForzarSocket = "R";
+
 	//  Creo un xml temporal para iniciar el servidor.
 	guardarConfiguracion(TEMP_PATH_XML);
 
@@ -171,59 +176,36 @@ void VentanaPrincipal::on_click_IniciarServidor() {
 		comando.append(" ");
 		comando.append(TEMP_PATH_XML);
 		comando.append(" ");
-		comando.append("N");
+		comando.append(flagForzarSocket.c_str());
 		comando.append("&");
 		if (!(fpipe = (FILE*) popen(comando.c_str(), "r"))) {
-			barraDeEstado->mensajeError("No se pudo iniciar el servidor");
+			barraDeEstado->mensajeError("No se pudo encontrar el servidor");
 		} else {
 			size_t tamanioLinea = TAM_LINEA;
 			size_t size = getline(&linea, &tamanioLinea, fpipe);
 			linea[size - 1] = '\0';
 			barraDeEstado->mensajeInfo(linea);
-			//  FIXME: ver salida.
 		}
+		pclose(fpipe);
 	}
+}
+
+void VentanaPrincipal::on_click_IniciarServidor() {
+	iniciarServidor(true);
 }
 
 void VentanaPrincipal::on_click_ReiniciarServidor() {
 	on_click_DetenerServidor();
-	std::string comando = PATH_SERVIDOR;
-	FILE* fpipe;
-	char line[TAM_LINEA];
-	char* linea = line;
-	//  Creo un xml temporal para iniciar el servidor.
-	guardarConfiguracion(TEMP_PATH_XML);
-
-	if (!existeArchivo(PATH_SERVIDOR))
-		comando = buscarRutaArchivo();
-
-	if (comando != "") {
-		comando.append(" ");
-		comando.append(TEMP_PATH_XML);
-		comando.append(" ");
-		comando.append("R");
-		comando.append("&");
-		if (!(fpipe = (FILE*) popen(comando.c_str(), "r"))) {
-			barraDeEstado->mensajeError("No se pudo iniciar el servidor");
-		} else {
-			size_t tamanioLinea = TAM_LINEA;
-			size_t size = getline(&linea, &tamanioLinea, fpipe);
-			linea[size - 1] = '\0';
-			barraDeEstado->mensajeInfo(linea);
-			//  FIXME: ver salida.
-		}
-	}
+	iniciarServidor(true);
 }
 
 void VentanaPrincipal::on_click_DetenerServidor() {
 	bool detenido;
 	int nroPuerto;
 	Gtk::SpinButton* sbtPuertoContro;
-
 	builder->get_widget("sbtPuertoContro", sbtPuertoContro);
 	nroPuerto = sbtPuertoContro->get_value();
 	detenido = clienteControl.detenerServidor("127.0.0.1", nroPuerto);
-
 	if (detenido) {
 		barraDeEstado->mensajeOk("El servidor se detuvo con exito");
 	} else {

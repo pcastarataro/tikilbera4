@@ -59,6 +59,7 @@ private:
 	void on_click_VerAyuda();
 
 	/* Eventos de la barra de herramientas */
+	void iniciarServidor(bool forzarSocket);
 	void on_click_IniciarServidor();
 	void on_click_ReiniciarServidor();
 	void on_click_DetenerServidor();
