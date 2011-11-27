@@ -27,6 +27,11 @@ public:
 	TCPSocket();
 
 	/**
+	 * Constructor.
+	 */
+	explicit TCPSocket(int descriptor);
+
+	/**
 	 * Destructor.
 	 */
 	virtual ~TCPSocket();

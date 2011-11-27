@@ -132,7 +132,7 @@ void AdministradorClientes::limpiarActivosConTimeOutMayor() {
 			time_t t;
 			time(&t);
 			struct tm* petm;
-			localtime_r(&t, petm);
+			petm = localtime(&t);
 			int sec = petm->tm_hour * 3600 + petm->tm_min * 60 + petm->tm_sec;
 			int dif = sec - (*it)->getOffsetSegundos();
 			if (dif >= config.getConfiguracionBasica().getTimeOut()) {

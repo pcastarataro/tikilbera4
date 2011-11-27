@@ -39,7 +39,7 @@ void ManejadorClienteHTTP::run() {
 	time_t t;
 	time(&t);
 	struct tm* petm;
-	localtime_r(&t, petm);
+	petm = localtime(&t);
 	this->offsetInicioSegundos = petm->tm_hour * 3600 + petm->tm_min * 60
 			+ petm->tm_sec;  // offset Segundos
 	ProtocoloHTTP http(this->sockCliente);
