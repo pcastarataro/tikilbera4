@@ -134,9 +134,38 @@ void VentanaPrincipal::on_click_VerReportesAccesos() {
 	menuSolapas->set_current_page(SOLAPA_REPORTE_ACCESO);
 }
 
-void VentanaPrincipal::on_click_VerAyuda() {
-	menuSolapas->set_current_page(SOLAPA_AYUDA);
+void VentanaPrincipal::abrirEnNuevaInstancia(const std::string& ruta) {
+	std::string comando = CMD_APP_POR_DEFECTO;
+	comando.append(" ");
+	comando.append(ruta.c_str());
+	comando.append("&");
+	system(comando.c_str());
 }
+
+void VentanaPrincipal::on_click_VerDocTecnicaConfigurador() {
+	abrirEnNuevaInstancia(PATH_DOC_TECNICA_CONFIGURADOR);
+}
+
+void VentanaPrincipal::on_click_VerAyuda() {
+	abrirEnNuevaInstancia(PATH_DOC_USUARIO);
+}
+
+void VentanaPrincipal::on_click_VerDocPrecompilador(){
+	abrirEnNuevaInstancia(PATH_DOC_TECNICA_PRECOM);
+}
+
+void VentanaPrincipal::on_click_VerDocParserPhp(){
+	abrirEnNuevaInstancia(PATH_DOC_TECNICA_PARSER_PHP);
+}
+
+void VentanaPrincipal::on_click_VerDocPrecompiladorZip(){
+	abrirEnNuevaInstancia(PATH_DOC_TECNICA_PRECOM_ZIP);
+}
+
+void VentanaPrincipal::on_click_VerDocServidor(){
+	abrirEnNuevaInstancia(PATH_DOC_TECNICA_SERVIDOR);
+}
+
 
 void VentanaPrincipal::on_click_VerAcercaDe() {
 	Gtk::AboutDialog* about;
@@ -317,14 +346,41 @@ void VentanaPrincipal::cargarBarraDeMenu() {
 
 	/* Menu -Ayuda- */
 	menuAyuda->add(Gtk::Action::create("HelpMenu", "Ayuda"));
+
+	menuAyuda->add(
+			Gtk::Action::create("ManualUsuario", Gtk::Stock::HELP,
+					"_Manual de usuario", "ManualUsuario"),
+			sigc::mem_fun(*this, &VentanaPrincipal::on_click_VerAyuda));
+
+	menuAyuda->add(
+			Gtk::Action::create("ManualConfigurador", Gtk::Stock::HELP,
+					"Manual tecnico Configurador Mapache",
+					"ManualConfigurador"),
+			sigc::mem_fun(*this,
+					&VentanaPrincipal::on_click_VerDocTecnicaConfigurador));
+	menuAyuda->add(
+			Gtk::Action::create("ManualPrecompilador", Gtk::Stock::HELP,
+					"Manual tecnico Precompilador",
+					"ManualPrecompilador"),
+			sigc::mem_fun(*this, &VentanaPrincipal::on_click_VerDocPrecompilador));
+	menuAyuda->add(
+			Gtk::Action::create("ManualParserPhp", Gtk::Stock::HELP,
+					"Manual tecnico Parser php", "ManualParserPhp"),
+			sigc::mem_fun(*this, &VentanaPrincipal::on_click_VerDocParserPhp));
+	menuAyuda->add(
+			Gtk::Action::create("ManualPrecompiladorZip", Gtk::Stock::HELP,
+					"Manual tecnico Precompilador Zip",
+					"ManualPrecompiladorZip"),
+			sigc::mem_fun(*this, &VentanaPrincipal::on_click_VerDocPrecompiladorZip));
+	menuAyuda->add(
+			Gtk::Action::create("ManualServidor", Gtk::Stock::HELP,
+					"Manual tecnico Servidor Mapache", "ManualServidor"),
+			sigc::mem_fun(*this, &VentanaPrincipal::on_click_VerDocServidor));
+
 	menuAyuda->add(
 			Gtk::Action::create("HelpAbout", Gtk::Stock::ABOUT, "A_cerca De",
 					"Acerca de ..."),
 			sigc::mem_fun(*this, &VentanaPrincipal::on_click_VerAcercaDe));
-	menuAyuda->add(
-			Gtk::Action::create("HelpMan", Gtk::Stock::HELP, "_Manual",
-					"Manual"),
-			sigc::mem_fun(*this, &VentanaPrincipal::on_click_VerAyuda));
 
 	menu_UIManager = Gtk::UIManager::create();
 	menu_UIManager->insert_action_group(menuArchivo);
@@ -364,7 +420,14 @@ void VentanaPrincipal::cargarBarraDeMenu() {
 		"      <menuitem action='configurarReportes'/>"
 		"    </menu>"
 		"    <menu action='HelpMenu'>"
-		"      <menuitem action='HelpMan'/>"
+		"      <menuitem action='ManualUsuario'/>"
+		"          <separator/>"
+		"      <menuitem action='ManualConfigurador'/>"
+		"      <menuitem action='ManualPrecompilador'/>"
+		"      <menuitem action='ManualParserPhp'/>"
+		"      <menuitem action='ManualPrecompiladorZip'/>"
+		"      <menuitem action='ManualServidor'/>"
+		"          <separator/>"
 		"      <menuitem action='HelpAbout'/>"
 		"    </menu>"
 		"  </menubar>"
