@@ -8,6 +8,7 @@
 #ifndef GRILLADINAMICOS_H_
 #define GRILLADINAMICOSH_
 #include "ControladorGrilla.h"
+#include "BarraDeEstado.h"
 #include <gtkmm-2.4/gtkmm.h>
 
 class GrillaDinamicos : public Gtk::Table {

@@ -8,6 +8,7 @@
 #define VBVIEWERROR_H_
 #include <gtkmm-2.4/gtkmm.h>
 #include "ControladorTxtView.h"
+#include "BarraDeEstado.h"
 
 /**
  * Clase que define un control de usuario personalizado.
@@ -18,7 +19,6 @@ class vbViewError: public Gtk::VBox {
 private:
 	Glib::RefPtr<Gtk::Builder> builder;
 	ControladorTxtView* controladorTxt;
-	//Gtk::TextBuffer::iterator itActualAcceso;
 	void inicializar();
 
 public:

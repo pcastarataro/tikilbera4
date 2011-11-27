@@ -26,7 +26,7 @@ void vbViewAcceso::inicializar() {
 	Gtk::TextView* txtReporteAccesos;
 	Gtk::Entry* txtPathLog;
 	Gtk::Table* hbBuscarEnAcceso;
-	Gtk::Statusbar *barraEstado;
+	BarraDeEstado *barraDeEstado;
 
 	builder->get_widget("chkResaltar", chkResaltar);
 	builder->get_widget("btnBuscarAnt", btnBuscarAnt);
@@ -35,11 +35,11 @@ void vbViewAcceso::inicializar() {
 	builder->get_widget("txtReporteAccesos", txtReporteAccesos);
 	builder->get_widget("txtPathLogAccesos", txtPathLog);
 	builder->get_widget("hbBuscarEnAcceso", hbBuscarEnAcceso);
-	builder->get_widget("barraEstado", barraEstado);
+	builder->get_widget("barraEstado", barraDeEstado);
 
 	controladorTxt = new ControladorTxtView(hbBuscarEnAcceso, btnBuscarAnt,
 			btnBuscarSig, chkResaltar, txtBuscarEnAcceso, txtReporteAccesos,
-			txtPathLog, barraEstado);
+			txtPathLog, barraDeEstado);
 }
 
 void vbViewAcceso::cargarReporte() {

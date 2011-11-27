@@ -8,6 +8,7 @@
 #ifndef GRILLAESTATICOS_H_
 #define GRILLAESTATICOS_H_
 #include "ControladorGrilla.h"
+#include "BarraDeEstado.h"
 #include <gtkmm-2.4/gtkmm.h>
 
 class GrillaEstaticos : public Gtk::Table {
@@ -15,6 +16,7 @@ class GrillaEstaticos : public Gtk::Table {
 private:
 	Glib::RefPtr<Gtk::Builder> builder;
 	ControladorGrilla* controlador;
+
 	void inicializar();
 
 public:

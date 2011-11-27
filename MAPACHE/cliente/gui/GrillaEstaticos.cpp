@@ -23,7 +23,7 @@ void GrillaEstaticos::inicializar() {
 	Gtk::Button *btnModifEstatico;
 	Gtk::Dialog* dialogEstatico;
 	Gtk::TreeView* tvEstatico;
-	Gtk::Statusbar *barraEstado;
+	BarraDeEstado* barraDeEstado;
 	Gtk::Entry* txtExtension;
 	Gtk::Entry* txtContenido;
 
@@ -34,7 +34,7 @@ void GrillaEstaticos::inicializar() {
 	builder->get_widget("btnEliminarEstatico", btnEliminarEstatico);
 	builder->get_widget("btnModifEstatico", btnModifEstatico);
 	builder->get_widget("dialogEstatico", dialogEstatico);
-	builder->get_widget("barraEstado", barraEstado);
+	builder->get_widget_derived("barraEstado", barraDeEstado);
 
 	Glib::RefPtr < Gtk::ListStore > listEstatico
 			= Glib::RefPtr<Gtk::ListStore>::cast_static(
@@ -42,7 +42,8 @@ void GrillaEstaticos::inicializar() {
 
 	controlador = new ControladorGrilla(btnAgregarEstatico,
 			btnEliminarEstatico, btnModifEstatico, tvEstatico, txtExtension,
-			txtContenido, dialogEstatico, listEstatico, barraEstado);
+			txtContenido, dialogEstatico, listEstatico, barraDeEstado);
+
 }
 
 void GrillaEstaticos::agregarAGrilla(const std::string &cadena,

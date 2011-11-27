@@ -4,11 +4,11 @@
  *  Created on: 20/11/2011
  *      Author: edgardo
  */
-#include <gtkmm-2.4/gtkmm.h>
-#include "ControladorGrilla.h"
-
 #ifndef GRILLAUSUARIOS_H_
 #define GRILLAUSUARIOS_H_
+#include <gtkmm-2.4/gtkmm.h>
+#include "ControladorGrilla.h"
+#include "BarraDeEstado.h"
 
 class GrillaUsuarios: public Gtk::Table {
 private:

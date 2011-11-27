@@ -23,7 +23,7 @@ void GrillaDinamicos::inicializar() {
 	Gtk::Button *btnModifDinamico;
 	Gtk::Dialog* dialogDinamico;
 	Gtk::TreeView* tvDinamico;
-	Gtk::Statusbar *barraEstado;
+	BarraDeEstado* barraDeEstado;
 	Gtk::Entry* txtExtension;
 	Gtk::Entry* txtComando;
 
@@ -34,7 +34,7 @@ void GrillaDinamicos::inicializar() {
 	builder->get_widget("btnEliminarDinamico", btnEliminarDinamico);
 	builder->get_widget("btnModifDinamico", btnModifDinamico);
 	builder->get_widget("dialogDinamico", dialogDinamico);
-	builder->get_widget("barraEstado", barraEstado);
+	builder->get_widget_derived("barraEstado", barraDeEstado);
 
 	Glib::RefPtr < Gtk::ListStore > listDinamico
 			= Glib::RefPtr<Gtk::ListStore>::cast_static(
@@ -42,7 +42,7 @@ void GrillaDinamicos::inicializar() {
 
 	controlador = new ControladorGrilla(btnAgregarDinamico,
 			btnEliminarDinamico, btnModifDinamico, tvDinamico, txtExtension,
-			txtComando, dialogDinamico, listDinamico, barraEstado);
+			txtComando, dialogDinamico, listDinamico, barraDeEstado);
 }
 
 void GrillaDinamicos::agregarAGrilla(const std::string &cadena,

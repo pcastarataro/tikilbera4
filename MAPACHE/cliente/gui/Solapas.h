@@ -15,6 +15,9 @@
 #include "GrillaEstaticos.h"
 #include "GrillaDinamicos.h"
 #include "GrillaErrores.h"
+#include "BarraDeEstado.h"
+#include "vbViewAcceso.h"
+#include "vbViewError.h"
 
 #define SOLAPA_CONF_BASICA 0
 #define SOLAPA_CONF_ESTATICO 1
@@ -25,8 +28,7 @@
 #define SOLAPA_REPORTE_ERROR 6
 #define SOLAPA_REPORTE_ACCESO 7
 #define SOLAPA_AYUDA 8
-#include "vbViewAcceso.h"
-#include "vbViewError.h"
+
 
 class Solapas: public Gtk::Notebook {
 private:
@@ -40,7 +42,8 @@ private:
 	GrillaErrores* grillaErrores;
 
 	/* widget barra de estado */
-	Gtk::Statusbar *barraEstado;
+	//Gtk::Statusbar *barraEstado;
+	BarraDeEstado* barraDeEstado;
 
 	/**/
 	vbViewAcceso *viewTextAcceso;

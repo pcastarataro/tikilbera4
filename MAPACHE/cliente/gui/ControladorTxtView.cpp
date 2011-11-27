@@ -13,7 +13,7 @@ ControladorTxtView::ControladorTxtView(Gtk::Table* barraBusqueda,
 		Gtk::Button *btnBuscarAnterior, Gtk::Button *btnBuscarSiguiente,
 		Gtk::CheckButton* chkResaltar, Gtk::Entry *txtTextoABuscar,
 		Gtk::TextView* txtTextoReporte, Gtk::Entry* txtPathLog,
-		Gtk::Statusbar *barraEstado) {
+		BarraDeEstado *barraEstado) {
 
 	this->btnBuscarAnterior = btnBuscarAnterior;
 	this->btnBuscarSiguiente = btnBuscarSiguiente;
@@ -22,7 +22,7 @@ ControladorTxtView::ControladorTxtView(Gtk::Table* barraBusqueda,
 	this->txtTextoReporte = txtTextoReporte;
 	this->txtPathLog = txtPathLog;
 	this->barraBusqueda = barraBusqueda;
-	this->barraEstado = barraEstado;
+	this->barraDeEstado = barraEstado;
 
 	btnBuscarAnterior->signal_clicked().connect(
 			sigc::mem_fun(*this, &ControladorTxtView::on_click_BuscarAnt));
@@ -88,7 +88,7 @@ void ControladorTxtView::irAlFinal() {
 
 void ControladorTxtView::on_click_Actualizar() {
 	cargarReporte();
-	barraEstado->push("Reporte actualizado");
+	barraDeEstado->mensajeInfo("Reporte actualizado");
 }
 
 void ControladorTxtView::ResaltaTextoEnTextbox(std::string texto,
@@ -152,9 +152,9 @@ void ControladorTxtView::BuscarSigEnTextbox(std::string texto,
 		itActualAcceso = mathEnd;
 		gchar* msg = g_strdup_printf("Encontrado en: Col %d Ln %d",
 				columna + 1, fila + 1);
-		barraEstado->push(msg);
+		barraDeEstado->mensajeInfo(msg);
 	} else
-		barraEstado->push("No hay mas coincidencias con " + texto);
+		barraDeEstado->mensajeInfo("No hay mas coincidencias con " + texto);
 }
 
 void ControladorTxtView::BuscarAntEnTextbox(std::string texto,
@@ -192,9 +192,9 @@ void ControladorTxtView::BuscarAntEnTextbox(std::string texto,
 		itActualAcceso = mathStart;
 		gchar* msg = g_strdup_printf("Encontrado en: Col %d Ln %d",
 				columna + 1, fila + 1);
-		barraEstado->push(msg);
+		barraDeEstado->mensajeInfo(msg);
 	} else
-		barraEstado->push("No hay mas coincidencias con " + texto);
+		barraDeEstado->mensajeInfo("No hay mas coincidencias con " + texto);
 }
 
 void ControladorTxtView::inicializarItAcceso() {

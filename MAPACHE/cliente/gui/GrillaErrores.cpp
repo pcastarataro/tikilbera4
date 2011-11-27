@@ -23,7 +23,7 @@ void GrillaErrores::inicializar() {
 	Gtk::Button *btnModifError;
 	Gtk::Dialog* dialogError;
 	Gtk::TreeView* tvError;
-	Gtk::Statusbar *barraEstado;
+	BarraDeEstado* barraDeEstado;
 	Gtk::Entry* txtNroError;
 	Gtk::Entry* txtPathError;
 
@@ -34,7 +34,7 @@ void GrillaErrores::inicializar() {
 	builder->get_widget("btnEliminarError", btnEliminarError);
 	builder->get_widget("btnModifErro", btnModifError);
 	builder->get_widget("dialogError", dialogError);
-	builder->get_widget("barraEstado", barraEstado);
+	builder->get_widget_derived("barraEstado", barraDeEstado);
 
 	Glib::RefPtr < Gtk::ListStore > listError
 			= Glib::RefPtr<Gtk::ListStore>::cast_static(
@@ -42,7 +42,7 @@ void GrillaErrores::inicializar() {
 
 	controlador = new ControladorGrilla(btnAgregarError, btnEliminarError,
 			btnModifError, tvError, txtNroError, txtPathError, dialogError,
-			listError, barraEstado);
+			listError, barraDeEstado);
 }
 void GrillaErrores::agregarAGrilla(const std::string &cadena,
 		const std::string &valor) {
