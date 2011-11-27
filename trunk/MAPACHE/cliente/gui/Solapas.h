@@ -27,15 +27,12 @@
 #define SOLAPA_CONF_REPORTES 5
 #define SOLAPA_REPORTE_ERROR 6
 #define SOLAPA_REPORTE_ACCESO 7
-#define SOLAPA_AYUDA 8
 
 
 class Solapas: public Gtk::Notebook {
 private:
 	bool solapasVisibles;
-
 	Gtk::Window *ventanaPpal;
-
 	GrillaUsuarios* grillaUsuarios;
 	GrillaEstaticos* grillaEstaticos;
 	GrillaDinamicos* grillaDinamicos;
