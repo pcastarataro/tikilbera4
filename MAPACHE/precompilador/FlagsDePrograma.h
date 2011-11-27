@@ -2,9 +2,9 @@
 #define FLAGSDEPROGRAMA_H_
 
 #include "Constantes.h"
-	/**
-	 * Representa el estado de las variadas banderas que tiene el programa.
-	 */
+/**
+ * Representa el estado de las variadas banderas que tiene el programa.
+ */
 class FlagsDePrograma {
 public:
 	bool statusDelPrograma;
@@ -30,6 +30,7 @@ public:
 	/**
 	 * Destructor
 	 */
-	~FlagsDePrograma() {}
+	~FlagsDePrograma() {
+	}
 };
 #endif /* FLAGSDEPROGRAMA_H_ */
