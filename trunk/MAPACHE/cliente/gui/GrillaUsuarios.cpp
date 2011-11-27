@@ -25,7 +25,7 @@ void GrillaUsuarios::inicializar() {
 	Gtk::Entry* txtNombre;
 	Gtk::Entry* txtClave;
 	Gtk::Dialog* dialogUsuario;
-	Gtk::Statusbar *barraEstado;
+	BarraDeEstado* barraDeEstado;
 
 	builder->get_widget("tvUsuario", tvUsuario);
 	builder->get_widget("txtNombre", txtNombre);
@@ -34,7 +34,7 @@ void GrillaUsuarios::inicializar() {
 	builder->get_widget("btnEliminarUsuario", btnEliminarUsuario);
 	builder->get_widget("btnModifUsuario", btnModifUsuario);
 	builder->get_widget("dialogUsuario", dialogUsuario);
-	builder->get_widget("barraEstado", barraEstado);
+	builder->get_widget_derived("barraEstado", barraDeEstado);
 
 	Glib::RefPtr < Gtk::ListStore > listUsuario
 			= Glib::RefPtr<Gtk::ListStore>::cast_static(
@@ -42,7 +42,7 @@ void GrillaUsuarios::inicializar() {
 
 	controlador = new ControladorGrilla(btnAgregarUsuario, btnEliminarUsuario,
 			btnModifUsuario, tvUsuario, txtNombre, txtClave, dialogUsuario,
-			listUsuario, barraEstado);
+			listUsuario, barraDeEstado);
 }
 
 void GrillaUsuarios::agregarAGrilla(const std::string &cadena,
@@ -50,7 +50,7 @@ void GrillaUsuarios::agregarAGrilla(const std::string &cadena,
 	controlador->agregarAGrilla(cadena, valor);
 }
 
-void GrillaUsuarios::limpiarGrilla(){
+void GrillaUsuarios::limpiarGrilla() {
 	controlador->limpiarGrilla();
 }
 

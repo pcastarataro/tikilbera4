@@ -7,7 +7,7 @@
 
 #include "vbViewError.h"
 #include <fstream>
-//
+
 vbViewError::vbViewError(BaseObjectType* cobject,
 		const Glib::RefPtr<Gtk::Builder>& refGlade) :
 	Gtk::VBox(cobject), builder(refGlade) {
@@ -27,7 +27,7 @@ void vbViewError::inicializar() {
 	Gtk::TextView* txtReporteAccesos;
 	Gtk::Entry* txtPathLog;
 	Gtk::Table* hbBuscarEnError;
-	Gtk::Statusbar *barraEstado;
+	BarraDeEstado* barraDeEstado;
 
 	builder->get_widget("chkResaltarError", chkResaltar);
 	builder->get_widget("btnBuscarAntError", btnBuscarAnt);
@@ -36,11 +36,11 @@ void vbViewError::inicializar() {
 	builder->get_widget("txtReporteError", txtReporteAccesos);
 	builder->get_widget("txtPathLogError", txtPathLog);
 	builder->get_widget("hbBuscarEnError", hbBuscarEnError);
-	builder->get_widget("barraEstado", barraEstado);
+	builder->get_widget_derived("barraEstado", barraDeEstado);
 
 	controladorTxt = new ControladorTxtView(hbBuscarEnError, btnBuscarAnt,
 			btnBuscarSig, chkResaltar, txtBuscarEnAcceso, txtReporteAccesos,
-			txtPathLog, barraEstado);
+			txtPathLog, barraDeEstado);
 }
 
 void vbViewError::cargarReporte() {

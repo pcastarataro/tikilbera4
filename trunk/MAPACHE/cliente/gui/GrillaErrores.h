@@ -8,6 +8,7 @@
 #ifndef GRILLAERRORES_H_
 #define GRILLAERRORES_H_
 #include "ControladorGrilla.h"
+#include "BarraDeEstado.h"
 #include <gtkmm-2.4/gtkmm.h>
 
 class GrillaErrores : public Gtk::Table {

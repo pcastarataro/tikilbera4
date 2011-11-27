@@ -831,7 +831,6 @@ Edgardo Oscar Lopez</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="border_width">3</property>
-                    <property name="resize_mode">immediate</property>
                     <property name="toolbar_style">both</property>
                     <property name="show_arrow">False</property>
                     <child>
@@ -3532,6 +3531,19 @@ Dinamicos</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
+                  <object class="GtkImage" id="imagenEstado">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="stock">gtk-dialog-info</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="padding">10</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkStatusbar" id="barraEstado">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
@@ -3541,14 +3553,8 @@ Dinamicos</property>
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">0</property>
+                    <property name="position">1</property>
                   </packing>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
                 </child>
               </object>
               <packing>

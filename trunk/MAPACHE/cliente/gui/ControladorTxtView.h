@@ -8,6 +8,8 @@
 #ifndef ControladorTxtView_H_
 #define ControladorTxtView_H_
 #include <gtkmm-2.4/gtkmm.h>
+#include "BarraDeEstado.h"
+
 #define MAX_BUFFER 1024
 
 /**
@@ -27,7 +29,9 @@ private:
 	Gtk::TextView* txtTextoReporte;
 	Gtk::Entry* txtPathLog;
 	Gtk::Table* barraBusqueda;
-	Gtk::Statusbar *barraEstado;
+	//Gtk::Statusbar *barraEstado;
+	BarraDeEstado *barraDeEstado;
+
 	/* eventos */
 	bool on_text_key_press_event(GdkEventKey *Key);
 	void on_click_BuscarSig();
@@ -51,7 +55,7 @@ public:
 			Gtk::Button *btnBuscarAnterior, Gtk::Button *btnBuscarSiguiente,
 			Gtk::CheckButton* chkResaltar, Gtk::Entry *txtTextoABuscar,
 			Gtk::TextView* txtTextoReporte, Gtk::Entry* txtPathLog,
-			Gtk::Statusbar *barraEstado);
+			BarraDeEstado *barraEstado);
 	/**
 	 * Destructor
 	 */

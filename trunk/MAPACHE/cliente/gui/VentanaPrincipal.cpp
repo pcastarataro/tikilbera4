@@ -1,8 +1,4 @@
 #include "VentanaPrincipal.h"
-#include "ModelEstatico.h"
-#include "ModelDinamico.h"
-#include "ModelUsuarioclave.h"
-#include "ModelError.h"
 
 #include <sstream>
 #include <iostream>
@@ -23,17 +19,27 @@ void VentanaPrincipal::conectarEventos() {
 
 void VentanaPrincipal::cargarConfiguracion(const std::string &path) {
 	Configuracion configuracion;
-	configuracion.cargarDesde(path);
-	menuSolapas->cargarConfiguracion(configuracion);
+	bool cargoOk = configuracion.cargarDesde(path);
+	if (cargoOk) {
+		menuSolapas->cargarConfiguracion(configuracion);
+		barraDeEstado->mensajeOk("Se Cargo el archivo de configuracion");
+	} else {
+		barraDeEstado->mensajeError("Archivo de configuracion invalido");
+	}
 }
 
 void VentanaPrincipal::on_click_CargarConfiguracion() {
 	std::string filename = buscarRutaArchivo();
+	std::string cadena;
+
 	if (filename != "") {
 		cargarConfiguracion(filename);
-		barraEstado->push("Se cargo: " + filename);
-	} else
-		barraEstado->push("Carga de configuracion cancelada");
+		cadena.append("Se cargo la configuracion ");
+		cadena.append(filename);
+		barraDeEstado->mensajeOk("Se cargo: " + filename);
+	} else {
+		barraDeEstado->mensajeError("Abrir configuracion cancelada");
+	}
 }
 
 std::string VentanaPrincipal::buscarRutaArchivo() {
@@ -58,11 +64,16 @@ std::string VentanaPrincipal::buscarRutaArchivo() {
 
 void VentanaPrincipal::guardarConfiguracion(const std::string &filename) {
 	menuSolapas->guardarConfiguracion(filename);
-	//barraEstado->push("Se guardo: " + filename);
+}
+
+void VentanaPrincipal::on_click_GuardarConfiguracionPorDefecto() {
+	guardarConfiguracion(TEMP_PATH_CONFIG);
+	barraDeEstado->mensajeOk("Se guardo la configuracion por defecto");
 }
 
 void VentanaPrincipal::on_click_GuardarConfiguracion() {
-	Gtk::FileChooserDialog dialog("Guardar como...", Gtk::FILE_CHOOSER_ACTION_SAVE);
+	Gtk::FileChooserDialog dialog("Guardar como...",
+			Gtk::FILE_CHOOSER_ACTION_SAVE);
 
 	dialog.set_transient_for(*ventanaPpal);
 
@@ -80,14 +91,15 @@ void VentanaPrincipal::on_click_GuardarConfiguracion() {
 	case (Gtk::RESPONSE_OK): {
 		std::string filename = dialog.get_filename();
 		guardarConfiguracion(filename);
+		barraDeEstado->mensajeOk("Se guardo la configuracion correctamente");
 		break;
 	}
 	case (Gtk::RESPONSE_CANCEL): {
-		barraEstado->push("Carga de configuracion cancelada");
+		barraDeEstado->mensajeInfo("Guardar configuracion cancelada");
 		break;
 	}
 	default: {
-		barraEstado->push("No se pudo realizar la operacion");
+		barraDeEstado->mensajeInfo("No se guardo la configuracion");
 		break;
 	}
 	}
@@ -142,16 +154,15 @@ void VentanaPrincipal::on_click_VerAcercaDe() {
 	}
 }
 
-bool existeArchivo(const std::string& nombreArchivo){
+bool existeArchivo(const std::string& nombreArchivo) {
 	bool existe;
 	std::ifstream archivo(nombreArchivo.c_str());
 	existe = archivo.good();
-	if(existe)
+	if (existe)
 		archivo.close();
 	return existe;
 }
 
-#define TAM_LINEA 255
 void VentanaPrincipal::on_click_IniciarServidor() {
 	std::string comando = PATH_SERVIDOR;
 	FILE* fpipe;
@@ -160,7 +171,7 @@ void VentanaPrincipal::on_click_IniciarServidor() {
 	//Creo un xml temporal para iniciar el servidor.
 	guardarConfiguracion(TEMP_PATH_XML);
 
-	if(!existeArchivo(PATH_SERVIDOR))
+	if (!existeArchivo(PATH_SERVIDOR))
 		comando = buscarRutaArchivo();
 
 	if (comando != "") {
@@ -170,12 +181,13 @@ void VentanaPrincipal::on_click_IniciarServidor() {
 		comando.append("N");
 		comando.append("&");
 		if (!(fpipe = (FILE*) popen(comando.c_str(), "r"))) { // If fpipe is NULL
-			barraEstado->push("No se pudo iniciar el servidor");
+			barraDeEstado->mensajeError("No se pudo iniciar el servidor");
 		} else {
 			size_t tamanioLinea = TAM_LINEA;
-			size_t size = getline(&linea , &tamanioLinea , fpipe);
+			size_t size = getline(&linea, &tamanioLinea, fpipe);
 			linea[size - 1] = '\0';
-			barraEstado->push(linea);
+			barraDeEstado->mensajeInfo(linea);
+			//FIXME: ver salida.
 		}
 	}
 }
@@ -189,7 +201,7 @@ void VentanaPrincipal::on_click_ReiniciarServidor() {
 	//Creo un xml temporal para iniciar el servidor.
 	guardarConfiguracion(TEMP_PATH_XML);
 
-	if(!existeArchivo(PATH_SERVIDOR))
+	if (!existeArchivo(PATH_SERVIDOR))
 		comando = buscarRutaArchivo();
 
 	if (comando != "") {
@@ -199,12 +211,13 @@ void VentanaPrincipal::on_click_ReiniciarServidor() {
 		comando.append("R");
 		comando.append("&");
 		if (!(fpipe = (FILE*) popen(comando.c_str(), "r"))) { // If fpipe is NULL
-			barraEstado->push("No se pudo iniciar el servidor");
+			barraDeEstado->mensajeError("No se pudo iniciar el servidor");
 		} else {
 			size_t tamanioLinea = TAM_LINEA;
-			size_t size = getline(&linea , &tamanioLinea , fpipe);
+			size_t size = getline(&linea, &tamanioLinea, fpipe);
 			linea[size - 1] = '\0';
-			barraEstado->push(linea);
+			barraDeEstado->mensajeInfo(linea);
+			//FIXME: ver salida.
 		}
 	}
 }
@@ -218,10 +231,11 @@ void VentanaPrincipal::on_click_DetenerServidor() {
 	nroPuerto = sbtPuertoContro->get_value();
 	detenido = clienteControl.detenerServidor("127.0.0.1", nroPuerto);
 
-	if (detenido)
-		barraEstado->push("El servidor se cerro con exito");
-	else
-		barraEstado->push("Error: No se pude cerrar el servidor");
+	if (detenido) {
+		barraDeEstado->mensajeOk("El servidor se detuvo con exito");
+	} else {
+		barraDeEstado->mensajeError("No se pude detener el servidor");
+	}
 }
 
 void VentanaPrincipal::cargarBarraDeMenu() {
@@ -248,6 +262,12 @@ void VentanaPrincipal::cargarBarraDeMenu() {
 					"Guardar configuracion"),
 			sigc::mem_fun(*this,
 					&VentanaPrincipal::on_click_GuardarConfiguracion));
+
+	menuArchivo->add(
+			Gtk::Action::create("GuardarPorDefecto", Gtk::Stock::DELETE,
+					"Guardar por defecto", "Guardar por defecto"),
+			sigc::mem_fun(*this,
+					&VentanaPrincipal::on_click_GuardarConfiguracionPorDefecto));
 
 	menuArchivo->add(Gtk::Action::create("Salir", Gtk::Stock::QUIT),
 			sigc::mem_fun(*this, &VentanaPrincipal::on_click_Salir));
@@ -348,6 +368,8 @@ void VentanaPrincipal::cargarBarraDeMenu() {
 		"      <menuitem action='Abrir'/>"
 		"      <menuitem action='Guardar'/>"
 		"          <separator/>"
+		"      <menuitem action='GuardarPorDefecto'/>"
+		"          <separator/>"
 		"      <menuitem action='Salir'/>"
 		"    </menu>"
 		"    <menu action='ConfigMenu'>"
@@ -431,11 +453,14 @@ void VentanaPrincipal::cargarBarraDeHerramientas() {
 }
 
 void VentanaPrincipal::cargarWidget() {
-	builder->get_widget("barraEstado", barraEstado);
+	//builder->get_widget("barraEstado", barraEstado);
+	//builder->get_widget("imagenEstado", imagenEstado);
+
 }
 
 void VentanaPrincipal::init(int argc, char *argv[]) {
 	Gtk::Main kit(argc, argv);
+
 	// Creo la GUI a partir del .glade
 	builder = Gtk::Builder::create_from_file(PATH_INTERFACE);
 
@@ -444,14 +469,10 @@ void VentanaPrincipal::init(int argc, char *argv[]) {
 	cargarBarraDeMenu();
 	cargarWidget();
 	cargarBarraDeHerramientas();
-
-//	builder->get_widget_derived("tblUsuarios", grillaUsuarios);
-//	builder->get_widget_derived("tblEstaticos", grillaEstaticos);
-//	builder->get_widget_derived("tblDinamicos", grillaDinamicos);
-//	builder->get_widget_derived("tblErrores", grillaErrores);
+	builder->get_widget_derived("barraEstado", barraDeEstado);
 	builder->get_widget_derived("ntbOpciones", menuSolapas);
 	menuSolapas->setVentanaPpal(ventanaPpal);
-
+	cargarConfiguracion(TEMP_PATH_CONFIG);
 	kit.run(*ventanaPpal);
 }
 

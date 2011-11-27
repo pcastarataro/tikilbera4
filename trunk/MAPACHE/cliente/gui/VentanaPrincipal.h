@@ -8,14 +8,12 @@
 #include "vbViewAcceso.h"
 #include "vbViewError.h"
 #include "Solapas.h"
-//#include "GrillaUsuarios.h"
-//#include "GrillaEstaticos.h"
-//#include "GrillaDinamicos.h"
-//#include "GrillaErrores.h"
-
+#include "BarraDeEstado.h"
 #define PATH_SERVIDOR "./ServidorMapache"
 #define PATH_INTERFACE "./Interfaz/gui.glade"
 #define TEMP_PATH_XML "./config_temp.xml"
+#define TEMP_PATH_CONFIG "./configPorDefecto.xml"
+#define TAM_LINEA 255
 
 /**
  * Clase que es la ventana principal de la aplicacion
@@ -24,10 +22,6 @@ class VentanaPrincipal {
 private:
 	ClienteControl clienteControl;
 	Solapas* menuSolapas;
-//	GrillaUsuarios* grillaUsuarios;
-//	GrillaEstaticos* grillaEstaticos;
-//	GrillaDinamicos* grillaDinamicos;
-//	GrillaErrores* grillaErrores;
 
 	/* Builder */
 	Glib::RefPtr<Gtk::Builder> builder;
@@ -47,6 +41,7 @@ private:
 
 	/* Guardar configuracion */
 	void guardarConfiguracion(const std::string &filename);
+	void on_click_GuardarConfiguracionPorDefecto();
 
 	/* Eventos barra de menu. */
 	void on_click_CargarConfiguracion();
@@ -72,7 +67,10 @@ private:
 	void on_click_CambiarVistaSolapas();
 
 	/* widget barra de estado */
-	Gtk::Statusbar *barraEstado;
+	//Gtk::Statusbar *barraEstado;
+	//Gtk::Image *imagenEstado;
+	BarraDeEstado* barraDeEstado;
+
 
 	/* Toolbar */
 	Gtk::Toolbar* barraTexto;

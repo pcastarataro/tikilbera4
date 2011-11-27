@@ -12,14 +12,14 @@ ControladorGrilla::ControladorGrilla(Gtk::Button *btnAgregar,
 		Gtk::Button *btnEliminar, Gtk::Button *btnModificar,
 		Gtk::TreeView* treeview, Gtk::Entry* txtCadena, Gtk::Entry* txtValor,
 		Gtk::Dialog* dialog, Glib::RefPtr<Gtk::ListStore> listUsuario,
-		Gtk::Statusbar *barraEstado) {
+		BarraDeEstado *barraDeEstado) {
 
 	this->txtValor = txtValor;
 	this->txtCadena = txtCadena;
 	this->treeview = treeview;
 	this->dialog = dialog;
 	this->lista = listUsuario;
-	this->barraEstado = barraEstado;
+	this->barraDeEstado = barraDeEstado;
 
 	this->dialog->add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
 	this->dialog->add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
@@ -67,9 +67,9 @@ void ControladorGrilla::on_click_agregar() {
 	case (Gtk::RESPONSE_OK): {
 		if (validarDatos(txtCadena->get_text(), txtValor->get_text())) {
 			agregarAGrilla(txtCadena->get_text(), txtValor->get_text());
-			barraEstado->push("Se agregaron los datos");
+			barraDeEstado->mensajeOk("Se agregaron los datos");
 		} else {
-			barraEstado->push("Los datos ingresados son invalidos");
+			barraDeEstado->mensajeError("Los datos ingresados son invalidos");
 		}
 		break;
 	}
@@ -112,9 +112,10 @@ void ControladorGrilla::on_click_modificar() {
 				if (validarDatos(txtCadena->get_text(), txtValor->get_text())) {
 					((*iter)[model.Cadena]) = txtCadena->get_text();
 					((*iter)[model.Valor]) = txtValor->get_text();
-					barraEstado->push("Se modificaron los datos");
+					barraDeEstado->mensajeOk("Se modificaron los datos");
 				} else {
-					barraEstado->push("Los datos ingresados son invalidos");
+					barraDeEstado->mensajeOk(
+							"Los datos ingresados son invalidos");
 				}
 				break;
 			}
@@ -128,7 +129,10 @@ void ControladorGrilla::on_click_modificar() {
 			txtCadena->set_text("");
 			txtValor->set_text("");
 			dialog->hide();
+		} else {
+			barraDeEstado->mensajeInfo("Seleccionar una fila para eliminar");
 		}
+
 	}
 }
 
@@ -146,12 +150,13 @@ void ControladorGrilla::on_click_eliminar() {
 		if (iter) {
 			cadena = ((*iter)[model.Cadena]);
 			lista->erase(iter);
-			barraEstado->push("Se elimino: " + cadena);
+			barraDeEstado->mensajeOk("Se elimino: " + cadena);
 		} else
-			barraEstado->push("Seleccionar una fila para eliminar");
+			barraDeEstado->mensajeInfo("Seleccionar una fila para eliminar");
 	}
 }
 
 void ControladorGrilla::limpiarGrilla() {
 	lista->clear();
+	barraDeEstado->mensajeInfo("Se limpio la grilla");
 }

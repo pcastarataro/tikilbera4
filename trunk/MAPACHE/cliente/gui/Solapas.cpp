@@ -6,13 +6,8 @@
  */
 #include <iostream>
 #include <fstream>
-
 #include "Solapas.h"
-#include "ModelEstatico.h"
-#include "ModelDinamico.h"
-#include "ModelUsuarioclave.h"
-#include "ModelError.h"
-//#include "BoxTextView.h"
+#include "ModelData.h"
 
 Solapas::Solapas(BaseObjectType* cobject,
 		const Glib::RefPtr<Gtk::Builder>& refGlade) :
@@ -22,15 +17,7 @@ Solapas::Solapas(BaseObjectType* cobject,
 	this->set_show_tabs(solapasVisibles);
 	cargarWidgets();
 	conectarEventos();
-	//inicializarDialogos();
 	cargarBarraDeHerramientasTexto();
-
-	builder->get_widget_derived("vbReporteAcceso", viewTextAcceso);
-	builder->get_widget_derived("vbReporteError", viewTextError);
-	builder->get_widget_derived("tblUsuarios", grillaUsuarios);
-	builder->get_widget_derived("tblEstaticos", grillaEstaticos);
-	builder->get_widget_derived("tblDinamicos", grillaDinamicos);
-	builder->get_widget_derived("tblErrores", grillaErrores);
 
 	setModoTexto(false);
 }
@@ -103,11 +90,11 @@ void Solapas::selectorGuardar(Gtk::Entry* txtPath,
 		break;
 	}
 	case (Gtk::RESPONSE_CANCEL): {
-		barraEstado->push("seleccion de archivo cancelada");
+		barraDeEstado->mensajeInfo("seleccion de archivo cancelada");
 		break;
 	}
 	default: {
-		barraEstado->push("No se pudo realizar la operacion");
+		barraDeEstado->mensajeInfo("No se pudo realizar la operacion");
 		break;
 	}
 	}
@@ -122,21 +109,23 @@ void Solapas::on_click_btnExaminarLogAccesos() {
 void Solapas::on_click_btnExaminarLogErrores() {
 	Gtk::Entry* txtPathLogError;
 	builder->get_widget("txtPathLogError", txtPathLogError);
-
 	selectorGuardar(txtPathLogError, "Errores.log");
 }
 
 void Solapas::on_click_btnExaminar() {
 	Gtk::Entry* txtPathError;
-	Gtk::FileChooserDialog dialog("Seleccionar archivo", Gtk::FILE_CHOOSER_ACTION_OPEN);
+	Gtk::FileChooserDialog dialog("Seleccionar archivo",
+			Gtk::FILE_CHOOSER_ACTION_OPEN);
 	builder->get_widget("txtPathError", txtPathError);
 	dialog.set_transient_for(*ventanaPpal);
 
 	// Agrego los botones para la respuesta:
 	dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
 	dialog.add_button(Gtk::Stock::OPEN, Gtk::RESPONSE_OK);
+
 	// Muestro el dialogo y espero hasta que elija una opcion.
 	int result = dialog.run();
+
 	// Reviso el resultado.
 	switch (result) {
 	case (Gtk::RESPONSE_OK): {
@@ -145,7 +134,7 @@ void Solapas::on_click_btnExaminar() {
 		break;
 	}
 	case (Gtk::RESPONSE_CANCEL): {
-		barraEstado->push("Carga de configuracion cancelada");
+		barraDeEstado->mensajeInfo("Carga de configuracion cancelada");
 		break;
 	}
 	default: {
@@ -154,13 +143,12 @@ void Solapas::on_click_btnExaminar() {
 	}
 }
 
-/**/
 void Solapas::on_click_btnExaminarRaiz() {
 	Gtk::Entry* txtRaiz;
 	Gtk::FileChooserDialog dialog("Seleccionar archivo",
 			Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
 	builder->get_widget("txtRaiz", txtRaiz);
-	
+
 	dialog.set_transient_for(*ventanaPpal);
 
 	// Agrego los botones para la respuesta:
@@ -187,7 +175,13 @@ void Solapas::on_click_btnExaminarRaiz() {
 }
 
 void Solapas::cargarWidgets() {
-	builder->get_widget("barraEstado", barraEstado);
+	builder->get_widget_derived("vbReporteAcceso", viewTextAcceso);
+	builder->get_widget_derived("vbReporteError", viewTextError);
+	builder->get_widget_derived("tblUsuarios", grillaUsuarios);
+	builder->get_widget_derived("tblEstaticos", grillaEstaticos);
+	builder->get_widget_derived("tblDinamicos", grillaDinamicos);
+	builder->get_widget_derived("tblErrores", grillaErrores);
+	builder->get_widget_derived("barraEstado", barraDeEstado);
 }
 
 void Solapas::setConfiguracionBasica(const ConfiguracionBasica& confBasica) {
@@ -214,7 +208,6 @@ void Solapas::setConfiguracionBasica(const ConfiguracionBasica& confBasica) {
 	sbtMaxConCliente->set_value(confBasica.getMaximoConexionesCliente());
 	sbtTimeOut->set_value(confBasica.getTimeOut());
 	txtRaiz->set_text(confBasica.getRaiz());
-
 	cbtProtegido->set_active(confBasica.getProteccion());
 
 }
@@ -222,7 +215,7 @@ void Solapas::setConfiguracionBasica(const ConfiguracionBasica& confBasica) {
 void Solapas::setConfiguracionEstatico(std::list<TipoEstatico> configuracion) {
 	std::list<TipoEstatico>::iterator it = configuracion.begin();
 
-grillaEstaticos->limpiarGrilla();
+	grillaEstaticos->limpiarGrilla();
 	while (it != configuracion.end()) {
 		grillaEstaticos->agregarAGrilla(it->getExtension(), it->getContenido());
 		it++;
@@ -316,14 +309,15 @@ void Solapas::agregarConfiguracionEstatico(Configuracion& configuracion) {
 			Gtk::ListStore>::cast_static(builder->get_object("liststore1"));
 
 	typedef Gtk::TreeModel::Children type_children; //minimise code length.
-	ModelEstatico modelEstatico;
+	//ModelEstatico modelEstatico;
+	ModelData modelData;
 
 	type_children children = listTipoEstatico->children();
 	for (type_children::iterator iter = children.begin(); iter
 			!= children.end(); ++iter) {
 		Gtk::TreeModel::Row row = *iter;
-		extension = (*iter)[modelEstatico.Extension];
-		contenido = (*iter)[modelEstatico.Contenido];
+		extension = (*iter)[modelData.Cadena];
+		contenido = (*iter)[modelData.Valor];
 		confEstatico = new TipoEstatico();
 		confEstatico->setExtension(extension);
 		confEstatico->setContenido(contenido);
@@ -340,14 +334,15 @@ void Solapas::agregarConfiguracionDinamico(Configuracion& configuracion) {
 			Gtk::ListStore>::cast_static(builder->get_object("liststore2"));
 
 	typedef Gtk::TreeModel::Children type_children; //minimise code length.
-	ModelDinamico modelDinamico;
+	//ModelDinamico modelDinamico;
+	ModelData modelData;
 
 	type_children children = listTipoDinamico->children();
 	for (type_children::iterator iter = children.begin(); iter
 			!= children.end(); ++iter) {
 		Gtk::TreeModel::Row row = *iter;
-		extension = (*iter)[modelDinamico.Extension];
-		comando = (*iter)[modelDinamico.Comando];
+		extension = (*iter)[modelData.Cadena];
+		comando = (*iter)[modelData.Valor];
 		confDinamico = new TipoDinamico();
 		confDinamico->setExtension(extension);
 		confDinamico->setComando(comando);
@@ -365,14 +360,15 @@ void Solapas::agregarConfiguracionUsuario(Configuracion& configuracion) {
 					builder->get_object("liststore4"));
 
 	typedef Gtk::TreeModel::Children type_children; //minimise code length.
-	ModelUsuarioClave modelUsuarioClave;
+	//ModelUsuarioClave modelUsuarioClave;
+	ModelData modelData;
 
 	type_children children = listUsuarios->children();
 	for (type_children::iterator iter = children.begin(); iter
 			!= children.end(); ++iter) {
 		Gtk::TreeModel::Row row = *iter;
-		nombre = (*iter)[modelUsuarioClave.Usuario];
-		clave = (*iter)[modelUsuarioClave.Clave];
+		nombre = (*iter)[modelData.Cadena];
+		clave = (*iter)[modelData.Valor];
 		confUsuario = new Usuario();
 		confUsuario->setNombre(nombre);
 		confUsuario->setClave(clave);
@@ -390,14 +386,15 @@ void Solapas::agregarConfiguracionErrores(Configuracion& configuracion) {
 					builder->get_object("liststore3"));
 
 	typedef Gtk::TreeModel::Children type_children; //minimise code length.
-	ModelError modelError;
+	//ModelError modelError;
+	ModelData modelData;
 
 	type_children children = listUsuarios->children();
 	for (type_children::iterator iter = children.begin(); iter
 			!= children.end(); ++iter) {
 		Gtk::TreeModel::Row row = *iter;
-		nroError = (*iter)[modelError.NroError];
-		path = (*iter)[modelError.Path];
+		nroError = (*iter)[modelData.Cadena];
+		path = (*iter)[modelData.Valor];
 		nroErrorEntero = stringToInt(nroError);
 		TipoError* tipoError = new TipoError();
 		tipoError->setNroError(nroErrorEntero);
@@ -455,12 +452,9 @@ void Solapas::on_click_IrAlFinal() {
 	int opcion = this->get_current_page();
 	if (opcion == 6) {
 		viewTextError->irAlfinal();
-		barraEstado->push("Ir al final en Errores");
 	} else if (opcion == 7) {
 		viewTextAcceso->irAlfinal();
-		barraEstado->push("Ir al final en Accessos");
-	} else
-		barraEstado->push("No entiendo!");
+	}
 }
 
 void Solapas::on_click_CerrarBusquedaError() {
@@ -475,24 +469,20 @@ void Solapas::on_click_Buscar() {
 	int opcion = this->get_current_page();
 	if (opcion == 6) {
 		viewTextError->mostrarBarra();
-		barraEstado->push("Mostrar barra de buqueda Errores");
 	} else if (opcion == 7) {
 		viewTextAcceso->mostrarBarra();
-		barraEstado->push("Mostrar barra de buqueda en Accessos");
-	} else
-		barraEstado->push("No entiendo!");
+	}
 }
 
 void Solapas::on_click_Actualizar() {
 	int opcion = this->get_current_page();
 	if (opcion == 6) {
 		viewTextError->cargarReporte();
-		barraEstado->push("Se actualizo el reporte de error");
+		barraDeEstado->mensajeInfo("Se actualizo el reporte de error");
 	} else if (opcion == 7) {
 		viewTextAcceso->cargarReporte();
-		barraEstado->push("Se actualizo el reporte de accesos");
-	} else
-		barraEstado->push("No entiendo!");
+		barraDeEstado->mensajeInfo("Se actualizo el reporte de accesos");
+	}
 }
 
 void Solapas::cargarBarraDeHerramientasTexto() {

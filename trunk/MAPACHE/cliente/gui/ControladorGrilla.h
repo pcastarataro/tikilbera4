@@ -8,6 +8,7 @@
 #ifndef CONTROLADORGRILLA_H_
 #define CONTROLADORGRILLA_H_
 #include <gtkmm-2.4/gtkmm.h>
+#include "BarraDeEstado.h"
 
 class ControladorGrilla {
 private:
@@ -15,7 +16,8 @@ private:
 	Gtk::Entry* txtCadena;
 	Gtk::Entry* txtValor;
 	Gtk::Dialog* dialog;
-	Gtk::Statusbar *barraEstado;
+	BarraDeEstado* barraDeEstado;
+
 	Glib::RefPtr<Gtk::ListStore> lista;
 
 	void on_click_agregar();
@@ -28,12 +30,12 @@ public:
 			Gtk::Button *btnModificar, Gtk::TreeView* treeview,
 			Gtk::Entry* txtCadena, Gtk::Entry* txtValor, Gtk::Dialog* dialog,
 			Glib::RefPtr<Gtk::ListStore> listUsuario,
-			Gtk::Statusbar *barraEstado);
+			BarraDeEstado *barraDeEstado);
 
 	virtual ~ControladorGrilla();
 	void limpiarGrilla();
-	void agregarAGrilla(const std::string &cadena, const std::string &valor);
 
+	void agregarAGrilla(const std::string &cadena, const std::string &valor);
 
 };
 
