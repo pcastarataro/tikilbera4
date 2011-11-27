@@ -22,9 +22,11 @@ void printHeader() {
 	cout << "<HTML>\n";
 	cout << "<HEAD><TITLE>Precompilador c/c++</TITLE>";
 	cout << "<script src=\"src/prettify.js\" type=\"text/javascript\"></script>";
-	cout << "    <link href=\"src/prettify.css\" type=\"text/css\" rel=\"stylesheet\" />";
+	cout << "    <link href=\"src/prettify.css\"";
+	cout << " type=\"text/css\" rel=\"stylesheet\" />";
 	cout << "</HEAD>\n";
-	cout << "<BODY onload=\"prettyPrint()\" BGCOLOR=\"#AAAFFF\"TEXT=\"#000000\">\n";
+	cout << "<BODY onload=\"prettyPrint()\"";
+	cout << " BGCOLOR=\"#AAAFFF\"TEXT=\"#000000\">\n";
 	cout << "<pre class=\"prettyprint\">";
 }
 
@@ -82,9 +84,8 @@ int main(int argc, char** argv) {
 			}
 
 		} else {
-			cout
-					<< "El tamaño de los archivos supera el maximo permitido por la aplicacion."
-					<< endl;
+			cout << "El tamaño de los archivos supera ";
+			cout << "el maximo permitido por la aplicacion." << endl;
 			cout << "Tamaño max: " << TAM_MAX_POST << endl;
 			cout << "Tamaño de los archivos: " << content_length;
 		}
