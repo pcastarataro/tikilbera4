@@ -38,7 +38,8 @@ public:
 		for (a = 0; a < CANT_MAX_DEFINES; a++) 
 			setDefineYSuValor(aux, sizeAux, aux, sizeAux, a);
 	}
-	/**
+	/**./Precompilador.cpp:20:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+	 *
 	 * Devuelve un puntero a una cadena con el nombre del define.
 	 * @param indice Posicion del nombre del define dentro de la matriz.
 	 * @return char*
@@ -88,8 +89,7 @@ public:
 			if (strncmp(buscado, getDefine(k), size) == 0) {
 				encontrado = true;
 				salir = true;
-			}
-			else if (k >= indexMatrizDefines)
+			} else if (k >= indexMatrizDefines)
 				salir = true;
 		}
 		return encontrado;
