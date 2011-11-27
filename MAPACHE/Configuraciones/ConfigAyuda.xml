@@ -14,8 +14,8 @@
         <tipoDinamico extension="php" comando="parserPHP.cgi" />
     </tiposDinamicos>
     <errores>
-        <error codigo="404" path="./ayuda/errores/error404.html" />
-        <error codigo="501" path="./ayuda/errores/error501.html" />
+        <error codigo="404" path="./Ayuda/errores/404.html" />
+        <error codigo="503" path="./Ayuda/errores/503.html" />
     </errores>
     <usuarios>
         <usuario nombre="admin" pass="admin" />
