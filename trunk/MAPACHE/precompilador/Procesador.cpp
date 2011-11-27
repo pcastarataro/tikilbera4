@@ -27,20 +27,20 @@ void Procesador::procesarIfdefOIfndef(char* linea, int codInstr) {
 	 *  al ultimo parametro de getLargoCadena
 	 */
 	char vectorDeTopes[3] = { BLANCO, BARRA_N, BARRA_R };
-	int largoDelDefine = util.getLargoCadena(ptrAParametro, vectorDeTopes , 3);
+	int largoDelDefine = util.getLargoCadena(ptrAParametro, vectorDeTopes, 3);
 	char comp;
 
 	if (largoDelDefine == 0)
 		flags.statusDelPrograma = ERROR_PROGRAMA;
 	else {
-		bool defineEncontrado = lista.existeEsteDefine(ptrAParametro , 
+		bool defineEncontrado = lista.existeEsteDefine(ptrAParametro,
 				largoDelDefine);
 
 		if (defineEncontrado) {
 			if (codInstr == COD_INSTR_IFDEF) {
 				comp = COMPILAR;  //  esta definido y es ifdef
 			} else
-				comp = NO_COMPILAR; //  esta definido y es ifndef
+				comp = NO_COMPILAR;  // esta definido y es ifndef
 		} else if (codInstr == COD_INSTR_IFDEF) {
 			comp = NO_COMPILAR;  //  no esta definido y es ifdef
 		} else
@@ -58,8 +58,10 @@ void Procesador::procesarEndif(char* linea) {
 	ifDefAnidados.desanidar();
 }
 
-/*  levanta los parametros de la instruccion define
- *  tanto en su forma de 2 parametros, como en su forma de unico parametro*/
+/**
+ * levanta los parametros de la instruccion define
+ *  tanto en su forma de 2 parametros, como en su forma de unico parametro
+ */
 void Procesador::procesarDefine(char* linea) {
 	char* ptrA1erParametro = linea + 8;
 	lista.incrementarIndex();
@@ -80,7 +82,8 @@ void Procesador::procesarDefine(char* linea) {
 		char* ptrA2doParametro = NULL;
 		int largoValorDefine;
 
-		/* Caso de 2 parametros:
+		/**
+		 *  Caso de 2 parametros:
 		 *
 		 * 012345678901234567
 		 * #define AUTOR "yo"
@@ -91,7 +94,7 @@ void Procesador::procesarDefine(char* linea) {
 		 * En el 2do caso, en la pos 14.
 		 * Saber esto tambien me da la posibilidad de saber que caracter
 		 * buscar para terminar el parseo (lo que llamo "charDelimitador")
-		 * */
+		 */
 		if ((*separador == BARRA_N) || (*separador == BARRA_R)) {
 			char* nulo = (char*) NULO;
 			ptrA2doParametro = nulo;
@@ -114,7 +117,8 @@ void Procesador::procesarDefine(char* linea) {
 		flags.statusDelPrograma = ERROR_PROGRAMA;
 }
 
-/* establece, segun el codInstr (que identifica de que instr se trata),
+/**
+ * Establece, segun el codInstr (que identifica de que instr se trata),
  * el separador correcto para la instruccion.
  * Defino "separador" como el caracter inmediatamente posterior
  * a la instruccion.
@@ -145,7 +149,8 @@ bool Procesador::esSeparadorValidoParaLaInstruccion(char* instr, char sep) {
 	return retorno;
 }
 
-/* se le llama "instruccion" a la cadena inmediatamente
+/**
+ * Se le llama "instruccion" a la cadena inmediatamente
  * posterior al caracter #
  * Se verifica que tenga un separador valido.
  * De no tenerlo, se establece que se ha producido un error de parseo
@@ -159,8 +164,8 @@ bool Procesador::esSeparadorValidoParaLaInstruccion(char* instr, char sep) {
  * - El codigo sirve para tener una forma de identificar a que funcion debo invocar
  * que sea menos costosa que realizar nuevamente una comparacion entre cadenas
  * (ver procesarInstruccion(.....))
- * */
-bool Procesador::parseInstruccion(char* linea, 
+ */
+bool Procesador::parseInstruccion(char* linea,
 		char* posibleInst, int codInstr) {
 	char* instruccion = linea + 1;
 	int largoPosibleInstr = strlen(posibleInst);
@@ -177,9 +182,11 @@ bool Procesador::parseInstruccion(char* linea,
 	return retorno;
 }
 
-/*  no valia la pena volver a comparar cadenas en este caso,
+/**
+ *  No valia la pena volver a comparar cadenas en este caso,
  *  y por eso se agrego un parametro int para determinar
- *  de que funcion se trata*/
+ *  de que funcion se trata
+ */
 void Procesador::procesarInstruccion(char* linea, int codInstr) {
 	if (codInstr == COD_INSTR_DEFINE)
 		procesarDefine(linea);
@@ -195,32 +202,32 @@ void Procesador::procesarInstruccion(char* linea, int codInstr) {
 		procesarEndif(linea);
 }
 
-/*	Si se encuentra un include de libreria estandar, se lo ignora.
+/**
+ * 	Si se encuentra un include de libreria estandar, se lo ignora.
  *  En vez de hacer que el programa termine con un error por no hallar
- *  el archivo, trato a la linea como si no existiera.*/
+ *  el archivo, trato a la linea como si no existiera.
+ */
 void Procesador::procesarInclude(char* linea) {
 	char* aux = linea + 9;
 
 	if (*aux != MENOR) {
 		char separador1 = COMILLAS;
-		// char separador2 = '>';
 		char nombreArchivo[LONG_MAX_NOMBRE_DE_ARCHIVO];
 		char* ptrNombreArchivo = &nombreArchivo[0];
 		char* ptrAParametro = linea + 10;
 		char vectorDeTopes[1] = { separador1 };
 		int largoDelNombre = util.getLargoCadena(ptrAParametro, vectorDeTopes,
 				1);
-
 		strncpy(ptrNombreArchivo, ptrAParametro, largoDelNombre);
 		ptrNombreArchivo[largoDelNombre] = (int) NULL;
 		procesoArchivoEntrada(ptrNombreArchivo);
 	}
 }
 
-/*
+/**
  * Se consigue mejor desempe�o ubicando las instrucciones mas comunes
  * al inicio de los vectores.
- * */
+ */
 char* Procesador::procesarDirectivaCompilador(char* linea) {
 	int contador = 0;
 	bool esLaInstrCorrecta = false;
@@ -241,7 +248,7 @@ char* Procesador::procesarDirectivaCompilador(char* linea) {
 	return linea;
 }
 
-/*
+/**
  * abre el archivo.
  * si lo pudo abrir,  continua. Sino,  error.
  * lee el archivo.
@@ -249,7 +256,7 @@ char* Procesador::procesarDirectivaCompilador(char* linea) {
  * proceso la linea.
  * se lee otra linea.
  * se cierra el archivo.
- * */
+ */
 void Procesador::procesoArchivoEntrada(const char* nombreArchivo) {
 	FILE* ptrFile = fopen(nombreArchivo, "r");
 	char lineaLeida[LONGITUD_LINEA_LEIDA];
@@ -281,22 +288,23 @@ void Procesador::procesoArchivoEntrada(const char* nombreArchivo) {
 		fclose(ptrFile);
 }
 
-/*
+/**
  * si el ultimo ifdef/ifndef establece que hay que compilar, se procede a:
  * -quitar comentarios (se realiza en un ciclo while).
  * -procesar directivas de compilador o buscar reemplazos por define.
  * si el ultimo ifdef/ifndef establece que no hay que compilar,
  * entonces se busca la directiva else o endif.
- * */
+ */
 void Procesador::procesoLinea(char* linea) {
 	if (ifDefAnidados.compilar()) {
 		flags.todaviaTieneComentarios = true;
 		while (flags.todaviaTieneComentarios)
 			linea = precompilador.quitarComentarios(linea, flags);
 
-		/*  linea puede salir totalmente "vacia" de quitarComentarios
+		/**
+		 *  linea puede salir totalmente "vacia" de quitarComentarios
 		 *  si ese fuera el caso, no se la procesa
-		 *  */
+		 */
 		if (flags.lineaNoEstaTotalmenteComentada())
 			procesarDirectivaOBuscarReemplazos(linea);
 	} else {
@@ -305,8 +313,9 @@ void Procesador::procesoLinea(char* linea) {
 	}
 }
 
-/* Luego del proceso que corresponda, se imprime la salida.
- * */
+/**
+ *  Luego del proceso que corresponda, se imprime la salida.
+ */
 void Procesador::procesarDirectivaOBuscarReemplazos(char* linea) {
 	char* salida;
 
@@ -318,7 +327,9 @@ void Procesador::procesarDirectivaOBuscarReemplazos(char* linea) {
 		fflush(stdout);
 	}
 }
-/*  si la linea comienza con #, lo interpreto como una directiva */
+/**
+ *   si la linea comienza con #, lo interpreto como una directiva
+ */
 bool Procesador::esDirectivaDeCompilador(char* linea) {
 	return (linea[0] == NUMERAL);
 }

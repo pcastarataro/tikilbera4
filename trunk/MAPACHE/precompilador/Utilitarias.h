@@ -8,20 +8,21 @@
 
 using std::string;
 
-	/* 
-	 * Conjunto de funciones auxiliares de manejo de cadenas y chars
-	 * */
+/**
+ * Conjunto de funciones auxiliares de manejo de cadenas y chars
+ */
 class Utilitarias {
-
 public:
 	/**
 	 * Constructor
 	 */
-	Utilitarias(){}
+	Utilitarias() {
+	}
 	/**
 	 * Destructor
 	 */
-	~Utilitarias() {}
+	~Utilitarias() {
+	}
 	/**
 	 * Copia el contenido de la segunda cadena en la primera y agrega un caracter nulo al final.
 	 * @param char1 Cadena de caracteres.
@@ -46,19 +47,19 @@ public:
 		string cadenaStr(cadena);
 		size_t longMenor = 10000000;
 		size_t longAux = -1;
-		
-		while(contador < sizeVec) {
+
+		while (contador < sizeVec) {
 			longAux = cadenaStr.find(vectorDeTopes[contador], 0);
-			
-			if (longAux < longMenor && longAux != cadenaStr.npos) 
+
+			if (longAux < longMenor && longAux != cadenaStr.npos)
 				longMenor = longAux;
-			
+
 			contador++;
 		}
-	
+
 		return longMenor;
 	}
-	
+
 	/**
 	 * Determina si la cadena de caracteres puede ser interpretada como un numero.
 	 * @param c Cadena de caracteres.
@@ -67,15 +68,15 @@ public:
 	bool esNumero(char* c) {
 		int integer = atoi(c);
 		bool retorno = false;
-	
+
 		if (integer == 0) {
-			if (*c != '0') retorno = false;
-			else retorno = true;
-		}
-		else retorno = true;
+			if (*c != '0')
+				retorno = false;
+			else
+				retorno = true;
+		} else
+			retorno = true;
 		return retorno;
 	}
-
 };
-
 #endif /* UTILITARIAS_H_ */

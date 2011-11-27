@@ -26,12 +26,14 @@ private:
 	 * @param flags Pasa banderas relevantes para el funcionamiento del algoritmo.
 	 * @return void
 	 */
-	void buscarCierreDeComentario(char* lineaAux, char* linea, FlagsDePrograma& flags);
+	void buscarCierreDeComentario(char* lineaAux, char* linea,
+			FlagsDePrograma& flags);
 public:
 	/**
 	 * Constructor
-	 */	
-	Precompilador() {}
+	 */
+	Precompilador() {
+	}
 	/**
 	 * Busca define`s en la linea, y efectua reemplazos si halla coincidencias.
 	 * @param linea Cadena de caracteres sobre la que se buscaran posibles reemplazos.
@@ -49,6 +51,7 @@ public:
 	/**
 	 * Destructor
 	 */
-	~Precompilador() {}
+	~Precompilador() {
+	}
 };
 #endif /* PRECOMPILADOR_H_ */

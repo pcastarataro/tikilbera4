@@ -5,9 +5,9 @@
 #include <list>
 
 using std::list;
-  /*  Listado de los caracteres separadores para un define
-   *  que el programa considera validos.
-   */
+/*  Listado de los caracteres separadores para un define
+ *  que el programa considera validos.
+ */
 class SeparadoresValidos {
 private:
 	list<char> listado;
@@ -16,7 +16,7 @@ public:
 	/**
 	 * Constructor
 	 */
-	SeparadoresValidos(){
+	SeparadoresValidos() {
 		listado.push_back('/');
 		listado.push_back('*');
 		listado.push_back('+');
@@ -50,18 +50,21 @@ public:
 	 */
 	bool esSeparadorValido(char car) {
 		bool encontrado = false;
-		list<char>::iterator it = listado.begin(); 
-	
-		while(it != listado.end() && !encontrado) {
-			if (*it == car) encontrado = true;
-			else it++;
+		list<char>::iterator it = listado.begin();
+
+		while (it != listado.end() && !encontrado) {
+			if (*it == car)
+				encontrado = true;
+			else
+				it++;
 		}
-	
+
 		return encontrado;
 	}
 	/**
 	 * Destructor
 	 */
-	~SeparadoresValidos() {}
+	~SeparadoresValidos() {
+	}
 };
 #endif /* SEPARADORESVALIDOS_H_ */
