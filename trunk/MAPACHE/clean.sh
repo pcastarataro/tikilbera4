@@ -20,7 +20,7 @@ then
 rm -r -f arch-temp-cgi
 fi
 
-if [ -d "build/" ]
+if [ -d "Documentacion/Doxy/" ]
 then
 	echo "Borrando documentacion..."
 	rm -r -f Documentacion/Doxy/
