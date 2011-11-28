@@ -111,7 +111,6 @@ public:
 	 * @return void
 	 */
 	void procesoArchivoEntrada(const char* nombreArchivo);
-	// {cout << "procesoArchivoEntrada!!!!!" << endl;}
 	/**
 	 * Destructor
 	 */

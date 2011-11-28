@@ -66,7 +66,7 @@ private:
 	 */
 	void analizarLinea(char* cadena);
 	/**
-	 * Si es la 1era vez que se entra a esta funcion, se parsea la marca de fin de archivo actual.
+	 * Se parsea la marca de fin de archivo actual y la marca de fin de post.
 	 * Siempre parsea el nombre del archivo actual, y crea un archivo con ese nombre.
 	 * @return void
 	 */	
