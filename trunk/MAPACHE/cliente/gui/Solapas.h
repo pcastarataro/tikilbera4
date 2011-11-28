@@ -42,8 +42,8 @@ private:
 	BarraDeEstado* barraDeEstado;
 
 	/**/
-	vbVistaAcceso *viewTextAcceso;
-	vbVistaError *viewTextError;
+	vbVistaAcceso *vistaTextAcceso;
+	vbVistaError *vistaTextError;
 
 	void on_click_btnExaminar();
 	void on_click_btnExaminarRaiz();

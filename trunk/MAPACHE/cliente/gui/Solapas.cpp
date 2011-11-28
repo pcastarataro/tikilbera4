@@ -171,8 +171,8 @@ void Solapas::on_click_btnExaminarRaiz() {
 }
 
 void Solapas::cargarWidgets() {
-	builder->get_widget_derived("vbReporteAcceso", viewTextAcceso);
-	builder->get_widget_derived("vbReporteError", viewTextError);
+	builder->get_widget_derived("vbReporteAcceso", vistaTextAcceso);
+	builder->get_widget_derived("vbReporteError", vistaTextError);
 	builder->get_widget_derived("tblUsuarios", grillaUsuarios);
 	builder->get_widget_derived("tblEstaticos", grillaEstaticos);
 	builder->get_widget_derived("tblDinamicos", grillaDinamicos);
@@ -426,36 +426,36 @@ void Solapas::setModoTexto(bool estado) {
 void Solapas::on_click_IrAlFinal() {
 	int opcion = this->get_current_page();
 	if (opcion == 6) {
-		viewTextError->irAlfinal();
+		vistaTextError->irAlfinal();
 	} else if (opcion == 7) {
-		viewTextAcceso->irAlfinal();
+		vistaTextAcceso->irAlfinal();
 	}
 }
 
 void Solapas::on_click_CerrarBusquedaError() {
-	viewTextError->ocultarBarra();
+	vistaTextError->ocultarBarra();
 }
 
 void Solapas::on_click_CerrarBusquedaAcceso() {
-	viewTextAcceso->ocultarBarra();
+	vistaTextAcceso->ocultarBarra();
 }
 
 void Solapas::on_click_Buscar() {
 	int opcion = this->get_current_page();
 	if (opcion == 6) {
-		viewTextError->mostrarBarra();
+		vistaTextError->mostrarBarra();
 	} else if (opcion == 7) {
-		viewTextAcceso->mostrarBarra();
+		vistaTextAcceso->mostrarBarra();
 	}
 }
 
 void Solapas::on_click_Actualizar() {
 	int opcion = this->get_current_page();
 	if (opcion == 6) {
-		viewTextError->cargarReporte();
+		vistaTextError->cargarReporte();
 		barraDeEstado->mensajeInfo("Se actualizo el reporte de error");
 	} else if (opcion == 7) {
-		viewTextAcceso->cargarReporte();
+		vistaTextAcceso->cargarReporte();
 		barraDeEstado->mensajeInfo("Se actualizo el reporte de accesos");
 	}
 }
@@ -499,11 +499,11 @@ void Solapas::cargarReporte(int numeroReporte) {
 	std::ifstream archivoError;
 	switch (numeroReporte) {
 	case SOLAPA_REPORTE_ERROR:
-		viewTextError->cargarReporte();
+		vistaTextError->cargarReporte();
 		setModoTexto(true);
 		break;
 	case SOLAPA_REPORTE_ACCESO:
-		viewTextAcceso->cargarReporte();
+		vistaTextAcceso->cargarReporte();
 		setModoTexto(true);
 		break;
 	default:
