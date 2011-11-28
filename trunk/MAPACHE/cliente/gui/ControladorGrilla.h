@@ -32,7 +32,6 @@ public:
 
 	virtual ~ControladorGrilla();
 	void limpiarGrilla();
-
 	void agregarAGrilla(const std::string &cadena, const std::string &valor);
 };
 
