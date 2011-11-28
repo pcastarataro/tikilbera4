@@ -5,8 +5,6 @@
 #include "TipoEstatico.h"
 #include "TipoDinamico.h"
 #include "ClienteControl.h"
-#include "vbViewAcceso.h"
-#include "vbViewError.h"
 #include "Solapas.h"
 #include "BarraDeEstado.h"
 
