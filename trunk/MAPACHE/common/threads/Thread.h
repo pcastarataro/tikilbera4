@@ -26,7 +26,7 @@ private:
 	bool vida;
 protected:
 	virtual void run() = 0;
-public:
+
 	/**
 	 * Constructor
 	 */
@@ -36,7 +36,7 @@ public:
 	 * Destructor
 	 */
 	virtual ~Thread();
-
+public:
 	/**
 	 * Empieza a correr el hilo
 	 */
