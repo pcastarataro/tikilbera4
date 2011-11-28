@@ -1,24 +1,24 @@
 /*
- * vbViewAcceso.cpp
+ * vbVistaAcceso.cpp
  *
  *  Created on: 07/11/2011
  *      Author: edgardo
  */
 
-#include "vbViewAcceso.h"
+#include "vbVistaAcceso.h"
 #include <fstream>
 
-vbViewAcceso::vbViewAcceso(BaseObjectType* cobject,
+vbVistaAcceso::vbVistaAcceso(BaseObjectType* cobject,
 		const Glib::RefPtr<Gtk::Builder>& refGlade) :
 	Gtk::VBox(cobject), builder(refGlade) {
 	inicializar();
 }
 
-vbViewAcceso::~vbViewAcceso() {
+vbVistaAcceso::~vbVistaAcceso() {
 	delete (controladorTxt);
 }
 
-void vbViewAcceso::inicializar() {
+void vbVistaAcceso::inicializar() {
 	Gtk::Button *btnBuscarAnt;
 	Gtk::Button *btnBuscarSig;
 	Gtk::CheckButton* chkResaltar;
@@ -42,18 +42,18 @@ void vbViewAcceso::inicializar() {
 			txtPathLog, barraDeEstado);
 }
 
-void vbViewAcceso::cargarReporte() {
+void vbVistaAcceso::cargarReporte() {
 	controladorTxt->cargarReporte();
 }
 
-void vbViewAcceso::mostrarBarra() {
+void vbVistaAcceso::mostrarBarra() {
 	controladorTxt->mostrarBarra();
 }
 
-void vbViewAcceso::ocultarBarra() {
+void vbVistaAcceso::ocultarBarra() {
 	controladorTxt->ocultarBarra();
 }
 
-void vbViewAcceso::irAlfinal() {
+void vbVistaAcceso::irAlfinal() {
 	controladorTxt->irAlFinal();
 }

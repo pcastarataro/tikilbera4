@@ -1,11 +1,12 @@
 /*
- * vbViewError.h
+ * vbVistaAcceso.h
  *
  *  Created on: 07/11/2011
  *      Author: edgardo
  */
-#ifndef VBVIEWERROR_H_
-#define VBVIEWERROR_H_
+
+#ifndef VBVISTAACCESO_H_
+#define VBVISTAACCESO_H_
 #include <gtkmm-2.4/gtkmm.h>
 #include "ControladorTxtView.h"
 #include "BarraDeEstado.h"
@@ -13,25 +14,26 @@
 /**
  * Clase que define un control de usuario personalizado.
  * Se trata de un visualizador de texto con buscador de palabras.
- * Muestra el reporte de errores, con un buscador de palabras.
+ * Muestra el reporte de accesos, con un buscador de palabras.
  */
-class vbViewError: public Gtk::VBox {
+class vbVistaAcceso: public Gtk::VBox {
 private:
 	Glib::RefPtr<Gtk::Builder> builder;
 	ControladorTxtView* controladorTxt;
+
 	void inicializar();
 
 public:
 	/**
 	 * Constructor
 	 */
-	vbViewError(BaseObjectType* cobject,
+	vbVistaAcceso(BaseObjectType* cobject,
 			const Glib::RefPtr<Gtk::Builder>& refGlade);
 
 	/**
 	 * Destructor
 	 */
-	virtual ~vbViewError();
+	virtual ~vbVistaAcceso();
 
 	/**
 	 * Muestra la barra para buscar palabras.

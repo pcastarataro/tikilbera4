@@ -16,8 +16,8 @@
 #include "GrillaDinamicos.h"
 #include "GrillaErrores.h"
 #include "BarraDeEstado.h"
-#include "vbViewAcceso.h"
-#include "vbViewError.h"
+#include "vbVistaAcceso.h"
+#include "vbVistaError.h"
 
 #define SOLAPA_CONF_BASICA 0
 #define SOLAPA_CONF_ESTATICO 1
@@ -42,8 +42,8 @@ private:
 	BarraDeEstado* barraDeEstado;
 
 	/**/
-	vbViewAcceso *viewTextAcceso;
-	vbViewError *viewTextError;
+	vbVistaAcceso *viewTextAcceso;
+	vbVistaError *viewTextError;
 
 	void on_click_btnExaminar();
 	void on_click_btnExaminarRaiz();

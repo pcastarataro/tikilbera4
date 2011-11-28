@@ -1,24 +1,24 @@
 /*
- * vbViewError.cpp
+ * vbVistaError.cpp
  *
  *  Created on: 07/11/2011
  *      Author: edgardo
  */
 
-#include "vbViewError.h"
+#include "vbVistaError.h"
 #include <fstream>
 
-vbViewError::vbViewError(BaseObjectType* cobject,
+vbVistaError::vbVistaError(BaseObjectType* cobject,
 		const Glib::RefPtr<Gtk::Builder>& refGlade) :
 	Gtk::VBox(cobject), builder(refGlade) {
 	inicializar();
 }
 
-vbViewError::~vbViewError() {
+vbVistaError::~vbVistaError() {
 	delete(controladorTxt);
 }
 
-void vbViewError::inicializar() {
+void vbVistaError::inicializar() {
 	/* widgets */
 	Gtk::Button *btnBuscarAnt;
 	Gtk::Button *btnBuscarSig;
@@ -43,18 +43,18 @@ void vbViewError::inicializar() {
 			txtPathLog, barraDeEstado);
 }
 
-void vbViewError::cargarReporte() {
+void vbVistaError::cargarReporte() {
 	controladorTxt->cargarReporte();
 }
 
-void vbViewError::mostrarBarra() {
+void vbVistaError::mostrarBarra() {
 	controladorTxt->mostrarBarra();
 }
 
-void vbViewError::ocultarBarra() {
+void vbVistaError::ocultarBarra() {
 	controladorTxt->ocultarBarra();
 }
 
-void vbViewError::irAlfinal() {
+void vbVistaError::irAlfinal() {
 	controladorTxt->irAlFinal();
 }
