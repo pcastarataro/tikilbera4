@@ -70,16 +70,7 @@ private:
 	 * @return void
 	 */
 	void setVariableContentLenght(int valor);
-public:
-	/**
-	 * Constructor
-	 */
-	ProcesadorCGI(const Configuracion& config, const std::string& ruta,
-			const std::string& rutaCgi);
-	/**
-	 * Destructor
-	 */
-	virtual ~ProcesadorCGI();
+
 	/* Prepara al sistema y al CGI para su correcta ejecucion y luego lo ejecuta.
 	 * Controla que el CGI exista y borra los archivos temporales que este cree.
 	 * Se agrega al log la ejecucion del CGI en cuestion.
@@ -93,6 +84,17 @@ public:
 	 *  */
 	HTTP_Response* procesarCGI(HTTP_Request* request, string rutaCGI,
 			const string& pathAbsolutoDelRecurso, string dirArchivosDeSalida);
+public:
+	/**
+	 * Constructor
+	 */
+	ProcesadorCGI(const Configuracion& config, const std::string& ruta,
+			const std::string& rutaCgi);
+	/**
+	 * Destructor
+	 */
+	virtual ~ProcesadorCGI();
+
 	/**
 	 * Metodo que implementa de IProcesador.
 	 * @param pedido es el pedido a procesar
