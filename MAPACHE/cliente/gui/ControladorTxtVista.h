@@ -1,12 +1,12 @@
 /*
- * ControladorTxtView.h
+ * ControladorTxtVista.h
  *
  *  Created on: 07/11/2011
  *      Author: edgardo
  */
 
-#ifndef ControladorTxtView_H_
-#define ControladorTxtView_H_
+#ifndef ControladorTxtVista_H_
+#define ControladorTxtVista_H_
 #include <gtkmm-2.4/gtkmm.h>
 #include "BarraDeEstado.h"
 
@@ -18,7 +18,7 @@
  * Controla el rellenado de cuadro de texto, el buscador en el cuadro de texto,
  * los marcadores y la barra de busqueda.
  */
-class ControladorTxtView {
+class ControladorTxtVista {
 private:
 	Gtk::TextBuffer::iterator itActualAcceso;
 	/* widgets */
@@ -50,7 +50,7 @@ public:
 	/**
 	 * Constructor
 	 */
-	ControladorTxtView(Gtk::Table* barraBusqueda,
+	ControladorTxtVista(Gtk::Table* barraBusqueda,
 			Gtk::Button *btnBuscarAnterior, Gtk::Button *btnBuscarSiguiente,
 			Gtk::CheckButton* chkResaltar, Gtk::Entry *txtTextoABuscar,
 			Gtk::TextView* txtTextoReporte, Gtk::Entry* txtPathLog,
@@ -58,7 +58,7 @@ public:
 	/**
 	 * Destructor
 	 */
-	virtual ~ControladorTxtView();
+	virtual ~ControladorTxtVista();
 
 	/**
 	 * Carga el reporte en el "Gtk::TextView" : txtTextoReporte

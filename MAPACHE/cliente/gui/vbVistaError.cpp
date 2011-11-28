@@ -38,7 +38,7 @@ void vbVistaError::inicializar() {
 	builder->get_widget("hbBuscarEnError", hbBuscarEnError);
 	builder->get_widget_derived("barraEstado", barraDeEstado);
 
-	controladorTxt = new ControladorTxtView(hbBuscarEnError, btnBuscarAnt,
+	controladorTxt = new ControladorTxtVista(hbBuscarEnError, btnBuscarAnt,
 			btnBuscarSig, chkResaltar, txtBuscarEnAcceso, txtReporteAccesos,
 			txtPathLog, barraDeEstado);
 }

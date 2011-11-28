@@ -11,4 +11,4 @@ include_directories(
 
 INCLUDE_DIRECTORIES(${DIR_RAIZ}/common/configuraciones)
 INCLUDE_DIRECTORIES(${DIR_RAIZ}/cliente)
-ADD_LIBRARY(gui BarraDeEstado ControladorGrilla GrillaDinamicos GrillaErrores GrillaEstaticos GrillaUsuarios VentanaPrincipal ControladorTxtView vbVistaAcceso Solapas vbVistaError)
+ADD_LIBRARY(gui BarraDeEstado ControladorGrilla GrillaDinamicos GrillaErrores GrillaEstaticos GrillaUsuarios VentanaPrincipal ControladorTxtVista vbVistaAcceso Solapas vbVistaError)
