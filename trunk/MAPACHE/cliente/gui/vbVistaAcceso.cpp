@@ -37,7 +37,7 @@ void vbVistaAcceso::inicializar() {
 	builder->get_widget("hbBuscarEnAcceso", hbBuscarEnAcceso);
 	builder->get_widget("barraEstado", barraDeEstado);
 
-	controladorTxt = new ControladorTxtView(hbBuscarEnAcceso, btnBuscarAnt,
+	controladorTxt = new ControladorTxtVista(hbBuscarEnAcceso, btnBuscarAnt,
 			btnBuscarSig, chkResaltar, txtBuscarEnAcceso, txtReporteAccesos,
 			txtPathLog, barraDeEstado);
 }

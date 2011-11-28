@@ -7,7 +7,7 @@
 #ifndef VBVISTAERROR_H_
 #define VBVISTAERROR_H_
 #include <gtkmm-2.4/gtkmm.h>
-#include "ControladorTxtView.h"
+#include "ControladorTxtVista.h"
 #include "BarraDeEstado.h"
 
 /**
@@ -18,7 +18,7 @@
 class vbVistaError: public Gtk::VBox {
 private:
 	Glib::RefPtr<Gtk::Builder> builder;
-	ControladorTxtView* controladorTxt;
+	ControladorTxtVista* controladorTxt;
 	void inicializar();
 
 public:

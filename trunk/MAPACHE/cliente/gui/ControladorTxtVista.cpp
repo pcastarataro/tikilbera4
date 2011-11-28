@@ -1,15 +1,15 @@
 /*
- * ControladorTxtView.cpp
+ * ControladorTxtVista.cpp
  *
  *  Created on: 07/11/2011
  *
  *      Author: edgardo
  */
 
-#include "ControladorTxtView.h"
+#include "ControladorTxtVista.h"
 #include <fstream>
 
-ControladorTxtView::ControladorTxtView(Gtk::Table* barraBusqueda,
+ControladorTxtVista::ControladorTxtVista(Gtk::Table* barraBusqueda,
 		Gtk::Button *btnBuscarAnterior, Gtk::Button *btnBuscarSiguiente,
 		Gtk::CheckButton* chkResaltar, Gtk::Entry *txtTextoABuscar,
 		Gtk::TextView* txtTextoReporte, Gtk::Entry* txtPathLog,
@@ -24,22 +24,22 @@ ControladorTxtView::ControladorTxtView(Gtk::Table* barraBusqueda,
 	this->barraDeEstado = barraEstado;
 
 	btnBuscarAnterior->signal_clicked().connect(
-			sigc::mem_fun(*this, &ControladorTxtView::on_click_BuscarAnt));
+			sigc::mem_fun(*this, &ControladorTxtVista::on_click_BuscarAnt));
 
 	btnBuscarSiguiente->signal_clicked().connect(
-			sigc::mem_fun(*this, &ControladorTxtView::on_click_BuscarSig));
+			sigc::mem_fun(*this, &ControladorTxtVista::on_click_BuscarSig));
 
 	chkResaltar->signal_clicked().connect(
-			sigc::mem_fun(*this, &ControladorTxtView::on_click_ResaltarTexto));
+			sigc::mem_fun(*this, &ControladorTxtVista::on_click_ResaltarTexto));
 
 	txtTextoABuscar->signal_key_release_event().connect(
-			sigc::mem_fun(*this, &ControladorTxtView::on_text_key_press_event));
+			sigc::mem_fun(*this, &ControladorTxtVista::on_text_key_press_event));
 }
 
-ControladorTxtView::~ControladorTxtView() {
+ControladorTxtVista::~ControladorTxtVista() {
 }
 
-bool ControladorTxtView::on_text_key_press_event(GdkEventKey *Key) {
+bool ControladorTxtVista::on_text_key_press_event(GdkEventKey *Key) {
 	std::string enter("Return");
 	std::string teclaPresionada(gdk_keyval_name(Key->keyval));
 
@@ -53,7 +53,7 @@ bool ControladorTxtView::on_text_key_press_event(GdkEventKey *Key) {
 	return true;
 }
 
-void ControladorTxtView::cargarReporte() {
+void ControladorTxtVista::cargarReporte() {
 	std::ifstream archivoError;
 	std::string ubicacion;
 	char buffer[MAX_BUFFER];
@@ -77,19 +77,19 @@ void ControladorTxtView::cargarReporte() {
 	inicializarItAcceso();
 }
 
-void ControladorTxtView::irAlFinal() {
+void ControladorTxtVista::irAlFinal() {
 	Glib::RefPtr < Gtk::TextBuffer > buffer;
 	buffer = txtTextoReporte->get_buffer();
 	Gtk::TextBuffer::iterator it = buffer->end();
 	txtTextoReporte->scroll_to(it);
 }
 
-void ControladorTxtView::on_click_Actualizar() {
+void ControladorTxtVista::on_click_Actualizar() {
 	cargarReporte();
 	barraDeEstado->mensajeInfo("Reporte actualizado");
 }
 
-void ControladorTxtView::ResaltaTextoEnTextbox(std::string texto,
+void ControladorTxtVista::ResaltaTextoEnTextbox(std::string texto,
 		Gtk::TextView* txt) {
 	Glib::RefPtr < Gtk::TextBuffer > buffer = txt->get_buffer();
 	buffer->remove_all_tags(buffer->begin(), buffer->end());
@@ -114,7 +114,7 @@ void ControladorTxtView::ResaltaTextoEnTextbox(std::string texto,
 	}
 }
 
-void ControladorTxtView::BuscarSigEnTextbox(std::string texto,
+void ControladorTxtVista::BuscarSigEnTextbox(std::string texto,
 		Gtk::TextView* txt, bool resaltar) {
 	int fila, columna;
 
@@ -155,7 +155,7 @@ void ControladorTxtView::BuscarSigEnTextbox(std::string texto,
 		barraDeEstado->mensajeInfo("No hay mas coincidencias con " + texto);
 }
 
-void ControladorTxtView::BuscarAntEnTextbox(std::string texto,
+void ControladorTxtVista::BuscarAntEnTextbox(std::string texto,
 		Gtk::TextView* txt, bool resaltar) {
 	int fila, columna;
 
@@ -195,23 +195,23 @@ void ControladorTxtView::BuscarAntEnTextbox(std::string texto,
 		barraDeEstado->mensajeInfo("No hay mas coincidencias con " + texto);
 }
 
-void ControladorTxtView::inicializarItAcceso() {
+void ControladorTxtVista::inicializarItAcceso() {
 	Glib::RefPtr < Gtk::TextBuffer > buffer;
 	buffer = txtTextoReporte->get_buffer();
 	itActualAcceso = buffer->begin();
 }
 
-void ControladorTxtView::on_click_BuscarSig() {
+void ControladorTxtVista::on_click_BuscarSig() {
 	BuscarSigEnTextbox(txtTextoABuscar->get_text(), txtTextoReporte,
 			chkResaltar->get_active());
 }
 
-void ControladorTxtView::on_click_BuscarAnt() {
+void ControladorTxtVista::on_click_BuscarAnt() {
 	BuscarAntEnTextbox(txtTextoABuscar->get_text(), txtTextoReporte,
 			chkResaltar->get_active());
 }
 
-void ControladorTxtView::on_click_ResaltarTexto() {
+void ControladorTxtVista::on_click_ResaltarTexto() {
 	bool activo = chkResaltar->get_active();
 	Glib::RefPtr < Gtk::TextBuffer > buffer = txtTextoReporte->get_buffer();
 	buffer->remove_all_tags(buffer->begin(), buffer->end());
@@ -219,12 +219,12 @@ void ControladorTxtView::on_click_ResaltarTexto() {
 		ResaltaTextoEnTextbox(txtTextoABuscar->get_text(), txtTextoReporte);
 }
 
-void ControladorTxtView::mostrarBarra() {
+void ControladorTxtVista::mostrarBarra() {
 	if (barraBusqueda != NULL)
 		barraBusqueda->show();
 }
 
-void ControladorTxtView::ocultarBarra() {
+void ControladorTxtVista::ocultarBarra() {
 	if (barraBusqueda != NULL) {
 		Glib::RefPtr < Gtk::TextBuffer > buffer = txtTextoReporte->get_buffer();
 		buffer->remove_all_tags(buffer->begin(), buffer->end());
