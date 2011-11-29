@@ -34,12 +34,8 @@ int Servidor::start() {
 		ServidorHttp servidorHTTP(config, reiniciando);
 		servidorHTTP.start();
 
-		if (!reiniciando)
-			std::cout << "SERVIDOR HTML ACTIVADO en puerto:  "
-					<< config.getConfiguracionBasica().getPuerto() << std::endl;
-		else
-			std::cout << "SERVIDOR HTML REINICIADO en puerto:  "
-					<< config.getConfiguracionBasica().getPuerto() << std::endl;
+		std::cout << "SERVIDOR HTML ACTIVADO en puerto:  "
+				<< config.getConfiguracionBasica().getPuerto() << std::endl;
 
 		bool activo = true;
 		while (activo) {
